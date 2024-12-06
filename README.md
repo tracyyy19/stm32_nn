@@ -40,8 +40,7 @@ This project demonstrates the deployment of a **binary image classification mode
 
 3. **Run the Inference:**
    - Insert the SD card into the board.
-   - Go to Project > Debug Project as STM32 Project > Enable Serial Wire Debug > Debug
-   - To view debug console. Go to Window > Show View > SWV ITM Data Console 
+   - Refer to the User Manual in the Docs folder, go to Application Code section 
 
 ## Output Example
 ![Output Sample 1](output_images/output_sample1.jpg "output1")
