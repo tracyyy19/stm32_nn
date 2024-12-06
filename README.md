@@ -47,7 +47,7 @@ This project demonstrates the deployment of a **binary image classification mode
    - The board reads files, performs classification, and outputs results on the debug terminal and LCD.
 
 ## Output Example
-
+![Output Sample 1](images/output_sample1.jpg "Output Sample 1")
 ## References
 
 - [STM32Cube.AI Model Zoo](https://www.st.com/en/development-tools/x-cube-ai.html)
