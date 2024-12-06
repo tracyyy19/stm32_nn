@@ -1,0 +1,24 @@
+# Build directories
+/Debug/
+/Release/
+
+# Compiled object files
+*.o
+
+# Executable and binary files
+*.elf
+*.bin
+
+# Map and log files
+*.map
+*.log
+
+# IDE-specific files
+.settings/
+.metadata/
+*.launch
+
+# Temporary and backup files
+*.swp
+*.bak
+*.tmp

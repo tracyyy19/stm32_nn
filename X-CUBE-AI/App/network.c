@@ -1,0 +1,6865 @@
+/**
+  ******************************************************************************
+  * @file    network.c
+  * @author  AST Embedded Analytics Research Platform
+  * @date    Fri Dec  6 09:08:22 2024
+  * @brief   AI Tool Automatic Code Generator for Embedded NN computing
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2024 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software component is licensed by ST under Ultimate Liberty license
+  * SLA0044, the "License"; You may not use this file except in compliance with
+  * the License. You may obtain a copy of the License at:
+  *                             www.st.com/SLA0044
+  *
+  ******************************************************************************
+  */
+
+
+#include "network.h"
+
+#include "ai_platform_interface.h"
+#include "ai_math_helpers.h"
+
+#include "core_common.h"
+#include "core_convert.h"
+
+#include "layers.h"
+
+
+
+
+#undef AI_NET_OBJ_INSTANCE
+#define AI_NET_OBJ_INSTANCE g_network
+ 
+#undef AI_NETWORK_MODEL_SIGNATURE
+#define AI_NETWORK_MODEL_SIGNATURE     "d99ce125303d8a8e043e9a81fab1c46d"
+
+#ifndef AI_TOOLS_REVISION_ID
+#define AI_TOOLS_REVISION_ID     ""
+#endif
+
+#undef AI_TOOLS_DATE_TIME
+#define AI_TOOLS_DATE_TIME   "Fri Dec  6 09:08:22 2024"
+
+#undef AI_TOOLS_COMPILE_TIME
+#define AI_TOOLS_COMPILE_TIME    __DATE__ " " __TIME__
+
+#undef AI_NETWORK_N_BATCHES
+#define AI_NETWORK_N_BATCHES         (1)
+
+
+
+
+/**  Array declarations section  **********************************************/
+/* Array#0 */
+AI_ARRAY_OBJ_DECLARE(
+  serving_default_input_10_output_array, AI_ARRAY_FORMAT_U8|AI_FMT_FLAG_IS_IO,
+  NULL, NULL, 49152, AI_STATIC)
+
+/* Array#1 */
+AI_ARRAY_OBJ_DECLARE(
+  conversion_0_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 49152, AI_STATIC)
+
+/* Array#2 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_1_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 65536, AI_STATIC)
+
+/* Array#3 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_2_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 65536, AI_STATIC)
+
+/* Array#4 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_3_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 32768, AI_STATIC)
+
+/* Array#5 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_4_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 196608, AI_STATIC)
+
+/* Array#6 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_6_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 49152, AI_STATIC)
+
+/* Array#7 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_7_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 8192, AI_STATIC)
+
+/* Array#8 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_8_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 49152, AI_STATIC)
+
+/* Array#9 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_9_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 49152, AI_STATIC)
+
+/* Array#10 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_10_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 8192, AI_STATIC)
+
+/* Array#11 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_11_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 8192, AI_STATIC)
+
+/* Array#12 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_12_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 49152, AI_STATIC)
+
+/* Array#13 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_14_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12288, AI_STATIC)
+
+/* Array#14 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_15_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 4096, AI_STATIC)
+
+/* Array#15 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_16_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 24576, AI_STATIC)
+
+/* Array#16 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_17_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 24576, AI_STATIC)
+
+/* Array#17 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_18_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 4096, AI_STATIC)
+
+/* Array#18 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_19_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 4096, AI_STATIC)
+
+/* Array#19 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_20_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 24576, AI_STATIC)
+
+/* Array#20 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_21_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 24576, AI_STATIC)
+
+/* Array#21 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_22_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 4096, AI_STATIC)
+
+/* Array#22 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_23_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 4096, AI_STATIC)
+
+/* Array#23 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_24_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 24576, AI_STATIC)
+
+/* Array#24 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_26_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 6144, AI_STATIC)
+
+/* Array#25 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_27_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1536, AI_STATIC)
+
+/* Array#26 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_28_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9216, AI_STATIC)
+
+/* Array#27 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_29_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9216, AI_STATIC)
+
+/* Array#28 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_30_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1536, AI_STATIC)
+
+/* Array#29 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_31_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1536, AI_STATIC)
+
+/* Array#30 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_32_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9216, AI_STATIC)
+
+/* Array#31 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_33_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9216, AI_STATIC)
+
+/* Array#32 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_34_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1536, AI_STATIC)
+
+/* Array#33 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_35_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1536, AI_STATIC)
+
+/* Array#34 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_36_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9216, AI_STATIC)
+
+/* Array#35 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_37_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9216, AI_STATIC)
+
+/* Array#36 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_38_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1536, AI_STATIC)
+
+/* Array#37 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_39_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1536, AI_STATIC)
+
+/* Array#38 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_40_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9216, AI_STATIC)
+
+/* Array#39 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_41_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9216, AI_STATIC)
+
+/* Array#40 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_42_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2048, AI_STATIC)
+
+/* Array#41 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_43_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12288, AI_STATIC)
+
+/* Array#42 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_44_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12288, AI_STATIC)
+
+/* Array#43 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_45_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2048, AI_STATIC)
+
+/* Array#44 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_46_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2048, AI_STATIC)
+
+/* Array#45 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_47_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12288, AI_STATIC)
+
+/* Array#46 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_48_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12288, AI_STATIC)
+
+/* Array#47 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_49_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2048, AI_STATIC)
+
+/* Array#48 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_50_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2048, AI_STATIC)
+
+/* Array#49 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_51_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12288, AI_STATIC)
+
+/* Array#50 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_53_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3072, AI_STATIC)
+
+/* Array#51 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_54_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 896, AI_STATIC)
+
+/* Array#52 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_55_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5376, AI_STATIC)
+
+/* Array#53 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_56_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5376, AI_STATIC)
+
+/* Array#54 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_57_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 896, AI_STATIC)
+
+/* Array#55 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_58_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 896, AI_STATIC)
+
+/* Array#56 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_59_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5376, AI_STATIC)
+
+/* Array#57 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_60_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5376, AI_STATIC)
+
+/* Array#58 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_61_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 896, AI_STATIC)
+
+/* Array#59 */
+AI_ARRAY_OBJ_DECLARE(
+  eltwise_62_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 896, AI_STATIC)
+
+/* Array#60 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_63_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5376, AI_STATIC)
+
+/* Array#61 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_64_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5376, AI_STATIC)
+
+/* Array#62 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_65_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1792, AI_STATIC)
+
+/* Array#63 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_66_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1280, AI_STATIC)
+
+/* Array#64 */
+AI_ARRAY_OBJ_DECLARE(
+  dense_68_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1, AI_STATIC)
+
+/* Array#65 */
+AI_ARRAY_OBJ_DECLARE(
+  nl_69_output_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1, AI_STATIC)
+
+/* Array#66 */
+AI_ARRAY_OBJ_DECLARE(
+  conversion_70_output_array, AI_ARRAY_FORMAT_FLOAT|AI_FMT_FLAG_IS_IO,
+  NULL, NULL, 1, AI_STATIC)
+
+/* Array#67 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_1_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 432, AI_STATIC)
+
+/* Array#68 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_1_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 16, AI_STATIC)
+
+/* Array#69 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_2_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 144, AI_STATIC)
+
+/* Array#70 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_2_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 16, AI_STATIC)
+
+/* Array#71 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_3_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 128, AI_STATIC)
+
+/* Array#72 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_3_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 8, AI_STATIC)
+
+/* Array#73 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_4_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 384, AI_STATIC)
+
+/* Array#74 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_4_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 48, AI_STATIC)
+
+/* Array#75 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_6_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 432, AI_STATIC)
+
+/* Array#76 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_6_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 48, AI_STATIC)
+
+/* Array#77 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_7_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 384, AI_STATIC)
+
+/* Array#78 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_7_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 8, AI_STATIC)
+
+/* Array#79 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_8_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 384, AI_STATIC)
+
+/* Array#80 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_8_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 48, AI_STATIC)
+
+/* Array#81 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_9_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 432, AI_STATIC)
+
+/* Array#82 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_9_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 48, AI_STATIC)
+
+/* Array#83 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_10_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 384, AI_STATIC)
+
+/* Array#84 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_10_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 8, AI_STATIC)
+
+/* Array#85 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_12_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 384, AI_STATIC)
+
+/* Array#86 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_12_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 48, AI_STATIC)
+
+/* Array#87 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_14_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 432, AI_STATIC)
+
+/* Array#88 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_14_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 48, AI_STATIC)
+
+/* Array#89 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_15_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 768, AI_STATIC)
+
+/* Array#90 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_15_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 16, AI_STATIC)
+
+/* Array#91 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_16_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1536, AI_STATIC)
+
+/* Array#92 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_16_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 96, AI_STATIC)
+
+/* Array#93 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_17_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 864, AI_STATIC)
+
+/* Array#94 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_17_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 96, AI_STATIC)
+
+/* Array#95 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_18_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1536, AI_STATIC)
+
+/* Array#96 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_18_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 16, AI_STATIC)
+
+/* Array#97 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_20_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1536, AI_STATIC)
+
+/* Array#98 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_20_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 96, AI_STATIC)
+
+/* Array#99 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_21_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 864, AI_STATIC)
+
+/* Array#100 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_21_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 96, AI_STATIC)
+
+/* Array#101 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_22_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1536, AI_STATIC)
+
+/* Array#102 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_22_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 16, AI_STATIC)
+
+/* Array#103 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_24_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1536, AI_STATIC)
+
+/* Array#104 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_24_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 96, AI_STATIC)
+
+/* Array#105 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_26_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 864, AI_STATIC)
+
+/* Array#106 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_26_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 96, AI_STATIC)
+
+/* Array#107 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_27_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2304, AI_STATIC)
+
+/* Array#108 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_27_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 24, AI_STATIC)
+
+/* Array#109 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_28_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3456, AI_STATIC)
+
+/* Array#110 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_28_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 144, AI_STATIC)
+
+/* Array#111 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_29_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1296, AI_STATIC)
+
+/* Array#112 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_29_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 144, AI_STATIC)
+
+/* Array#113 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_30_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3456, AI_STATIC)
+
+/* Array#114 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_30_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 24, AI_STATIC)
+
+/* Array#115 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_32_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3456, AI_STATIC)
+
+/* Array#116 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_32_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 144, AI_STATIC)
+
+/* Array#117 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_33_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1296, AI_STATIC)
+
+/* Array#118 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_33_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 144, AI_STATIC)
+
+/* Array#119 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_34_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3456, AI_STATIC)
+
+/* Array#120 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_34_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 24, AI_STATIC)
+
+/* Array#121 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_36_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3456, AI_STATIC)
+
+/* Array#122 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_36_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 144, AI_STATIC)
+
+/* Array#123 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_37_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1296, AI_STATIC)
+
+/* Array#124 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_37_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 144, AI_STATIC)
+
+/* Array#125 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_38_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3456, AI_STATIC)
+
+/* Array#126 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_38_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 24, AI_STATIC)
+
+/* Array#127 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_40_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3456, AI_STATIC)
+
+/* Array#128 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_40_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 144, AI_STATIC)
+
+/* Array#129 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_41_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1296, AI_STATIC)
+
+/* Array#130 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_41_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 144, AI_STATIC)
+
+/* Array#131 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_42_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 4608, AI_STATIC)
+
+/* Array#132 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_42_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 32, AI_STATIC)
+
+/* Array#133 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_43_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 6144, AI_STATIC)
+
+/* Array#134 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_43_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 192, AI_STATIC)
+
+/* Array#135 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_44_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1728, AI_STATIC)
+
+/* Array#136 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_44_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 192, AI_STATIC)
+
+/* Array#137 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_45_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 6144, AI_STATIC)
+
+/* Array#138 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_45_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 32, AI_STATIC)
+
+/* Array#139 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_47_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 6144, AI_STATIC)
+
+/* Array#140 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_47_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 192, AI_STATIC)
+
+/* Array#141 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_48_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1728, AI_STATIC)
+
+/* Array#142 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_48_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 192, AI_STATIC)
+
+/* Array#143 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_49_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 6144, AI_STATIC)
+
+/* Array#144 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_49_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 32, AI_STATIC)
+
+/* Array#145 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_51_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 6144, AI_STATIC)
+
+/* Array#146 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_51_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 192, AI_STATIC)
+
+/* Array#147 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_53_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1728, AI_STATIC)
+
+/* Array#148 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_53_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 192, AI_STATIC)
+
+/* Array#149 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_54_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 10752, AI_STATIC)
+
+/* Array#150 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_54_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 56, AI_STATIC)
+
+/* Array#151 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_55_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 18816, AI_STATIC)
+
+/* Array#152 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_55_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 336, AI_STATIC)
+
+/* Array#153 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_56_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3024, AI_STATIC)
+
+/* Array#154 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_56_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 336, AI_STATIC)
+
+/* Array#155 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_57_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 18816, AI_STATIC)
+
+/* Array#156 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_57_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 56, AI_STATIC)
+
+/* Array#157 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_59_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 18816, AI_STATIC)
+
+/* Array#158 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_59_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 336, AI_STATIC)
+
+/* Array#159 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_60_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3024, AI_STATIC)
+
+/* Array#160 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_60_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 336, AI_STATIC)
+
+/* Array#161 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_61_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 18816, AI_STATIC)
+
+/* Array#162 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_61_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 56, AI_STATIC)
+
+/* Array#163 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_63_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 18816, AI_STATIC)
+
+/* Array#164 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_63_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 336, AI_STATIC)
+
+/* Array#165 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_64_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3024, AI_STATIC)
+
+/* Array#166 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_64_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 336, AI_STATIC)
+
+/* Array#167 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_65_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 37632, AI_STATIC)
+
+/* Array#168 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_65_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 112, AI_STATIC)
+
+/* Array#169 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_66_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 143360, AI_STATIC)
+
+/* Array#170 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_66_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 1280, AI_STATIC)
+
+/* Array#171 */
+AI_ARRAY_OBJ_DECLARE(
+  dense_68_weights_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1280, AI_STATIC)
+
+/* Array#172 */
+AI_ARRAY_OBJ_DECLARE(
+  dense_68_bias_array, AI_ARRAY_FORMAT_S32,
+  NULL, NULL, 1, AI_STATIC)
+
+/* Array#173 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_1_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1196, AI_STATIC)
+
+/* Array#174 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_1_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 65536, AI_STATIC)
+
+/* Array#175 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_2_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 593, AI_STATIC)
+
+/* Array#176 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_2_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 65536, AI_STATIC)
+
+/* Array#177 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_3_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 144, AI_STATIC)
+
+/* Array#178 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_4_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 512, AI_STATIC)
+
+/* Array#179 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_4_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 196608, AI_STATIC)
+
+/* Array#180 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_6_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1777, AI_STATIC)
+
+/* Array#181 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_6_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 49152, AI_STATIC)
+
+/* Array#182 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_7_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 272, AI_STATIC)
+
+/* Array#183 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_8_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 512, AI_STATIC)
+
+/* Array#184 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_8_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 49152, AI_STATIC)
+
+/* Array#185 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_9_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1777, AI_STATIC)
+
+/* Array#186 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_9_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 49152, AI_STATIC)
+
+/* Array#187 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_10_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 272, AI_STATIC)
+
+/* Array#188 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_12_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 512, AI_STATIC)
+
+/* Array#189 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_12_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 49152, AI_STATIC)
+
+/* Array#190 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_14_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1777, AI_STATIC)
+
+/* Array#191 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_14_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12288, AI_STATIC)
+
+/* Array#192 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_15_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 352, AI_STATIC)
+
+/* Array#193 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_16_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1024, AI_STATIC)
+
+/* Array#194 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_16_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 24576, AI_STATIC)
+
+/* Array#195 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_17_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3553, AI_STATIC)
+
+/* Array#196 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_17_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 24576, AI_STATIC)
+
+/* Array#197 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_18_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 544, AI_STATIC)
+
+/* Array#198 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_20_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1024, AI_STATIC)
+
+/* Array#199 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_20_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 24576, AI_STATIC)
+
+/* Array#200 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_21_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3553, AI_STATIC)
+
+/* Array#201 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_21_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 24576, AI_STATIC)
+
+/* Array#202 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_22_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 544, AI_STATIC)
+
+/* Array#203 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_24_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1024, AI_STATIC)
+
+/* Array#204 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_24_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 24576, AI_STATIC)
+
+/* Array#205 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_26_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3553, AI_STATIC)
+
+/* Array#206 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_26_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 6144, AI_STATIC)
+
+/* Array#207 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_27_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 624, AI_STATIC)
+
+/* Array#208 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_28_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1536, AI_STATIC)
+
+/* Array#209 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_28_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9216, AI_STATIC)
+
+/* Array#210 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_29_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5329, AI_STATIC)
+
+/* Array#211 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_29_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9216, AI_STATIC)
+
+/* Array#212 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_30_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 816, AI_STATIC)
+
+/* Array#213 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_32_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1536, AI_STATIC)
+
+/* Array#214 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_32_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9216, AI_STATIC)
+
+/* Array#215 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_33_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5329, AI_STATIC)
+
+/* Array#216 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_33_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9216, AI_STATIC)
+
+/* Array#217 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_34_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 816, AI_STATIC)
+
+/* Array#218 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_36_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1536, AI_STATIC)
+
+/* Array#219 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_36_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9216, AI_STATIC)
+
+/* Array#220 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_37_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5329, AI_STATIC)
+
+/* Array#221 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_37_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9216, AI_STATIC)
+
+/* Array#222 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_38_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 816, AI_STATIC)
+
+/* Array#223 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_40_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1536, AI_STATIC)
+
+/* Array#224 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_40_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9216, AI_STATIC)
+
+/* Array#225 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_41_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5329, AI_STATIC)
+
+/* Array#226 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_41_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 9216, AI_STATIC)
+
+/* Array#227 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_42_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 896, AI_STATIC)
+
+/* Array#228 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_43_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2048, AI_STATIC)
+
+/* Array#229 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_43_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12288, AI_STATIC)
+
+/* Array#230 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_44_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 7105, AI_STATIC)
+
+/* Array#231 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_44_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12288, AI_STATIC)
+
+/* Array#232 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_45_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1088, AI_STATIC)
+
+/* Array#233 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_47_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2048, AI_STATIC)
+
+/* Array#234 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_47_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12288, AI_STATIC)
+
+/* Array#235 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_48_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 7105, AI_STATIC)
+
+/* Array#236 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_48_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12288, AI_STATIC)
+
+/* Array#237 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_49_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1088, AI_STATIC)
+
+/* Array#238 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_51_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2048, AI_STATIC)
+
+/* Array#239 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_51_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12288, AI_STATIC)
+
+/* Array#240 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_53_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 7105, AI_STATIC)
+
+/* Array#241 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_53_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3072, AI_STATIC)
+
+/* Array#242 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_54_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1328, AI_STATIC)
+
+/* Array#243 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_55_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3584, AI_STATIC)
+
+/* Array#244 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_55_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5376, AI_STATIC)
+
+/* Array#245 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_56_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12433, AI_STATIC)
+
+/* Array#246 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_56_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5376, AI_STATIC)
+
+/* Array#247 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_57_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1904, AI_STATIC)
+
+/* Array#248 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_59_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3584, AI_STATIC)
+
+/* Array#249 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_59_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5376, AI_STATIC)
+
+/* Array#250 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_60_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12433, AI_STATIC)
+
+/* Array#251 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_60_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5376, AI_STATIC)
+
+/* Array#252 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_61_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 1904, AI_STATIC)
+
+/* Array#253 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_63_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 3584, AI_STATIC)
+
+/* Array#254 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_63_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5376, AI_STATIC)
+
+/* Array#255 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_64_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 12433, AI_STATIC)
+
+/* Array#256 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_64_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 5376, AI_STATIC)
+
+/* Array#257 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_65_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 2464, AI_STATIC)
+
+/* Array#258 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_66_scratch0_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 13248, AI_STATIC)
+
+/* Array#259 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_66_scratch1_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 20480, AI_STATIC)
+
+/* Array#260 */
+AI_ARRAY_OBJ_DECLARE(
+  conv2d_66_scratch2_array, AI_ARRAY_FORMAT_S8,
+  NULL, NULL, 20480, AI_STATIC)
+
+/**  Array metadata declarations section  *************************************/
+/* Int quant #0 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(serving_default_input_10_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_U8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.007843137718737125f),
+    AI_PACK_UINTQ_ZP(127)))
+
+/* Int quant #1 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conversion_0_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.007843137718737125f),
+    AI_PACK_INTQ_ZP(-1)))
+
+/* Int quant #2 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_1_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #3 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_2_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #4 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_3_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.4974179267883301f),
+    AI_PACK_INTQ_ZP(-10)))
+
+/* Int quant #5 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_4_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #6 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_6_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #7 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_7_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.3222534656524658f),
+    AI_PACK_INTQ_ZP(4)))
+
+/* Int quant #8 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_8_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #9 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_9_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #10 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_10_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.6415814757347107f),
+    AI_PACK_INTQ_ZP(4)))
+
+/* Int quant #11 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_11_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.4719422459602356f),
+    AI_PACK_INTQ_ZP(-12)))
+
+/* Int quant #12 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_12_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #13 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_14_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #14 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_15_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.2811158001422882f),
+    AI_PACK_INTQ_ZP(2)))
+
+/* Int quant #15 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_16_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #16 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_17_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #17 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_18_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.26502200961112976f),
+    AI_PACK_INTQ_ZP(14)))
+
+/* Int quant #18 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_19_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.3624860644340515f),
+    AI_PACK_INTQ_ZP(14)))
+
+/* Int quant #19 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_20_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #20 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_21_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #21 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_22_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.29492661356925964f),
+    AI_PACK_INTQ_ZP(12)))
+
+/* Int quant #22 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_23_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.4663512110710144f),
+    AI_PACK_INTQ_ZP(-3)))
+
+/* Int quant #23 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_24_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #24 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_26_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #25 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_27_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.232923224568367f),
+    AI_PACK_INTQ_ZP(-4)))
+
+/* Int quant #26 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_28_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #27 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_29_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #28 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_30_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.18927012383937836f),
+    AI_PACK_INTQ_ZP(-8)))
+
+/* Int quant #29 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_31_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.23642469942569733f),
+    AI_PACK_INTQ_ZP(-9)))
+
+/* Int quant #30 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_32_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #31 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_33_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #32 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_34_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.212101012468338f),
+    AI_PACK_INTQ_ZP(5)))
+
+/* Int quant #33 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_35_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.2918046712875366f),
+    AI_PACK_INTQ_ZP(-9)))
+
+/* Int quant #34 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_36_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #35 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_37_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #36 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_38_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.23060621321201324f),
+    AI_PACK_INTQ_ZP(36)))
+
+/* Int quant #37 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_39_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.33360111713409424f),
+    AI_PACK_INTQ_ZP(12)))
+
+/* Int quant #38 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_40_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #39 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_41_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #40 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_42_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.23027101159095764f),
+    AI_PACK_INTQ_ZP(-1)))
+
+/* Int quant #41 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_43_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #42 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_44_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #43 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_45_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.28130561113357544f),
+    AI_PACK_INTQ_ZP(39)))
+
+/* Int quant #44 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_46_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.3234448730945587f),
+    AI_PACK_INTQ_ZP(25)))
+
+/* Int quant #45 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_47_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #46 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_48_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #47 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_49_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.24278752505779266f),
+    AI_PACK_INTQ_ZP(-17)))
+
+/* Int quant #48 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_50_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.34415262937545776f),
+    AI_PACK_INTQ_ZP(-12)))
+
+/* Int quant #49 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_51_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #50 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_53_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #51 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_54_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.22427764534950256f),
+    AI_PACK_INTQ_ZP(-14)))
+
+/* Int quant #52 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_55_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #53 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_56_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #54 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_57_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.15705405175685883f),
+    AI_PACK_INTQ_ZP(-23)))
+
+/* Int quant #55 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_58_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.27202412486076355f),
+    AI_PACK_INTQ_ZP(-2)))
+
+/* Int quant #56 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_59_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #57 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_60_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #58 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_61_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.21325255930423737f),
+    AI_PACK_INTQ_ZP(5)))
+
+/* Int quant #59 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(eltwise_62_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.3426694869995117f),
+    AI_PACK_INTQ_ZP(12)))
+
+/* Int quant #60 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_63_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #61 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_64_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #62 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_65_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.16499491035938263f),
+    AI_PACK_INTQ_ZP(-9)))
+
+/* Int quant #63 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_66_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #64 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(dense_68_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.17349937558174133f),
+    AI_PACK_INTQ_ZP(-55)))
+
+/* Int quant #65 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(nl_69_output_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00390625f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #66 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_1_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 16,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.006075043231248856f, 0.007585844025015831f, 0.0023554209619760513f, 4.4848346192338795e-07f, 0.0035507273860275745f, 0.002892449963837862f, 3.6950581261407933e-07f, 3.884198562786878e-08f, 1.6968536442618642e-07f, 3.586215413520222e-08f, 4.8799854823755595e-08f, 0.014687350019812584f, 3.937008052901092e-09f, 1.4805062953371362e-08f, 0.004323864821344614f, 0.025678537786006927f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #67 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_1_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 16,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(4.764740151586011e-05f, 5.9496818721527234e-05f, 1.8473891032044776e-05f, 3.517517610518439e-09f, 2.784884418360889e-05f, 2.2685882868245244e-05f, 2.8980848831849926e-09f, 3.0464303302224494e-10f, 1.3308656399146912e-09f, 2.812718113975876e-10f, 3.8274397540227767e-10f, 0.0001151949109043926f, 3.087849767546835e-11f, 1.1611814981771218e-10f, 3.3912667277036235e-05f, 0.00020140031119808555f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #68 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_2_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 16,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0077045070938766f, 0.006727061700075865f, 0.0094977468252182f, 0.3139938414096832f, 0.010171518661081791f, 0.0035257183481007814f, 0.06294555217027664f, 0.336553156375885f, 0.6555811762809753f, 0.011305522173643112f, 0.33615633845329285f, 0.003726361086592078f, 0.3032977879047394f, 0.01352775003761053f, 0.0030050536151975393f, 0.001577849267050624f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #69 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_2_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 16,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00018128252122551203f, 0.00015828380128368735f, 0.00022347639605868608f, 0.007388090714812279f, 0.0002393298491369933f, 8.295808220282197e-05f, 0.001481071813032031f, 0.00791889801621437f, 0.015425439924001694f, 0.00026601229910738766f, 0.00790956150740385f, 8.767908730078489e-05f, 0.007136418484151363f, 0.0003183000080753118f, 7.070714491419494e-05f, 3.71258647646755e-05f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #70 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_3_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 8,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.07462667673826218f, 0.04396681487560272f, 0.1024552509188652f, 0.04024500027298927f, 0.10028605908155441f, 0.03907332941889763f, 0.04744766652584076f, 0.0672016590833664f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #71 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_3_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 8,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0017559218686074018f, 0.0010345133487135172f, 0.002410711720585823f, 0.0009469412034377456f, 0.0023596719838678837f, 0.0009193724836222827f, 0.0011164157185703516f, 0.0015812155324965715f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #72 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_4_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 48,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(3.937008052901092e-09f, 0.0017039455706253648f, 0.0015628444962203503f, 0.0027965817134827375f, 0.0015215824823826551f, 0.001658269902691245f, 0.002829349832609296f, 0.0030950591899454594f, 0.0016990199219435453f, 0.002305579138919711f, 0.0013335227267816663f, 0.0008344805100932717f, 0.000500046240631491f, 0.0007178917294368148f, 0.001191294053569436f, 0.0017097515519708395f, 3.937008052901092e-09f, 0.0008195597911253572f, 0.0026367397513240576f, 0.0006697489297948778f, 0.001153747783973813f, 0.000570399162825197f, 0.0006432087975554168f, 0.0017284946516156197f, 0.0004721699224319309f, 3.937008052901092e-09f, 0.0014343330403789878f, 0.001231968984939158f, 0.0004897793987765908f, 0.0007858779863454401f, 0.0015489681391045451f, 0.0015117744915187359f, 1.160916518472277e-08f, 0.0011802440276369452f, 0.0010287145851179957f, 0.0025113942101597786f, 0.0029876974876970053f, 0.001342730363830924f, 0.003915198612958193f, 0.0005928322789259255f, 0.0005505639710463583f, 0.0007614283240400255f, 0.0012677644845098257f, 0.000872004427947104f, 0.0010697944089770317f, 0.0006256820051930845f, 0.0007841030019335449f, 0.002159637166187167f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #73 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_4_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 48,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(1.9583383803478682e-09f, 0.000847573101054877f, 0.0007773868856020272f, 0.0013910698471590877f, 0.0007568623987026513f, 0.0008248531958088279f, 0.0014073692727833986f, 0.0015395379159599543f, 0.0008451229659840465f, 0.0011468364391475916f, 0.000663318089209497f, 0.0004150855529587716f, 0.00024873195798136294f, 0.00035709221265278757f, 0.0005925710429437459f, 0.0008504610741510987f, 1.9583383803478682e-09f, 0.000407663726946339f, 0.001311561674810946f, 0.00033314511529169977f, 0.0005738948239013553f, 0.0002837267820723355f, 0.0003199435886926949f, 0.0008597842534072697f, 0.00023486578720621765f, 1.9583383803478682e-09f, 0.0007134629413485527f, 0.000612803443800658f, 0.00024362505064345896f, 0.00039090978680178523f, 0.0007704845047555864f, 0.000751983723603189f, 5.774607014785715e-09f, 0.000587074551731348f, 0.0005117011023685336f, 0.0012492125388234854f, 0.0014861342497169971f, 0.0006678981590084732f, 0.001947490032762289f, 0.0002948853943962604f, 0.00027386037982068956f, 0.000378748110961169f, 0.0006306087598204613f, 0.00043375062523409724f, 0.0005321349017322063f, 0.00031122544896788895f, 0.00039002689300104976f, 0.0010742422891780734f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #74 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_6_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 48,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.035710372030735016f, 0.007980410940945148f, 0.007455890066921711f, 0.0022382200695574284f, 0.009572779759764671f, 0.002028136048465967f, 0.0017878313083201647f, 0.0009258685167878866f, 0.009451544843614101f, 0.0038968250155448914f, 0.007348815910518169f, 0.025446737185120583f, 0.01658661663532257f, 0.0046451096422970295f, 0.004836747422814369f, 0.005456661339849234f, 0.0026024614926427603f, 0.008212145417928696f, 0.0045161740854382515f, 0.0024940839502960443f, 0.03680016100406647f, 0.007135922554880381f, 0.015707962214946747f, 0.002981386845931411f, 0.009516923688352108f, 0.008053814992308617f, 0.007412330713123083f, 0.006081136874854565f, 0.008616369217634201f, 0.025047747418284416f, 0.003750378265976906f, 0.006741873454302549f, 0.003976259380578995f, 0.005603404249995947f, 0.002666295040398836f, 0.004310606513172388f, 0.0016502263024449348f, 0.002573329722508788f, 0.00170575687661767f, 0.00945567898452282f, 0.00969857070595026f, 0.013684708625078201f, 0.005640053655952215f, 0.00906128529459238f, 0.036446087062358856f, 0.009447562508285046f, 0.01021331362426281f, 0.012145187705755234f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #75 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_6_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 48,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0008402440580539405f, 0.00018777437799144536f, 0.00017543270951136947f, 5.266400330583565e-05f, 0.00022524187806993723f, 4.7720848669996485e-05f, 4.206661833450198e-05f, 2.178514114348218e-05f, 0.00022238929523155093f, 9.169000259134918e-05f, 0.00017291332187596709f, 0.0005987467593513429f, 0.0003902733442373574f, 0.00010929669952020049f, 0.00011380582145648077f, 0.00012839202827308327f, 6.123438652139157e-05f, 0.00019322695152368397f, 0.00010626292350934818f, 5.8684330724645406e-05f, 0.0008658861625008285f, 0.00016790405788924545f, 0.00036959911813028157f, 7.015027949819341e-05f, 0.00022392762184608728f, 0.000189501530257985f, 0.00017440778901800513f, 0.00014308557729236782f, 0.00020273809786885977f, 0.0005893587949685752f, 8.824419637676328e-05f, 0.00015863231965340674f, 9.355904330732301e-05f, 0.00013184480485506356f, 6.273635517572984e-05f, 0.00010142603423446417f, 3.882885357597843e-05f, 6.0548936744453385e-05f, 4.013545549241826e-05f, 0.00022248657478485256f, 0.0002282016648678109f, 0.000321993138641119f, 0.00013270715135149658f, 0.00021320671658031642f, 0.0008575550164096057f, 0.00022229559544939548f, 0.00024031326756812632f, 0.0002857691142708063f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #76 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_7_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 8,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.026904746890068054f, 0.022588586434721947f, 0.031962692737579346f, 0.028355054557323456f, 0.02613445743918419f, 0.029175223782658577f, 0.035417862236499786f, 0.03395009785890579f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #77 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_7_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 8,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0006330528995022178f, 0.0005314961890690029f, 0.0007520633516833186f, 0.0006671777809970081f, 0.0006149284308776259f, 0.0006864758906885982f, 0.0008333614678122103f, 0.0007988258730620146f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #78 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_8_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 48,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0005179292638786137f, 0.0012735517229884863f, 3.937008052901092e-09f, 0.0011230657109990716f, 0.0009314119233749807f, 0.0006370770861394703f, 0.0008811604930087924f, 0.0006760176620446146f, 0.0006377727841027081f, 0.0012699501821771264f, 0.0002312936121597886f, 0.0019199395319446921f, 0.00024597643641754985f, 0.0024053845554590225f, 0.0010523932287469506f, 0.0005349115817807615f, 0.00994625873863697f, 0.004654587712138891f, 0.0017335560405626893f, 0.0006049475632607937f, 0.0008207715582102537f, 0.0008510811603628099f, 0.0010721557773649693f, 0.003731115721166134f, 0.0007817663135938346f, 0.0015945296036079526f, 0.0013591687893494964f, 0.0012381630949676037f, 0.0015728719299659133f, 0.00034370954381302f, 0.0006008377531543374f, 0.005519005935639143f, 0.0006971384864300489f, 0.001584974699653685f, 0.0014545228332281113f, 0.0005531141068786383f, 0.001739730010740459f, 0.0007609761669300497f, 0.0006117092561908066f, 0.003846176201477647f, 0.0031852233223617077f, 3.937008052901092e-09f, 0.0006457758718170226f, 0.0006067673675715923f, 0.0022255321964621544f, 0.0009330552420578897f, 0.004283071495592594f, 0.0011620617005974054f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #79 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_8_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 48,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00016690450138412416f, 0.00041040644282475114f, 1.2687144668177552e-09f, 0.00036191180697642267f, 0.00030015071388334036f, 0.000205300297238864f, 0.0002839570224750787f, 0.00021784903947263956f, 0.00020552448404487222f, 0.0004092458402737975f, 7.453517173416913e-05f, 0.0006187071558088064f, 7.926675607450306e-05f, 0.0007751435041427612f, 0.0003391373611520976f, 0.00017237711290363222f, 0.003205216256901622f, 0.001499957055784762f, 0.0005586444167420268f, 0.00019494644948281348f, 0.0002644964843057096f, 0.00027426384622231126f, 0.00034550591954030097f, 0.001202364917844534f, 0.00025192691828124225f, 0.0005138426786288619f, 0.00043799684499390423f, 0.0003990023396909237f, 0.0005068634054623544f, 0.00011076158989453688f, 0.00019362205057404935f, 0.0017785187810659409f, 0.00022465529036708176f, 0.0005107636097818613f, 0.00046872501843608916f, 0.000178242931724526f, 0.00056063401279971f, 0.00024522721651010215f, 0.00019712542416527867f, 0.0012394436635077f, 0.0010264492593705654f, 1.2687144668177552e-09f, 0.00020810351998079568f, 0.00019553289166651666f, 0.0007171854376792908f, 0.0003006802871823311f, 0.0013802346074953675f, 0.00037447840441018343f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #80 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_9_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 48,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.005540612153708935f, 0.0020686089992523193f, 0.0005154148675501347f, 0.00926639698445797f, 0.0057747685350477695f, 0.0070189619436860085f, 0.0070022521540522575f, 0.005131199024617672f, 0.009952018037438393f, 0.004731673281639814f, 0.008542360737919807f, 0.00642512459307909f, 0.008404749445617199f, 0.004026378504931927f, 0.005179871339350939f, 0.012310256250202656f, 0.0034189915750175714f, 0.0017292757984250784f, 0.006194863934069872f, 0.0030381374526768923f, 0.002733319066464901f, 0.008533884771168232f, 0.003363370895385742f, 0.006359755527228117f, 0.010383037850260735f, 0.006233398802578449f, 0.001810473040677607f, 0.007208228576928377f, 0.00506287906318903f, 0.007709284778684378f, 0.0042075105011463165f, 0.0017183671006932855f, 0.008251381106674671f, 0.003848220454528928f, 0.007824369706213474f, 0.006623837165534496f, 0.0023590668570250273f, 0.007719899993389845f, 0.006893085781484842f, 0.0029519523959606886f, 0.0042637926526367664f, 0.11410766839981079f, 0.005468740593641996f, 0.013697570189833641f, 0.004031469579786062f, 0.005091953091323376f, 0.0013564875116571784f, 0.004429574124515057f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #81 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_9_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 48,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00013036734890192747f, 4.867315510637127e-05f, 1.2127408808737528e-05f, 0.00021803287381771952f, 0.00013587690773420036f, 0.0001651520433370024f, 0.00016475887969136238f, 0.00012073409743607044f, 0.00023416514159180224f, 0.00011133349471492693f, 0.00020099672838114202f, 0.00015117941075004637f, 0.00019775881082750857f, 9.473832324147224e-05f, 0.0001218793258885853f, 0.0002896531077567488f, 8.044686546782032e-05f, 4.068884300068021e-05f, 0.00014576151443179697f, 7.14855850674212e-05f, 6.431338988477364e-05f, 0.00020079729438293725f, 7.913813897175714e-05f, 0.00014964130241423845f, 0.0002443067787680775f, 0.00014666821516584605f, 4.25993675889913e-05f, 0.00016960538050625473f, 0.0001191265691886656f, 0.00018139493477065116f, 9.900025179376826e-05f, 4.043216904392466e-05f, 0.00019415015412960202f, 9.054636757355183e-05f, 0.00018410281336400658f, 0.00015585499932058156f, 5.5507454817416146e-05f, 0.00018164470384363085f, 0.00016219026292674243f, 6.945770292077214e-05f, 0.00010032453428721055f, 0.002684886334463954f, 0.00012867625628132373f, 0.0003222957893740386f, 9.485810733167455e-05f, 0.00011981066199950874f, 3.191735231666826e-05f, 0.00010422527702758089f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #82 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_10_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 8,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.027099281549453735f, 0.03549927845597267f, 0.026125997304916382f, 0.023463241755962372f, 0.04313826933503151f, 0.02828531339764595f, 0.071837417781353f, 0.06683774292469025f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #83 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_10_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 8,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0006376301753334701f, 0.0008352771401405334f, 0.0006147293606773019f, 0.0005520762642845511f, 0.0010150180896744132f, 0.0006655367906205356f, 0.00169029226526618f, 0.001572652836330235f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #84 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_12_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 48,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0006129448302090168f, 0.000913403055164963f, 0.0009883870370686054f, 0.0009115291177295148f, 0.0008798689232207835f, 0.0004508961283136159f, 0.00011267539230175316f, 0.000297750550089404f, 0.0003719167725648731f, 0.0007675259257666767f, 0.003265602048486471f, 0.0003975342260673642f, 0.0003396978136152029f, 0.00047743978211656213f, 0.0004209007020108402f, 0.002722780918702483f, 0.0022585063707083464f, 0.0004606448346748948f, 0.0004008661489933729f, 0.00033010702463798225f, 0.0005944363656453788f, 0.0027511559892445803f, 0.0003619779890868813f, 0.00030112225795164704f, 0.0004625298024620861f, 0.002503130817785859f, 0.0005026612197980285f, 0.0010895736049860716f, 0.00090965157141909f, 0.0003526766668073833f, 0.0007191470358520746f, 0.00037071897531859577f, 0.0015546237118542194f, 0.00036424031713977456f, 0.0003972554113715887f, 0.0002852457982953638f, 0.0033525503240525723f, 0.0010672059142962098f, 0.0004874186124652624f, 0.0011586167383939028f, 0.0020938562229275703f, 0.0009506007772870362f, 0.0016930460697039962f, 0.00046724252752028406f, 0.0007165944552980363f, 0.00015159559552557766f, 0.0021217642351984978f, 0.0005951268249191344f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #85 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_12_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 48,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00028927455423399806f, 0.00043107348028570414f, 0.0004664615844376385f, 0.00043018910218961537f, 0.0004152473120484501f, 0.00021279693464748561f, 5.3176278015598655e-05f, 0.00014052106416784227f, 0.00017552323697600514f, 0.00036222790367901325f, 0.0015411755302920938f, 0.00018761320097837597f, 0.00016031775157898664f, 0.00022532400907948613f, 0.0001986408169614151f, 0.001284995349124074f, 0.001065884600393474f, 0.00021739775547757745f, 0.00018918566638603806f, 0.00015579145110677928f, 0.0002805396215990186f, 0.0012983867200091481f, 0.00017083270358853042f, 0.00014211231609806418f, 0.0002182873577112332f, 0.001181333209387958f, 0.00023722706828266382f, 0.0005142157897353172f, 0.00042930300696752965f, 0.00016644301649648696f, 0.0003393958613742143f, 0.00017495793872512877f, 0.0007336926064454019f, 0.00017190039216075093f, 0.00018748160800896585f, 0.00013461954949889332f, 0.0015822101850062609f, 0.0005036595393903553f, 0.00023003343085292727f, 0.0005468002054840326f, 0.0009881792357191443f, 0.00044862867798656225f, 0.0007990199374035001f, 0.00022051148698665202f, 0.00033819119562394917f, 7.154436752898619e-05f, 0.0010013502324f, 0.0002808654971886426f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #86 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_14_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 48,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.003317369846627116f, 0.0029145439621061087f, 0.002282435540109873f, 0.004052737727761269f, 0.0016496670432388783f, 0.005072733853012323f, 0.012704038061201572f, 0.0075309742242097855f, 0.0060255927965044975f, 0.00480275135487318f, 0.0014977846294641495f, 0.005172680597752333f, 0.006628853734582663f, 0.0032393168658018112f, 0.005298147443681955f, 0.001362691866233945f, 0.0010261142160743475f, 0.0031358751002699137f, 0.005757741630077362f, 0.008427722379565239f, 0.0046564009971916676f, 0.0012182726059108973f, 0.006428875960409641f, 0.006091278977692127f, 0.0051807682029902935f, 0.0010855462169274688f, 0.0039837961085140705f, 0.0021759129595011473f, 0.0036317219492048025f, 0.005668137688189745f, 0.0035531355533748865f, 0.006080944091081619f, 0.0020349130500108004f, 0.005391741171479225f, 0.004573265556246042f, 0.005578501150012016f, 0.0009583019418641925f, 0.0031651370227336884f, 0.004785995930433273f, 0.002814197912812233f, 0.0011632504174485803f, 0.003105707000941038f, 0.001534768845885992f, 0.005097115878015757f, 0.0037598703056573868f, 0.01587071269750595f, 0.0017457174835726619f, 0.004045124165713787f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #87 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_14_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 48,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(7.80557602411136e-05f, 6.857750850031152e-05f, 5.370436701923609e-05f, 9.535853314446285e-05f, 3.881569500663318e-05f, 0.00011935844668187201f, 0.0002989185450132936f, 0.00017719939933158457f, 0.00014177865523379296f, 0.00011300591722829267f, 3.524199200910516e-05f, 0.00012171013077022508f, 0.00015597302990499884f, 7.621922122780234e-05f, 0.0001246622996404767f, 3.206333713023923e-05f, 2.414386472082697e-05f, 7.378529699053615e-05f, 0.0001354762789560482f, 0.00019829935627058148f, 0.0001095623811124824f, 2.866523755074013e-05f, 0.00015126766811590642f, 0.0001433242141501978f, 0.00012190043344162405f, 2.5542263756506145e-05f, 9.37363802222535e-05f, 5.1197952416259795e-05f, 8.545228047296405e-05f, 0.00013336795382201672f, 8.360319043276832e-05f, 0.00014308103709481657f, 4.788030855706893e-05f, 0.00012686449917964637f, 0.0001076062471838668f, 0.00013125885743647814f, 2.254828177683521e-05f, 7.447381358360872e-05f, 0.00011261166946496814f, 6.621642387472093e-05f, 2.737059912760742e-05f, 7.307546184165403e-05f, 3.611220745369792e-05f, 0.00011993214138783514f, 8.846753917168826e-05f, 0.0003734285419341177f, 4.107570566702634e-05f, 9.517939179204404e-05f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #88 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_15_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 16,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.04424045607447624f, 0.0349634625017643f, 0.03983147069811821f, 0.038407254964113235f, 0.02638223208487034f, 0.05301020294427872f, 0.03576890006661415f, 0.04349188506603241f, 0.022323669865727425f, 0.02477903664112091f, 0.03430212661623955f, 0.041271619498729706f, 0.03400648012757301f, 0.03762355074286461f, 0.02221793122589588f, 0.026916494593024254f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #89 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_15_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 16,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0010409519309177995f, 0.0008226697100326419f, 0.0009372110944241285f, 0.0009037001291289926f, 0.000620758393779397f, 0.0012472989037632942f, 0.0008416211931034923f, 0.0010233385255560279f, 0.0005252628470771015f, 0.0005830361624248326f, 0.0008071088814176619f, 0.0009710969752632082f, 0.0008001524838618934f, 0.0008852600585669279f, 0.0005227748770266771f, 0.0006333292694762349f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #90 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_16_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 96,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0008692607516422868f, 0.0020657929126173258f, 0.0009191103163175285f, 0.0017004074761644006f, 0.0007180288666859269f, 0.0005798741476610303f, 0.0014130152994766831f, 0.0011978037655353546f, 0.000797155371401459f, 0.00062697718385607f, 0.001484512584283948f, 0.00045158524881117046f, 0.001305520418100059f, 0.0011949141044169664f, 0.0014691682299599051f, 0.0007149441516958177f, 0.0015319309895858169f, 0.001691526034846902f, 0.0017671730602160096f, 0.0007450032862834632f, 0.0004095673793926835f, 0.0006582846981473267f, 0.000502920534927398f, 0.0009076674468815327f, 0.00028451040270738304f, 0.0016437425510957837f, 0.0011904798448085785f, 0.0010831127874553204f, 0.0020862470846623182f, 0.0011993986554443836f, 0.0013015546137467027f, 0.0010471984278410673f, 0.0009213256416842341f, 0.0004717751871794462f, 0.0009101351024582982f, 0.0008244956843554974f, 0.0008094765362329781f, 0.001401914982125163f, 0.0006887606577947736f, 0.0011266092769801617f, 0.0014692482072860003f, 0.0005070180632174015f, 0.0008454958442598581f, 0.0005637640715576708f, 0.0007839617901481688f, 0.00048167226486839354f, 0.00028782093431800604f, 0.001708748983219266f, 0.00037305548903532326f, 0.0009963063057512045f, 0.0015060149598866701f, 0.0006763726123608649f, 0.000929826230276376f, 0.0003714506747201085f, 0.000901862804312259f, 0.000848142197355628f, 0.0008623358444310725f, 0.001214075949974358f, 0.002880658255890012f, 0.0007788173970766366f, 0.0007143624243326485f, 0.0009852605871856213f, 0.0010223769349977374f, 0.0011311487760394812f, 0.0005929367034696043f, 0.002415051218122244f, 0.0007057871553115547f, 0.0005451907054521143f, 0.0009260960505343974f, 0.0004936614423058927f, 0.0008808959973976016f, 0.0009463986498303711f, 0.0006427330081351101f, 0.00034155911998823285f, 0.0009350785985589027f, 0.0008358768536709249f, 0.0005644482444040477f, 0.001350915408693254f, 0.000684995437040925f, 0.001036577858030796f, 0.0005225437926128507f, 0.0007048448896966875f, 0.0005717925378121436f, 0.001551407971419394f, 0.0017829430289566517f, 0.000816591375041753f, 0.0012157472083345056f, 0.0005446524010039866f, 0.001052518025971949f, 0.001141265849582851f, 0.0036369117442518473f, 0.002317099366337061f, 0.000809837190899998f, 0.0013643227284774184f, 0.0007710231002420187f, 0.0008544528391212225f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #91 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_16_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 96,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00024436292005702853f, 0.0005807270063087344f, 0.00025837644352577627f, 0.00047801141045056283f, 0.0002018492523347959f, 0.00016301179130095989f, 0.0003972209233324975f, 0.00033672156860120595f, 0.0002240929752588272f, 0.00017625319014769047f, 0.0004173199413344264f, 0.00012694775068666786f, 0.0003670024161692709f, 0.0003359092224854976f, 0.000413006404414773f, 0.0002009821037063375f, 0.00043065001955255866f, 0.0004755147092510015f, 0.0004967802669852972f, 0.00020943219715263695f, 0.00011513585923239589f, 0.00018505423213355243f, 0.00014137891412246972f, 0.0002551596553530544f, 7.998036744538695e-05f, 0.0004620820109266788f, 0.0003346627054270357f, 0.0003044801123905927f, 0.0005864769918844104f, 0.00033716991310939193f, 0.00036588756483979523f, 0.00029438402270898223f, 0.00025899920728988945f, 0.00013262346328701824f, 0.00025585334515199065f, 0.00023177875846158713f, 0.00022755665122531354f, 0.00039410043973475695f, 0.00019362149760127068f, 0.00031670767930336297f, 0.0004130288725718856f, 0.00014253078552428633f, 0.0002376822376390919f, 0.00015848298789933324f, 0.00022038404131308198f, 0.00013540568761527538f, 8.09110133559443e-05f, 0.0004803563351742923f, 0.00010487178951734677f, 0.00028007745277136564f, 0.0004233646031934768f, 0.00019013903511222452f, 0.0002613888354972005f, 0.00010442065104143694f, 0.0002535278908908367f, 0.0002384261752013117f, 0.00024241623759735376f, 0.0003412959340494126f, 0.0008097985410131514f, 0.00021893787197768688f, 0.00020081856928300112f, 0.0002769723068922758f, 0.0002874063211493194f, 0.00031798379495739937f, 0.0001666838797973469f, 0.0006789090693928301f, 0.00019840792811010033f, 0.00015326171705964953f, 0.0002603402244858444f, 0.00013877602759748697f, 0.000247633783146739f, 0.0002660476020537317f, 0.00018068240024149418f, 9.601766214473173e-05f, 0.00026286536012776196f, 0.00023497818619944155f, 0.00015867532056290656f, 0.00037976366002112627f, 0.00019256303494330496f, 0.0002913984062615782f, 0.00014689531235489994f, 0.00019814303959719837f, 0.0001607399171916768f, 0.0004361252940725535f, 0.0005012134788557887f, 0.00022955673921387643f, 0.00034176575718447566f, 0.00015311039169318974f, 0.0002958794357255101f, 0.00032082785037346184f, 0.001022393349558115f, 0.0006513732369057834f, 0.00022765803441870958f, 0.0003835326642729342f, 0.00021674677554983646f, 0.0002402001991868019f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #92 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_17_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 96,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.008052695542573929f, 0.014631833881139755f, 0.007963103242218494f, 0.008617579005658627f, 0.00681161368265748f, 0.005008488427847624f, 0.008815428242087364f, 0.011761074885725975f, 0.0056168134324252605f, 0.010279742069542408f, 0.0016457560705021024f, 0.024635301902890205f, 0.00502727460116148f, 0.01816512644290924f, 0.00913155172020197f, 0.010561516508460045f, 0.005439937114715576f, 0.007242794148623943f, 0.008915712125599384f, 0.007340132258832455f, 0.017639225348830223f, 0.0121912881731987f, 0.010518738068640232f, 0.006715150084346533f, 0.0530538335442543f, 0.0044383998028934f, 0.008130960166454315f, 0.006834540516138077f, 0.0017293955897912383f, 0.01189657673239708f, 0.0071060024201869965f, 0.009404161013662815f, 0.004174042493104935f, 0.014967241324484348f, 0.011187547817826271f, 0.014826318249106407f, 0.008112776093184948f, 0.009387814439833164f, 0.006899499800056219f, 0.0017350949347019196f, 0.004546533338725567f, 0.013110536150634289f, 0.011346619576215744f, 0.011304949410259724f, 0.005705001763999462f, 0.014914534986019135f, 0.019780045375227928f, 0.006084208842366934f, 0.0212220698595047f, 0.03393206000328064f, 0.00537143275141716f, 0.00641864538192749f, 0.009216219186782837f, 0.011814597994089127f, 0.010867545381188393f, 0.004448546562343836f, 0.005048498511314392f, 0.0045361886732280254f, 0.008108630776405334f, 0.007246793247759342f, 0.006923761684447527f, 0.0037587094120681286f, 0.003690645331516862f, 0.0042472099885344505f, 0.0066474443301558495f, 0.0031298145186156034f, 0.006480469834059477f, 0.009506245143711567f, 0.014383372850716114f, 0.0209791399538517f, 0.007822917774319649f, 0.006075640674680471f, 0.00658570509403944f, 0.015321941114962101f, 0.005763568449765444f, 0.008851971477270126f, 0.011690003797411919f, 0.005770847201347351f, 0.007891875691711903f, 0.004968498833477497f, 0.006866155192255974f, 0.013453752733767033f, 0.006526809185743332f, 0.021878588944673538f, 0.00893095601350069f, 0.005636523477733135f, 0.007679292932152748f, 0.00853253435343504f, 0.004295603837817907f, 0.004586953204125166f, 0.0012088691582903266f, 0.007111238315701485f, 0.007197693921625614f, 0.006330620497465134f, 0.0044143409468233585f, 0.008327056653797626f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #93 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_17_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 96,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00018947519129142165f, 0.0003442784654907882f, 0.00018736714264377952f, 0.00020276657596696168f, 0.00016027326637413353f, 0.00011784678645199165f, 0.00020742185006383806f, 0.00027673118165694177f, 0.000132160319481045f, 0.0002418762887828052f, 3.872367233270779e-05f, 0.0005796541809104383f, 0.00011828881542896852f, 0.00042741475044749677f, 0.00021486004698090255f, 0.0002485062868800014f, 0.000127998529933393f, 0.00017041868704836816f, 0.0002097814722219482f, 0.00017270899843424559f, 0.0004150406166445464f, 0.00028685384313575923f, 0.0002474997309036553f, 0.000158003531396389f, 0.001248325570486486f, 0.0001044329401338473f, 0.00019131670705974102f, 0.00016081272042356431f, 4.0691662434255704e-05f, 0.00027991944807581604f, 0.00016720006533432752f, 0.00022127438569441438f, 9.821276762522757e-05f, 0.00035217037657275796f, 0.0002632364339660853f, 0.00034885454806499183f, 0.00019088885164819658f, 0.00022088974947109818f, 0.00016234118083957583f, 4.082576560904272e-05f, 0.00010697725520003587f, 0.00030848319875076413f, 0.0002669793029781431f, 0.0002659988240338862f, 0.00013423533528111875f, 0.0003509302332531661f, 0.0004654128279071301f, 0.00014315785665530711f, 0.0004993428010493517f, 0.0007984014227986336f, 0.0001263866579392925f, 0.00015102695033419877f, 0.0002168522187275812f, 0.0002779905335046351f, 0.0002557069528847933f, 0.0001046716861310415f, 0.000118788200779818f, 0.00010673385258996859f, 0.00019079131016042084f, 0.00017051277973223478f, 0.00016291203792206943f, 8.844022522680461e-05f, 8.68387141963467e-05f, 9.993435378419235e-05f, 0.00015641046047676355f, 7.364269549725577e-05f, 0.0001524816470919177f, 0.00022367635392583907f, 0.0003384323208592832f, 0.0004936268087476492f, 0.0001840686600189656f, 0.00014295625442173332f, 0.00015495777188334614f, 0.0003605162783060223f, 0.00013561337254941463f, 0.00020828167907893658f, 0.0002750589046627283f, 0.0001357846485916525f, 0.0001856911985669285f, 0.00011690585961332545f, 0.0001615565997781232f, 0.00031655890052206814f, 0.00015357197844423354f, 0.0005147903575561941f, 0.000210140147828497f, 0.00013262408901937306f, 0.00018068925419356674f, 0.0002007655130000785f, 0.00010107303387485445f, 0.00010792831017170101f, 2.8443981136661023e-05f, 0.00016732326184865087f, 0.00016935750318225473f, 0.00014895577623974532f, 0.00010386684880359098f, 0.00019593075558077544f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #94 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_18_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 16,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.017291348427534103f, 0.018222626298666f, 0.025272581726312637f, 0.012211458757519722f, 0.018133865669369698f, 0.02524360455572605f, 0.014829251915216446f, 0.025726214051246643f, 0.01262057013809681f, 0.015128213912248611f, 0.015537312254309654f, 0.00928331259638071f, 0.012069400399923325f, 0.010730561800301075f, 0.011735312640666962f, 0.011643792502582073f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #95 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_18_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 16,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0004068552516400814f, 0.00042876770021393895f, 0.0005946489982306957f, 0.0002873284392990172f, 0.00042667920934036374f, 0.0005939671536907554f, 0.0003489235823508352f, 0.000605322711635381f, 0.0002969545894302428f, 0.00035595797817222774f, 0.00036558383726514876f, 0.00021843088325113058f, 0.0002839858934748918f, 0.00025248382007703185f, 0.0002761250070761889f, 0.00027397158555686474f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #96 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_20_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 96,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00027106760535389185f, 0.00029781219200231135f, 0.0005454820930026472f, 0.0004330879310145974f, 0.000635205942671746f, 0.0004733606765512377f, 0.00045212593977339566f, 0.0010453583672642708f, 0.0009492533281445503f, 0.00023437516938429326f, 0.0015867998590692878f, 0.0006062205648049712f, 0.0007882206700742245f, 0.0005731373676098883f, 0.003579147858545184f, 0.0004005430964753032f, 0.0005387207493185997f, 0.00046732951886951923f, 0.0005813620518893003f, 0.0005660213064402342f, 0.0017528251046314836f, 0.0004501579678617418f, 0.00037038043956272304f, 0.0004594380152411759f, 0.0006828696350567043f, 0.0005655542481690645f, 0.0006250398582778871f, 0.0003718706138897687f, 0.0005522323772311211f, 0.001669671037234366f, 0.0008383834501728415f, 0.0006359010585583746f, 0.0005560339777730405f, 0.0005672433762811124f, 0.0010687807807698846f, 0.0005127803306095302f, 0.001185951172374189f, 0.0007621414260938764f, 0.0002420024247840047f, 0.0007225584122352302f, 0.0007521171355620027f, 0.0008689665701240301f, 0.0004275660030543804f, 0.0007325203623622656f, 0.0019079233752563596f, 0.0007768364739604294f, 0.0007828688831068575f, 0.0009289081790484488f, 0.0006249423022381961f, 0.00047253744560293853f, 0.0006213916931301355f, 0.000734372646547854f, 0.0010484432568773627f, 0.0023159515112638474f, 0.0008191008237190545f, 0.0008089911425486207f, 0.0006360512925311923f, 0.0003647380799520761f, 0.0014495889190584421f, 0.0004735025286208838f, 0.0007690528873354197f, 0.00027265859534963965f, 0.00036849227035418153f, 0.0005554536473937333f, 0.001582442782819271f, 0.0009177203755825758f, 0.0019228406017646194f, 0.0005443968693725765f, 0.0007052218425087631f, 0.0016926261596381664f, 0.0007891964050941169f, 0.0006095552816987038f, 0.0012814070796594024f, 0.0011725375661626458f, 0.0005304915248416364f, 0.0007699003326706588f, 0.0008059255196712911f, 0.0006826617172919214f, 0.0010752718662843108f, 0.0007353745750151575f, 0.00046211283188313246f, 0.0005950079066678882f, 0.0018738452345132828f, 0.0005516569945029914f, 0.0006936101708561182f, 0.00067081832094118f, 0.0005129456985741854f, 0.00054056296357885f, 0.0006732940091751516f, 0.0011691158870235085f, 0.0006146602099761367f, 0.0008450770983472466f, 0.0012882325099781156f, 0.0007166072027757764f, 0.0010948003036901355f, 0.0008491796907037497f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #97 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_20_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 96,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(9.825822780840099e-05f, 0.0001079527719411999f, 0.00019772966334130615f, 0.00015698834613431245f, 0.00023025329574011266f, 0.00017158665286842734f, 0.00016388935910072178f, 0.00037892782711423934f, 0.00034409109503030777f, 8.4957733633928e-05f, 0.0005751928547397256f, 0.000219746507355012f, 0.0002857189974747598f, 0.00020775430311914533f, 0.001297391252592206f, 0.0001451912976335734f, 0.00019527875701896846f, 0.00016940043133217841f, 0.00021073564130347222f, 0.00020517483062576503f, 0.0006353746866807342f, 0.00016317599511239678f, 0.00013425774523057044f, 0.00016653987404424697f, 0.0002475307264830917f, 0.0002050055336439982f, 0.00022656824148725718f, 0.0001347979123238474f, 0.00020017653878312558f, 0.0006052324897609651f, 0.00030390231404453516f, 0.00023050527670420706f, 0.00020155456149950624f, 0.00020561782002914697f, 0.00038741814205423f, 0.0001858757168520242f, 0.0004298907588236034f, 0.00027626563678495586f, 8.772250293986872e-05f, 0.0002619173610582948f, 0.0002726319944486022f, 0.00031498828320764005f, 0.00015498671564273536f, 0.000265528418822214f, 0.000691595661919564f, 0.00028159239445813f, 0.0002837790525518358f, 0.0003367162717040628f, 0.00022653288033325225f, 0.00017128823674283922f, 0.00022524583619087934f, 0.00026619984419085085f, 0.0003800460835918784f, 0.0008395001641474664f, 0.00029691262170672417f, 0.00029324801289476454f, 0.0002305597299709916f, 0.00013221247354522347f, 0.0005254558054730296f, 0.00017163806478492916f, 0.0002787709527183324f, 9.883494203677401e-05f, 0.00013357331044971943f, 0.0002013442135648802f, 0.0005736134480684996f, 0.0003326608566567302f, 0.0006970029207877815f, 0.0001973362814169377f, 0.0002556330873630941f, 0.0006135533913038671f, 0.0002860726963263005f, 0.00022095529129728675f, 0.0004644922155421227f, 0.0004250285273883492f, 0.000192295789020136f, 0.00027907814364880323f, 0.00029213677044026554f, 0.00024745534756220877f, 0.00038977107033133507f, 0.00026656303089112043f, 0.00016750946815591305f, 0.00021568207012023777f, 0.000679242773912847f, 0.0001999679661821574f, 0.00025142403319478035f, 0.0002431622997391969f, 0.00018593567074276507f, 0.00019594654440879822f, 0.00024405970179941505f, 0.00042378820944577456f, 0.00022280575649347156f, 0.0003063286712858826f, 0.00046696633216924965f, 0.00025976012693718076f, 0.0003968498494941741f, 0.0003078157897107303f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #98 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_21_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 96,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.025733204558491707f, 0.013217512518167496f, 0.0061851427890360355f, 0.009801889769732952f, 0.020633984357118607f, 0.009881561622023582f, 0.008194307796657085f, 0.0028610252775251865f, 0.005075865890830755f, 0.01405977364629507f, 0.005261652171611786f, 0.013218404725193977f, 0.0037066759541630745f, 0.008738318458199501f, 0.0011731560807675123f, 0.012431956827640533f, 0.011108960025012493f, 0.008591555058956146f, 0.0052728899754583836f, 0.007833926007151604f, 0.00936682615429163f, 0.01997947320342064f, 0.010744464583694935f, 0.006591134238988161f, 0.007085160352289677f, 0.009859372861683369f, 0.005879579111933708f, 0.026844041422009468f, 0.014772329479455948f, 0.010419540107250214f, 0.0057356711477041245f, 0.00789833627641201f, 0.019962769001722336f, 0.01152361836284399f, 0.0030198758468031883f, 0.007288098335266113f, 0.0031035584397614002f, 0.015690714120864868f, 0.011120417155325413f, 0.00958388950675726f, 0.010334298014640808f, 0.002856087638065219f, 0.008211502805352211f, 0.008951736614108086f, 0.0020993263460695744f, 0.0044779228046536446f, 0.01023606862872839f, 0.008247381076216698f, 0.01344292238354683f, 0.0054398286156356335f, 0.0024239267222583294f, 0.018085317686200142f, 0.004654257092624903f, 0.0033732603769749403f, 0.00662258779630065f, 0.00386908371001482f, 0.005567590240389109f, 0.006001487839967012f, 0.0021378062665462494f, 0.009451990015804768f, 0.015011409297585487f, 0.03842758759856224f, 0.011950831860303879f, 0.0065789781510829926f, 0.005192788317799568f, 0.004768824204802513f, 0.0023533920757472515f, 0.01094008982181549f, 0.006499734241515398f, 0.0024141473695635796f, 0.00832317490130663f, 0.007763954810798168f, 0.0016826752107590437f, 0.007624353747814894f, 0.01263363566249609f, 0.01189843937754631f, 0.010173863731324673f, 0.005396220367401838f, 0.004863562528043985f, 0.005060448311269283f, 0.009141589514911175f, 0.015395445749163628f, 0.0016134250909090042f, 0.021898377686738968f, 0.004030086100101471f, 0.004847952164709568f, 0.014042382128536701f, 0.006174842361360788f, 0.008950331248342991f, 0.005125775467604399f, 0.01199476420879364f, 0.006944673135876656f, 0.008009334094822407f, 0.009122662246227264f, 0.0014075904618948698f, 0.005972396582365036f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #99 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_21_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 96,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0006054872064851224f, 0.00031100030173547566f, 0.00014553277287632227f, 0.00023063270782586187f, 0.00048550553037784994f, 0.000232507343753241f, 0.0001928072451846674f, 6.731824396410957e-05f, 0.00011943213758058846f, 0.000330818205839023f, 0.00012380357657093555f, 0.00031102128559723496f, 8.721590711502358e-05f, 0.00020560750272125006f, 2.7603673515841365e-05f, 0.0002925166336353868f, 0.0002613872929941863f, 0.00020215424592606723f, 0.0001240679994225502f, 0.0001843276695581153f, 0.00022039591567590833f, 0.00047010526759549975f, 0.00025281094713136554f, 0.00015508550859522074f, 0.00016670966579113156f, 0.00023198525013867766f, 0.00013834303535986692f, 0.0006316245417110622f, 0.0003475842240732163f, 0.00024516566190868616f, 0.00013495696475729346f, 0.00018584320787340403f, 0.00046971222036518157f, 0.0002711439738050103f, 7.10559033905156e-05f, 0.00017148467304650694f, 7.302490848815069e-05f, 0.00036919329431839287f, 0.000261656881775707f, 0.0002255032886750996f, 0.00024315995688084513f, 6.720206147292629e-05f, 0.0001932118320837617f, 0.00021062910673208535f, 4.9395915993954986e-05f, 0.00010536289482843131f, 0.00024084867618512362f, 0.00019405603234190494f, 0.000316304067382589f, 0.0001279959687963128f, 5.703357237507589e-05f, 0.00042553688399493694f, 0.00010951193689834327f, 7.937083137221634e-05f, 0.00015582560445182025f, 9.103726915782318e-05f, 0.0001310021325480193f, 0.00014121147978585213f, 5.030132524552755e-05f, 0.00022239977261051536f, 0.00035320964525453746f, 0.0009041785378940403f, 0.0002811960584949702f, 0.0001547994907014072f, 0.00012218324991408736f, 0.00011220762826269493f, 5.5373933719238266e-05f, 0.0002574138925410807f, 0.0001529349246993661f, 5.680347021552734e-05f, 0.00019583941320888698f, 0.00018268129497300833f, 3.959235982620157e-05f, 0.00017939656390808523f, 0.00029726201319135725f, 0.0002799632784444839f, 0.00023938502999953926f, 0.00012696989870164543f, 0.00011443677067290992f, 0.0001190693728858605f, 0.00021509622456505895f, 0.00036224580253474414f, 3.7962945498293266e-05f, 0.0005152559606358409f, 9.482555469730869e-05f, 0.00011406946578063071f, 0.0003304090059828013f, 0.00014529041072819382f, 0.00021059603022877127f, 0.00012060648441547528f, 0.000282229739241302f, 0.0001634040818316862f, 0.0001884549274109304f, 0.00021465087775141f, 3.311977707198821e-05f, 0.00014052698679734021f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #100 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_22_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 16,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.009233064018189907f, 0.019188180565834045f, 0.033050548285245895f, 0.005315630696713924f, 0.018577879294753075f, 0.02034839615225792f, 0.008372765965759754f, 0.021276630461215973f, 0.014957870356738567f, 0.020765289664268494f, 0.011898442171514034f, 0.00867605023086071f, 0.014683139510452747f, 0.016039591282606125f, 0.00963603612035513f, 0.009006515145301819f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #101 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_22_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 16,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00021724856924265623f, 0.0004514866159297526f, 0.0007776599959470332f, 0.0001250736677320674f, 0.000437126582255587f, 0.0004787858051713556f, 0.00019700625853147358f, 0.0005006266292184591f, 0.00035194988595321774f, 0.0004885950474999845f, 0.0002799633366521448f, 0.00020414235768839717f, 0.0003454856341704726f, 0.00037740214611403644f, 0.00022673026251140982f, 0.00021191801351960748f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #102 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_24_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 96,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0004311880038585514f, 0.001243982813321054f, 0.0009613969014026225f, 0.001183731248602271f, 0.00039934166125021875f, 0.0006029917858541012f, 0.00042036903323605657f, 0.0005301875644363463f, 0.0007289960631169379f, 0.0007597957737743855f, 0.0006253875908441842f, 0.0004369691014289856f, 0.0013976527843624353f, 0.0007275326061062515f, 0.001502161961980164f, 0.001322524854913354f, 0.0009813049109652638f, 0.0005664189229719341f, 0.0011455515632405877f, 0.00042966348701156676f, 0.0003574146830942482f, 0.0006634307210333645f, 0.0007253439980559051f, 0.0004299773136153817f, 0.0008626884082332253f, 0.00046732695773243904f, 0.0005634527769871056f, 0.0005503352149389684f, 5.060245166532695e-05f, 0.0005911978078074753f, 0.0014593604719266295f, 0.0008481081458739936f, 0.0008935662917792797f, 0.0009851909708231688f, 0.00045697082532569766f, 0.0010518870549276471f, 0.0011624118778854609f, 0.0006560161127708852f, 0.0007118271314539015f, 0.0017066879663616419f, 0.0004966678679920733f, 0.0011408692225813866f, 0.0010356747079640627f, 0.001583606586791575f, 0.0005287616513669491f, 0.0007416423759423196f, 0.0005340636125765741f, 0.0004146942519582808f, 0.0013259191764518619f, 0.0006376170786097646f, 0.0006769471219740808f, 0.0012713931500911713f, 0.004051257856190205f, 0.001073291408829391f, 0.0007560763042420149f, 0.0005846361164003611f, 0.0019510026322677732f, 0.0003315898065920919f, 0.00048263068310916424f, 0.0013383831828832626f, 0.0011899042874574661f, 0.0011508477618917823f, 0.0012729840818792582f, 0.000794321415014565f, 0.0004551272140815854f, 0.0002734949521254748f, 0.0012945685302838683f, 0.00246905954554677f, 0.0009339703246951103f, 0.0007983909454196692f, 0.001353061175905168f, 0.0012794480426236987f, 0.0006365811568684876f, 0.0005298183532431722f, 0.0004059740749653429f, 0.0010765714105218649f, 0.0007382467738352716f, 0.0006655783508904278f, 0.0008617163985036314f, 0.0003190121497027576f, 0.0004989603185094893f, 0.0005827361019328237f, 0.0005875975475646555f, 0.0013543327804654837f, 0.0018255803734064102f, 0.0005952509818598628f, 0.0005362769006751478f, 0.0005061682313680649f, 0.00043567424290813506f, 0.0005518505349755287f, 0.0005022063851356506f, 0.0014195223338901997f, 0.0009450511424802244f, 0.0009243121021427214f, 0.0008357049082405865f, 0.0006701402016915381f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #103 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_24_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 96,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00020108504395466298f, 0.0005801328807137907f, 0.0004483486118260771f, 0.0005520345293916762f, 0.00018623346113599837f, 0.0002812059537973255f, 0.00019603960390668362f, 0.0002472535998094827f, 0.00033996818820014596f, 0.0003543316852301359f, 0.0002916502708103508f, 0.00020378106273710728f, 0.0006517970468848944f, 0.00033928570337593555f, 0.0007005350780673325f, 0.0006167610408738256f, 0.00045763273374177516f, 0.00026415014872327447f, 0.0005342293297871947f, 0.00020037408103235066f, 0.00016668076568748802f, 0.000309391733026132f, 0.00033826506114564836f, 0.00020052044419571757f, 0.00040231578168459237f, 0.00021793849009554833f, 0.0002627668727654964f, 0.0002566494804341346f, 2.359851532673929e-05f, 0.0002757058246061206f, 0.0006805745069868863f, 0.00039551625377498567f, 0.00041671571671031415f, 0.0004594450001604855f, 0.00021310889860615134f, 0.000490548787638545f, 0.0005420921952463686f, 0.00030593390692956746f, 0.00033196143340319395f, 0.0007959160138852894f, 0.00023162165598478168f, 0.0005320457275956869f, 0.0004829881654586643f, 0.0007385168573819101f, 0.00024658863549120724f, 0.00034586581750772893f, 0.00024906120961531997f, 0.00019339316349942237f, 0.0006183439982123673f, 0.00029735348653048277f, 0.0003156950988341123f, 0.0005929157487116754f, 0.00188930903095752f, 0.0005005307612009346f, 0.0003525970969349146f, 0.00027264576056040823f, 0.0009098524460569024f, 0.00015463730960618705f, 0.0002250754041597247f, 0.0006241566152311862f, 0.0005549133056774735f, 0.0005366992554627359f, 0.0005936576635576785f, 0.00037043276824988425f, 0.00021224912779871374f, 0.00012754469935316592f, 0.0006037236307747662f, 0.0011514489306136966f, 0.00043555820593610406f, 0.00037233057082630694f, 0.0006310017197392881f, 0.0005966721219010651f, 0.00029687039204873145f, 0.00024708142154850066f, 0.0001893264998216182f, 0.0005020604003220797f, 0.00034428227809257805f, 0.00031039328314363956f, 0.00040186248952522874f, 0.0001487717090640217f, 0.0002326907415408641f, 0.000271759694442153f, 0.0002740268246270716f, 0.0006315947393886745f, 0.000851361604873091f, 0.0002775960019789636f, 0.00025009337696246803f, 0.0002360521611990407f, 0.00020317721646279097f, 0.000257356179645285f, 0.00023420456273015589f, 0.0006619959603995085f, 0.0004407257365528494f, 0.0004310540680307895f, 0.0003897319838870317f, 0.00031252068583853543f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #104 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_26_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 96,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0028105711098760366f, 0.0018766868161037564f, 0.003134296741336584f, 0.002877048449590802f, 0.006586482282727957f, 0.0022553903982043266f, 0.004803209099918604f, 0.00799690093845129f, 0.004221828188747168f, 0.00326211447827518f, 0.004900846630334854f, 0.005356240086257458f, 0.0015589724062010646f, 0.0028266527224332094f, 0.0018806647276505828f, 0.0025431851390749216f, 0.003645600052550435f, 0.004708189982920885f, 0.0021748302970081568f, 0.0029562145937234163f, 0.006764921825379133f, 0.002553478814661503f, 0.002634114120155573f, 0.009773512370884418f, 0.003806185210123658f, 0.003435373306274414f, 0.005027038510888815f, 0.004198662471026182f, 0.03564932197332382f, 0.0029271517414599657f, 0.0011501616099849343f, 0.001969944452866912f, 0.00411865534260869f, 0.0018757913494482636f, 0.0027286680415272713f, 0.003236356656998396f, 0.001543650170788169f, 0.002278111409395933f, 0.003818957833573222f, 0.0012742147082462907f, 0.004228887148201466f, 0.0010488779516890645f, 0.0018621450290083885f, 0.001753849326632917f, 0.0039970590732991695f, 0.0028046707157045603f, 0.003749065799638629f, 0.0023991339839994907f, 0.0020072488114237785f, 0.0031603940296918154f, 0.003960741683840752f, 0.0026854572352021933f, 0.0011418982176110148f, 0.003599015297368169f, 0.0032989562023431063f, 0.001847395091317594f, 0.0010944075183942914f, 0.003074612934142351f, 0.0026532523334026337f, 0.0019554307218641043f, 0.0024188938550651073f, 0.0022600186057388783f, 0.0010453825816512108f, 0.0029536844231188297f, 0.0030661174096167088f, 0.008532467298209667f, 0.0014418605715036392f, 0.0012467446504160762f, 0.0016981351654976606f, 0.002134072594344616f, 0.004689070396125317f, 0.0019066344248130918f, 0.0027204917278140783f, 0.003174999263137579f, 0.00564308138564229f, 0.001633670530281961f, 0.003566024824976921f, 0.0020022110547870398f, 0.003061020513996482f, 0.004262174479663372f, 0.003718613414093852f, 0.002514963736757636f, 0.004692311864346266f, 0.0010927587281912565f, 0.002603295259177685f, 0.0033550967928022146f, 0.002343263942748308f, 0.003848273539915681f, 0.00345617369748652f, 0.0030259480699896812f, 0.006697189994156361f, 0.002858512569218874f, 0.0015200282214209437f, 0.0032730281818658113f, 0.002654126612469554f, 0.002630942966789007f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #105 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_26_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 96,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(6.613108416786417e-05f, 4.415733928908594e-05f, 7.374816050287336e-05f, 6.769526225980371e-05f, 0.0001549760636407882f, 5.3068011766299605e-05f, 0.00011301668564556167f, 0.0001881623757071793f, 9.933713590726256e-05f, 7.67556339269504e-05f, 0.00011531404015840963f, 0.00012602917558979243f, 3.668170393211767e-05f, 6.65094776195474e-05f, 4.4250937207834795e-05f, 5.9839650930371135e-05f, 8.57788254506886e-05f, 0.00011078094394179061f, 5.117247928865254e-05f, 6.955799472052604e-05f, 0.00015917464043013752f, 6.008185664541088e-05f, 6.197915354277939e-05f, 0.0002299650077475235f, 8.95573029993102e-05f, 8.08323165983893e-05f, 0.0001182832638733089f, 9.879205754259601e-05f, 0.000838807609397918f, 6.88741565681994e-05f, 2.706262603169307e-05f, 4.63516335003078e-05f, 9.690954175312072e-05f, 4.4136268115835264e-05f, 6.420395220629871e-05f, 7.614956848556176e-05f, 3.632118023233488e-05f, 5.3602623665938154e-05f, 8.985783642856404e-05f, 2.998152376676444e-05f, 9.950323146767914e-05f, 2.4679482521605678e-05f, 4.381517646834254e-05f, 4.126704516238533e-05f, 9.404845332028344e-05f, 6.599225162062794e-05f, 8.821331721264869e-05f, 5.6450211559422314e-05f, 4.7229383199010044e-05f, 7.436221494572237e-05f, 9.319392120232806e-05f, 6.318723171716556e-05f, 2.6868194254348055e-05f, 8.46827169880271e-05f, 7.762249879306182e-05f, 4.346812056610361e-05f, 2.575076541688759e-05f, 7.234383519971743e-05f, 6.242946983547881e-05f, 4.60101364296861e-05f, 5.691514888894744e-05f, 5.317691102391109e-05f, 2.4597236915724352e-05f, 6.949845555936918e-05f, 7.214394281618297e-05f, 0.00020076394139323384f, 3.392613143660128e-05f, 2.9335169529076666e-05f, 3.9956121327122673e-05f, 5.02134753332939e-05f, 0.00011033107148250565f, 4.486198668018915e-05f, 6.401156861102208e-05f, 7.470586569979787e-05f, 0.00013277838297653943f, 3.843930608127266e-05f, 8.390646689804271e-05f, 4.711085057351738e-05f, 7.202401320682839e-05f, 0.00010028645920101553f, 8.749678818276152e-05f, 5.91756179346703e-05f, 0.00011040733807021752f, 2.5711970010888763e-05f, 6.125400977907702e-05f, 7.894345617387444e-05f, 5.5135624279500917e-05f, 9.054761176230386e-05f, 8.132173388730735e-05f, 7.119878137018532e-05f, 0.00015758094377815723f, 6.725911953253672e-05f, 3.576536983018741e-05f, 7.701243157498538e-05f, 6.245003896765411e-05f, 6.190453859744594e-05f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #106 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_27_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 24,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.017506035044789314f, 0.014381824061274529f, 0.013936888426542282f, 0.022320684045553207f, 0.016836199909448624f, 0.020316146314144135f, 0.015841929242014885f, 0.014087422750890255f, 0.015628349035978317f, 0.024445801973342896f, 0.026940898969769478f, 0.014084424823522568f, 0.025765102356672287f, 0.019493168219923973f, 0.022616960108280182f, 0.023363282904028893f, 0.014420480467379093f, 0.019879773259162903f, 0.017055559903383255f, 0.0151996910572052f, 0.014276169240474701f, 0.014746572822332382f, 0.01999928057193756f, 0.015819380059838295f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #107 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_27_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 24,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0004119067161809653f, 0.0003383958537597209f, 0.0003279267984908074f, 0.0005251925904303789f, 0.00039614588604308665f, 0.0004780269809998572f, 0.0003727512957993895f, 0.00033146876376122236f, 0.00036772587918676436f, 0.0005751953576691449f, 0.0006339035462588072f, 0.0003313982451800257f, 0.0006062377360649407f, 0.0004586627765092999f, 0.0005321637727320194f, 0.0005497243255376816f, 0.0003393054357729852f, 0.0004677593824453652f, 0.0004013073048554361f, 0.000357639801222831f, 0.00033590986276976764f, 0.00034697819501161575f, 0.00047057130723260343f, 0.00037222070386633277f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #108 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_28_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 144,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0006456190603785217f, 0.0007123270770534873f, 0.0008299709297716618f, 0.0005864711129106581f, 0.0006248708232305944f, 0.0005150851793587208f, 0.0006534192943945527f, 0.0010029359254986048f, 0.0010571590391919017f, 0.0007438815664499998f, 0.0005349187995307148f, 0.0005604709149338305f, 0.0009871997172012925f, 0.00208580051548779f, 0.00041890848660841584f, 0.00029839962371625006f, 0.00042406481225043535f, 0.0004118950746487826f, 0.0005880914977751672f, 0.0004310358490329236f, 0.0006054451805539429f, 0.00038546117139048874f, 0.0007674942025914788f, 0.0011588598135858774f, 0.00042849904275499284f, 0.0007358621805906296f, 0.001131317112594843f, 0.0008273936109617352f, 0.000788484641816467f, 0.0012637008912861347f, 0.0006316511426120996f, 0.00032846658723428845f, 0.00010541355004534125f, 0.0003711139434017241f, 0.0007811346440576017f, 0.0007299845456145704f, 0.0009668333805166185f, 0.00032088824082165956f, 0.0006860588910058141f, 0.0003641757066361606f, 0.0004557802458293736f, 0.0006727532600052655f, 0.0005478968378156424f, 0.00021230844140518457f, 0.0006089355447329581f, 0.001262306235730648f, 0.00032667923369444907f, 0.0008418853394687176f, 0.0009506492060609162f, 0.000552875455468893f, 0.0005356687470339239f, 0.0005289269029162824f, 0.0006713180337101221f, 0.0006283756229095161f, 0.0007889996632002294f, 0.00031815111287869513f, 0.000574287201743573f, 0.0005293166032060981f, 0.0006402396829798818f, 0.00016942342335823923f, 0.0004380980972200632f, 0.00010212019697064534f, 0.000979481264948845f, 0.000751356827095151f, 0.0005791834555566311f, 0.0007356928545050323f, 0.0007004488143138587f, 0.0010454495204612613f, 0.00043587296386249363f, 0.0004904539091512561f, 0.0008219952578656375f, 0.0006756410002708435f, 0.0007385158678516746f, 0.0003769653267227113f, 0.0010293881641700864f, 0.0019517362816259265f, 0.000734309374820441f, 0.0009124319185502827f, 0.00043569531408138573f, 0.0007678436231799424f, 0.00040248988079838455f, 0.0010241040727123618f, 0.0005430852761492133f, 0.0009085550555028021f, 0.0021457034163177013f, 0.0010412834817543626f, 0.00027037100517190993f, 0.0006698000361211598f, 0.0007057475158944726f, 0.0009408093756064773f, 0.00040749547770246863f, 0.001225910964421928f, 0.0012874854728579521f, 0.00048545742174610496f, 0.0007597918156534433f, 0.0006480221636593342f, 0.0007898168405517936f, 0.0006872466765344143f, 0.0010429620742797852f, 0.0005883059930056334f, 0.0003383270523045212f, 0.0005269061075523496f, 0.0007993064355105162f, 0.0007111353916116059f, 0.00021407284657470882f, 0.0003737875376828015f, 0.00052786769811064f, 0.000315224431687966f, 0.0008931791526265442f, 0.0005058437818661332f, 0.00029218237614259124f, 0.0008716015727259219f, 0.0005604511825367808f, 0.0007745347102172673f, 0.0005239398451521993f, 0.0010683998698368669f, 0.000203367555513978f, 0.000808001437690109f, 0.0007054516463540494f, 0.0006951477844268084f, 0.0011294063879176974f, 0.000654115981888026f, 0.0007638522074557841f, 0.0003598408366087824f, 0.00028024258790537715f, 0.0008625003392808139f, 0.0005800084327347577f, 0.000516312662512064f, 0.0004810731334146112f, 0.0007289795321412385f, 0.00015303672989830375f, 0.0006171306013129652f, 0.000641256629023701f, 0.0006773084169253707f, 0.0006622837972827256f, 0.0006283841212280095f, 0.0005887759616598487f, 0.0004385888169053942f, 0.00037248068838380277f, 0.00023220473667606711f, 0.0007868937682360411f, 0.0004992111353203654f, 0.0006562740891240537f, 0.0003402995353098959f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #109 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_28_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 144,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0001503796665929258f, 0.00016591751773376018f, 0.00019331950170453638f, 0.00013660274271387607f, 0.00014554693188983947f, 0.00011997530236840248f, 0.0001521965314168483f, 0.00023360707564279437f, 0.00024623688659630716f, 0.0001732672972138971f, 0.00012459501158446074f, 0.00013054668670520186f, 0.00022994173923507333f, 0.0004858313768636435f, 9.757351654116064e-05f, 6.950420356588438e-05f, 9.877454431261867e-05f, 9.59399258135818e-05f, 0.000136980161187239f, 0.00010039826156571507f, 0.00014102224668022245f, 8.978285768534988e-05f, 0.00017876722267828882f, 0.0002699253673199564f, 9.980738104786724e-05f, 0.0001713993988232687f, 0.00026351003907620907f, 0.00019271919154562056f, 0.00018365638970863074f, 0.0002943452855106443f, 0.00014712622214574367f, 7.650749466847628e-05f, 2.4553264665883034e-05f, 8.644105400890112e-05f, 0.00018194440053775907f, 0.00017003035463858396f, 0.0002251979458378628f, 7.474232552340254e-05f, 0.0001597990485606715f, 8.482497651129961e-05f, 0.00010616180225042626f, 0.00015669985441491008f, 0.0001276178954867646f, 4.945156615576707e-05f, 0.00014183523308020085f, 0.00029402042855508626f, 7.609117892570794e-05f, 0.00019609465380199254f, 0.00022142827219795436f, 0.00012877753761131316f, 0.00012476969277486205f, 0.00012319936649873853f, 0.00015636556781828403f, 0.00014636327978223562f, 0.00018377634114585817f, 7.410478428937495e-05f, 0.00013376482820603997f, 0.00012329012679401785f, 0.0001491266884841025f, 3.9462651329813525e-05f, 0.00010204322461504489f, 2.3786165911587887e-05f, 0.00022814393742009997f, 0.00017500844842288643f, 0.0001349052763544023f, 0.0001713599485810846f, 0.00016315079119522125f, 0.00024350947933271527f, 0.00010152493632631376f, 0.00011423810792621225f, 0.00019146178965456784f, 0.00015737248759251088f, 0.0001720174914225936f, 8.780397911323234e-05f, 0.0002397684147581458f, 0.00045460471301339567f, 0.00017103771097026765f, 0.00021252658916637301f, 0.0001014835579553619f, 0.00017884861154016107f, 9.374924411531538e-05f, 0.00023853762832004577f, 0.00012649717973545194f, 0.0002116235700668767f, 0.0004997841315343976f, 0.00024253909941762686f, 6.297568324953318e-05f, 0.00015601198538206518f, 0.00016438498278148472f, 0.0002191363601014018f, 9.491515811532736e-05f, 0.0002855431230273098f, 0.0002998852578457445f, 0.000113074311229866f, 0.00017697316070552915f, 0.00015093940601218492f, 0.0001839666801970452f, 0.00016007570957299322f, 0.00024293009482789785f, 0.0001370301324641332f, 7.880423072492704e-05f, 0.00012272867024876177f, 0.00018617702880874276f, 0.0001656399545026943f, 4.98625377076678e-05f, 8.706379594514146e-05f, 0.0001229526533279568f, 7.342309254454449e-05f, 0.0002080421691061929f, 0.00011782276123994961f, 6.805606244597584e-05f, 0.00020301624317653477f, 0.00013054210285190493f, 0.00018040712166111916f, 0.00012203775986563414f, 0.0002488551544956863f, 4.736902701552026e-05f, 0.00018820230616256595f, 0.0001643160794628784f, 0.00016191606118809432f, 0.0002630649833008647f, 0.00015235879982355982f, 0.00017791891878005117f, 8.381528459722176e-05f, 6.527500954689458e-05f, 0.00020089636382181197f, 0.0001350974343949929f, 0.00012026121112285182f, 0.00011205310875084251f, 0.00016979625797830522f, 3.564580765669234e-05f, 0.00014374405145645142f, 0.00014936356456018984f, 0.00015776086365804076f, 0.00015426127356477082f, 0.00014636525884270668f, 0.00013713959197048098f, 0.0001021575226332061f, 8.67594062583521e-05f, 5.408587458077818e-05f, 0.0001832858397392556f, 0.00011627786443568766f, 0.00015286148118320853f, 7.926366379251704e-05f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #110 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_29_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 144,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.007734416052699089f, 0.008640408515930176f, 0.004723185673356056f, 0.029594730585813522f, 0.013532638549804688f, 0.019056880846619606f, 0.008633675053715706f, 0.004305009264498949f, 0.009135863743722439f, 0.008906673640012741f, 0.005627624690532684f, 0.019177228212356567f, 0.011273372918367386f, 0.003608326893299818f, 0.01792074181139469f, 0.015308072790503502f, 0.009361433796584606f, 0.013848464004695415f, 0.005344711244106293f, 0.015389672480523586f, 0.014917630702257156f, 0.007111500017344952f, 0.0068539585918188095f, 0.008135014213621616f, 0.01704469323158264f, 0.005277136340737343f, 0.009127623401582241f, 0.009165476076304913f, 0.004841586574912071f, 0.002546371426433325f, 0.018989654257893562f, 0.021760083734989166f, 0.05734490975737572f, 0.00973420962691307f, 0.0043408521451056f, 0.00831549521535635f, 0.009906857274472713f, 0.009212535806000233f, 0.0054741366766393185f, 0.013236784376204014f, 0.01858529821038246f, 0.009642200544476509f, 0.007286564446985722f, 0.022299718111753464f, 0.013937879353761673f, 0.01841120235621929f, 0.016331149265170097f, 0.005328831262886524f, 0.009338774718344212f, 0.009269610978662968f, 0.017865952104330063f, 0.017551392316818237f, 0.019341103732585907f, 0.010684333741664886f, 0.01408489141613245f, 0.014911490492522717f, 0.007677421905100346f, 0.014293918386101723f, 0.011778500862419605f, 0.057325199246406555f, 0.019065581262111664f, 0.019961534067988396f, 0.00964327435940504f, 0.008851941674947739f, 0.04021596908569336f, 0.008023865520954132f, 0.01701338216662407f, 0.019479189068078995f, 0.025981875136494637f, 0.011572281830012798f, 0.006156053394079208f, 0.003834750736132264f, 0.0077128903940320015f, 0.011767059564590454f, 0.007851552218198776f, 0.004829642362892628f, 0.006404927000403404f, 0.008092227391898632f, 0.00893546175211668f, 0.003604295663535595f, 0.005320374388247728f, 0.012512324377894402f, 0.008925956673920155f, 0.011016328819096088f, 0.00305071659386158f, 0.002316022291779518f, 0.01800624653697014f, 0.008254973217844963f, 0.0066271512769162655f, 0.006471740081906319f, 0.00822018925100565f, 0.004299808293581009f, 0.0023854521568864584f, 0.0070635792799293995f, 0.006407196633517742f, 0.006953743752092123f, 0.007640159223228693f, 0.005163656547665596f, 0.005472827237099409f, 0.005301464349031448f, 0.010069566778838634f, 0.008627086877822876f, 0.011322746984660625f, 0.010545725002884865f, 0.03701302036643028f, 0.02641589194536209f, 0.00930420495569706f, 0.019091149792075157f, 0.006669529248028994f, 0.009645233862102032f, 0.012294796295464039f, 0.0034453067928552628f, 0.011054214090108871f, 0.007897852919995785f, 0.007343351375311613f, 0.014194006100296974f, 0.013052750378847122f, 0.013752724044024944f, 0.0025184592232108116f, 0.00786239467561245f, 0.012889057397842407f, 0.00856110267341137f, 0.003027141559869051f, 0.04292736575007439f, 0.014353251084685326f, 0.011037289164960384f, 0.00674059335142374f, 0.004083354491740465f, 0.01202760823071003f, 0.007848900742828846f, 0.03914695233106613f, 0.018756847828626633f, 0.017332013696432114f, 0.007827346213161945f, 0.006377004086971283f, 0.008362107910215855f, 0.0055405194871127605f, 0.0071593839675188065f, 0.015074549242854118f, 0.013731202110648155f, 0.009026063606142998f, 0.009604398161172867f, 0.015548058785498142f, 0.015862733125686646f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #111 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_29_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 144,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00018198626639787108f, 0.0002033037308137864f, 0.00011113378423033282f, 0.0006963466294109821f, 0.0003184150264132768f, 0.00044839721522293985f, 0.00020314530411269516f, 0.00010129433940164745f, 0.00021496150293387473f, 0.00020956879598088562f, 0.0001324147015111521f, 0.0004512289015110582f, 0.00026525583234615624f, 8.490181062370539e-05f, 0.00042166453204117715f, 0.0003601899661589414f, 0.0002202690375270322f, 0.00032584622385911644f, 0.00012575791333802044f, 0.0003621099458541721f, 0.0003510030801407993f, 0.00016732941730879247f, 0.00016126962145790458f, 0.0001914121094159782f, 0.0004010516277048737f, 0.00012416791287250817f, 0.00021476761321537197f, 0.00021565826318692416f, 0.00011391968291718513f, 5.991462239762768e-05f, 0.0004468153929337859f, 0.0005120019777677953f, 0.0013492919970303774f, 0.00022904023353476077f, 0.00010213770292466506f, 0.00019565870752558112f, 0.00023310253163799644f, 0.00021676554752048105f, 0.00012880322174169123f, 0.00031145376851782203f, 0.00043730114703066647f, 0.00022687531600240618f, 0.0001714485842967406f, 0.0005246992805041373f, 0.00032795011065900326f, 0.0004332047828938812f, 0.0003842623555101454f, 0.00012538426381070167f, 0.0002197358844568953f, 0.00021810850012116134f, 0.0004203753487672657f, 0.00041297395364381373f, 0.00045508480980060995f, 0.0002513960935175419f, 0.0003314092173241079f, 0.00035085860872641206f, 0.0001806452200980857f, 0.00033632750273682177f, 0.00027714119642041624f, 0.0013488281983882189f, 0.0004486019315663725f, 0.00046968317474238575f, 0.00022690057812724262f, 0.00020828098058700562f, 0.000946258136536926f, 0.0001887968392111361f, 0.0004003148933406919f, 0.0004583338741213083f, 0.0006113382405601442f, 0.00027228897670283914f, 0.00014484832354355603f, 9.022943413583562e-05f, 0.00018147977243643254f, 0.00027687198598869145f, 0.000184742413694039f, 0.00011363864905433729f, 0.00015070417430251837f, 0.00019040534971281886f, 0.00021024615853093565f, 8.480696124024689e-05f, 0.00012518528092186898f, 0.00029440762591548264f, 0.00021002251014579087f, 0.00025920773623511195f, 7.178157102316618e-05f, 5.4494641517521814e-05f, 0.0004236763925291598f, 0.00019423467165324837f, 0.00015593296848237514f, 0.0001522762468084693f, 0.00019341622828505933f, 0.0001011719650705345f, 5.612828681478277e-05f, 0.00016620186215732247f, 0.00015075756527949125f, 0.00016361750022042543f, 0.00017976845265366137f, 0.00012149780377512798f, 0.00012877241533715278f, 0.00012474034156184644f, 0.00023693098046351224f, 0.00020299028255976737f, 0.0002664175699464977f, 0.0002481347182765603f, 0.0008708946406841278f, 0.0006215504254214466f, 0.00021892247605137527f, 0.00044920353684574366f, 0.00015693010936956853f, 0.0002269466785946861f, 0.0002892893389798701f, 8.106604218482971e-05f, 0.00026009915745817125f, 0.00018583184282761067f, 0.00017278474115300924f, 0.00033397661172784865f, 0.0003071235551033169f, 0.0003235935000702739f, 5.925786535954103e-05f, 0.00018499752331990749f, 0.00030327195418067276f, 0.00020143770962022245f, 7.122685929061845e-05f, 0.0010100556537508965f, 0.0003377235552761704f, 0.00025970092974603176f, 0.00015860219718888402f, 9.607893298380077e-05f, 0.0002830025623552501f, 0.00018468001508153975f, 0.0009211048018187284f, 0.0004413376154843718f, 0.00040781209827400744f, 0.0001841728517320007f, 0.0001500471553299576f, 0.00019675548537634313f, 0.00013036516611464322f, 0.00016845609934534878f, 0.0003546952793840319f, 0.00032308712252415717f, 0.0002123779704561457f, 0.00022598584473598748f, 0.00036583669134415686f, 0.0003732407931238413f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #112 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_30_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 24,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.004068746231496334f, 0.0073698051273822784f, 0.014960330910980701f, 0.00804206170141697f, 0.00492484075948596f, 0.009955296292901039f, 0.004979216493666172f, 0.03047044575214386f, 0.004772796295583248f, 0.00873809028416872f, 0.006155200768262148f, 0.0038031593430787325f, 0.005053104367107153f, 0.00736711360514164f, 0.0033617394510656595f, 0.004783991724252701f, 0.005299669690430164f, 0.007211747113615274f, 0.003925708122551441f, 0.021403955295681953f, 0.005732816644012928f, 0.004394665360450745f, 0.010472557507455349f, 0.0040443395264446735f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #113 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_30_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 24,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(9.573520947014913e-05f, 0.0001734071847749874f, 0.00035200780257582664f, 0.0001892249856609851f, 0.00011587861081352457f, 0.00023424226674251258f, 0.00011715803702827543f, 0.0007169516757130623f, 0.00011230108793824911f, 0.0002056021330645308f, 0.00014482825645245612f, 8.94861004780978e-05f, 0.00011889657616848126f, 0.00017334385483991355f, 7.909975101938471e-05f, 0.00011256451398367062f, 0.00012469811190385371f, 0.0001696881663519889f, 9.236960613634437e-05f, 0.0005036224611103535f, 0.00013488980766851455f, 0.00010340389417251572f, 0.0002464131102897227f, 9.516093268757686e-05f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #114 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_32_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 144,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00023064696870278567f, 0.0007488114642910659f, 0.0008413380128331482f, 0.0007255163509398699f, 0.0008512407657690346f, 0.00016679188411217183f, 0.0006015236140228808f, 0.00018027926853392273f, 0.0003883973404299468f, 0.0001608102465979755f, 0.0004930633003823459f, 0.00026620388962328434f, 0.0008224774501286447f, 0.0003815818054135889f, 0.0005447108997032046f, 0.0003835256502497941f, 0.0003164767404086888f, 0.0010358019499108195f, 0.00035053445026278496f, 0.00028826174093410373f, 0.00041868261178024113f, 0.00041812745621427894f, 0.0005215437267906964f, 0.0007203553104773164f, 0.0005921132978983223f, 0.0003873306268360466f, 0.00045270644477568567f, 0.0004081444931216538f, 0.0003827748296316713f, 0.00040208548307418823f, 0.00046072894474491477f, 0.00045976965338923037f, 0.000724553014151752f, 0.0005288687534630299f, 0.0007650639745406806f, 0.0007148970034904778f, 0.0007068334380164742f, 0.0006719050579704344f, 0.0003211043367628008f, 0.0004703207523562014f, 0.0005785764078609645f, 0.00044217947288416326f, 0.0008047467563301325f, 0.00018152242409996688f, 0.0005843762774020433f, 0.00010963418026221916f, 0.0004963005194440484f, 0.0003615038294810802f, 0.0005015157512389123f, 0.0004598063533194363f, 0.0007134798797778785f, 0.0006372739444486797f, 0.0005859246011823416f, 0.0001648232719162479f, 0.0005812226445414126f, 0.0006905967020429671f, 0.00042606127681210637f, 0.0005347543046809733f, 0.0004153113404754549f, 0.0006056468118913472f, 0.000554122612811625f, 0.00025267762248404324f, 0.0005860502133145928f, 0.0005523227737285197f, 0.0005317972972989082f, 0.0004751887754537165f, 0.0004597051884047687f, 0.0005573111120611429f, 0.0007664862787351012f, 0.0007702223374508321f, 0.0006594057776965201f, 0.0010276851244270802f, 0.0005429848097264767f, 0.00031702531850896776f, 0.0005462479311972857f, 0.0007354675326496363f, 0.0005157882696948946f, 0.000241976827965118f, 0.00024328248400706798f, 0.000394439761294052f, 0.0003891130618285388f, 0.0008046532748267055f, 0.00034125856473110616f, 0.00021825972362421453f, 0.00036482466384768486f, 0.0005983221344649792f, 0.0006143513019196689f, 0.0007142465910874307f, 0.0006639183266088367f, 0.0003505030763335526f, 0.0004649859038181603f, 0.0008400881779380143f, 0.00044154864735901356f, 0.00040041780448518693f, 0.0015037920093163848f, 0.0007334948750212789f, 0.0005825135158374906f, 0.00020888309518340975f, 0.0006955215940251946f, 0.0004405998042784631f, 0.00036181072937324643f, 0.0004696266842074692f, 0.0005014515481889248f, 0.00030680271447636187f, 0.0006639415514655411f, 0.000526954943779856f, 0.0006458202260546386f, 0.0006934728589840233f, 0.0004060252686031163f, 0.0006138493772596121f, 0.00038223163574002683f, 0.0002929370675701648f, 0.000468571757664904f, 0.000818392843939364f, 0.000502093811519444f, 0.00028743501752614975f, 0.0007150376331992447f, 0.00031954565201886f, 0.00039016027585603297f, 0.0003599812334869057f, 0.0007432985003106296f, 0.0008757043397054076f, 0.0004061113577336073f, 0.0006673943717032671f, 0.00045224782661534846f, 0.0003690504527185112f, 0.0007852572598494589f, 0.0007756089325994253f, 0.0004027722461614758f, 0.0010950921569019556f, 0.0004907158436253667f, 0.00042888650204986334f, 0.0005262821796350181f, 0.0006341394619084895f, 0.00042339065112173557f, 0.00033274071756750345f, 0.000858503277413547f, 0.0009125843062065542f, 0.0012034844839945436f, 0.0006602803478017449f, 0.0004454216395970434f, 0.00024815319920890033f, 0.0004233919025864452f, 0.00047727959463372827f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #115 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_32_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 144,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(5.4530639317817986e-05f, 0.00017703752382658422f, 0.00019891308329533786f, 0.00017152998771052808f, 0.0002012543409364298f, 3.943372212233953e-05f, 0.00014221503806766123f, 4.262247239239514e-05f, 9.18267251108773e-05f, 3.8019512430764735e-05f, 0.00011657234426820651f, 6.29371716058813e-05f, 0.0001944539835676551f, 9.021536243380979e-05f, 0.00012878311099484563f, 9.067493374459445e-05f, 7.482292130589485e-05f, 0.0002448891755193472f, 8.287500531878322e-05f, 6.815219239797443e-05f, 9.898690768750384e-05f, 9.885565668810159e-05f, 0.00012330581375863403f, 0.00017030978051479906f, 0.00013999021030031145f, 9.157452586805448e-05f, 0.00010703098814701661f, 9.649543790146708e-05f, 9.049742220668122e-05f, 9.506294009042904e-05f, 0.00010892769932979718f, 0.00010870090045500547f, 0.0001713022356852889f, 0.00012503763718996197f, 0.0001808800152502954f, 0.00016901930212043226f, 0.00016711288481019437f, 0.00015885494940448552f, 7.5916999776382e-05f, 0.00011119544069515541f, 0.0001367897493764758f, 0.00010454215225763619f, 0.00019026201334781945f, 4.291638470022008e-05f, 0.00013816099090036005f, 2.592022792669013e-05f, 0.00011733770224964246f, 8.546843309886754e-05f, 0.00011857070785481483f, 0.00010870958067243919f, 0.00016868427337612957f, 0.00015066729974932969f, 0.00013852704432792962f, 3.8968293665675446e-05f, 0.00013741539441980422f, 0.00016327411867678165f, 0.00010073140583699569f, 0.00012642912042792886f, 9.818985563470051e-05f, 0.00014318987086880952f, 0.00013100827345624566f, 5.973923180135898e-05f, 0.0001385567447869107f, 0.00013058274635113776f, 0.00012573001731652766f, 0.00011234636622248217f, 0.00010868566459976137f, 0.00013176210632082075f, 0.0001812162809073925f, 0.00018209958216175437f, 0.00015589981921948493f, 0.0002429701416986063f, 0.0001283750170841813f, 7.495261525036767e-05f, 0.0001291465014219284f, 0.00017388268315698951f, 0.00012194508599350229f, 5.720929766539484e-05f, 5.751798744313419e-05f, 9.325530118076131e-05f, 9.199594205711037e-05f, 0.00019023990898858756f, 8.068195165833458e-05f, 5.160198998055421e-05f, 8.625355985714123e-05f, 0.00014145813474897295f, 0.0001452478172723204f, 0.0001688655320322141f, 0.00015696669288445264f, 8.286758384201676e-05f, 0.00010993415344273672f, 0.00019861759210471064f, 0.00010439300967846066f, 9.466865594731644e-05f, 0.00035553358611650765f, 0.00017341630882583559f, 0.00013772057718597353f, 4.9385122110834345e-05f, 0.00016443849017377943f, 0.00010416867735330015f, 8.554099622415379e-05f, 0.00011103134602308273f, 0.00011855553020723164f, 7.253573858179152e-05f, 0.00015697217895649374f, 0.00012458515993785113f, 0.00015268784773070365f, 0.000163954115123488f, 9.599440090823919e-05f, 0.00014512916095554829f, 9.036900155479088e-05f, 6.925755587872118e-05f, 0.00011078193347202614f, 0.0001934882893692702f, 0.00011870737944263965f, 6.795673834858462e-05f, 0.00016905255324672908f, 7.554848707513884e-05f, 9.22435283428058e-05f, 8.510845509590581e-05f, 0.00017573412333149463f, 0.00020703813061118126f, 9.601475903764367e-05f, 0.00015778851229697466f, 0.00010692255455069244f, 8.72526434250176e-05f, 0.000185654207598418f, 0.00018337310757488012f, 9.522531036054716e-05f, 0.0002589068317320198f, 0.00011601734877331182f, 0.00010139936057385057f, 0.00012442610750440508f, 0.00014992622891440988f, 0.00010010000551119447f, 7.866812666179612e-05f, 0.00020297137962188572f, 0.00021575746359303594f, 0.00028453345294110477f, 0.0001561065873829648f, 0.00010530867439229041f, 5.8669545978773385e-05f, 0.00010010030382545665f, 0.00011284068750683218f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #116 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_33_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 144,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.014573846943676472f, 0.01122200209647417f, 0.003055453998968005f, 0.0051567768678069115f, 0.0037369162309914827f, 0.020721647888422012f, 0.011356059461832047f, 0.013960360549390316f, 0.00551436934620142f, 0.016247794032096863f, 0.0049268025904893875f, 0.02057742141187191f, 0.01956523023545742f, 0.004452809691429138f, 0.007583791855722666f, 0.016672154888510704f, 0.029198095202445984f, 0.01572778820991516f, 0.023537028580904007f, 0.021949121728539467f, 0.02458875998854637f, 0.007019443903118372f, 0.012928517535328865f, 0.011636916548013687f, 0.005806486122310162f, 0.012728705070912838f, 0.013568548485636711f, 0.013866844587028027f, 0.01743508316576481f, 0.006644655019044876f, 0.008798870258033276f, 0.007686545141041279f, 0.0096025625243783f, 0.005183039233088493f, 0.004244035575538874f, 0.008367695845663548f, 0.00764218857511878f, 0.016921741887927055f, 0.019561251625418663f, 0.01715211197733879f, 0.010867706499993801f, 0.009661013260483742f, 0.009394226595759392f, 0.014182141050696373f, 0.005295605398714542f, 0.00782080553472042f, 0.005753748118877411f, 0.012351813726127148f, 0.014873875305056572f, 0.017078863456845284f, 0.008154659532010555f, 0.011514004319906235f, 0.006931975018233061f, 0.019109467044472694f, 0.003782500745728612f, 0.008328821510076523f, 0.007336626760661602f, 0.018786434084177017f, 0.006180015858262777f, 0.006522541865706444f, 0.009392067790031433f, 0.01002195943146944f, 0.004149188753217459f, 0.004759564530104399f, 0.015097727067768574f, 0.012889358215034008f, 0.005542009137570858f, 0.004587947390973568f, 0.00587750319391489f, 0.003886747406795621f, 0.007281193975359201f, 0.0044097802601754665f, 0.013593243435025215f, 0.009354589506983757f, 0.005756668280810118f, 0.0025803428143262863f, 0.022261999547481537f, 0.006520221475511789f, 0.015485732816159725f, 0.007954800501465797f, 0.010756892152130604f, 0.00964888371527195f, 0.017436394467949867f, 0.01001489907503128f, 0.016469499096274376f, 0.007903918623924255f, 0.009684491902589798f, 0.0064080506563186646f, 0.001766315777786076f, 0.012051180936396122f, 0.018017737194895744f, 0.004548913799226284f, 0.006381382700055838f, 0.005929618142545223f, 0.01133235264569521f, 0.0025307906325906515f, 0.010542232543230057f, 0.017016472294926643f, 0.008061189204454422f, 0.009499463252723217f, 0.012038485147058964f, 0.01386589091271162f, 0.030252743512392044f, 0.031182777136564255f, 0.006992784328758717f, 0.00362646603025496f, 0.008584609255194664f, 0.008986159227788448f, 0.009312739595770836f, 0.010172758251428604f, 0.01082172803580761f, 0.009855082258582115f, 0.015707388520240784f, 0.009436307474970818f, 0.009683319367468357f, 0.013872623443603516f, 0.005962137132883072f, 0.008864674717187881f, 0.008692929521203041f, 0.026847517117857933f, 0.0194393303245306f, 0.010091166943311691f, 0.006453720852732658f, 0.019049016758799553f, 0.026708003133535385f, 0.019844062626361847f, 0.0037345727905631065f, 0.00615992397069931f, 0.006853827275335789f, 0.004682965110987425f, 0.009257650934159756f, 0.008901391178369522f, 0.0031241050455719233f, 0.006444866769015789f, 0.010781294666230679f, 0.025315340608358383f, 0.006197374779731035f, 0.00878333579748869f, 0.019007282331585884f, 0.005555079784244299f, 0.011092609725892544f, 0.015427167527377605f, 0.01817716658115387f, 0.006378219462931156f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #117 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_33_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 144,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0003429140488151461f, 0.00026404712116345763f, 7.189303869381547e-05f, 0.00012133592827012762f, 8.792744483798742e-05f, 0.00048756820615381f, 0.00026720139430835843f, 0.0003284790727775544f, 0.00012974986748304218f, 0.00038230104837566614f, 0.00011592476948862895f, 0.00048417464131489396f, 0.0004603583656717092f, 0.00010477199248271063f, 0.00017844216199591756f, 0.00039228599052876234f, 0.0006870140205137432f, 0.00037006562342867255f, 0.0005538124241866171f, 0.0005164499161764979f, 0.0005785590619780123f, 0.00016516339383088052f, 0.0003042004245799035f, 0.00027380979736335576f, 0.00013662320270668715f, 0.00029949896270409226f, 0.0003192599688190967f, 0.0003262787067797035f, 0.00041023726225830615f, 0.0001563448313390836f, 0.000207032251637429f, 0.00018085988995153457f, 0.0002259426546515897f, 0.00012195386807434261f, 9.985966607928276e-05f, 0.00019688696193043143f, 0.00017981621203944087f, 0.00039815864874981344f, 0.00046026473864912987f, 0.00040357912075705826f, 0.00025571073638275266f, 0.00022731797071173787f, 0.0002210406237281859f, 0.00033369744778610766f, 0.0001246024767169729f, 0.0001840189506765455f, 0.00013538231723941863f, 0.0002906309091486037f, 0.00034997353213839233f, 0.00040185562102124095f, 0.00019187435100320727f, 0.00027091774973087013f, 0.00016310530190821737f, 0.0004496345354709774f, 8.900002285372466e-05f, 0.00019597227219492197f, 0.0001726265181787312f, 0.0004420337500050664f, 0.0001454121374990791f, 0.0001534715702291578f, 0.0002209898375440389f, 0.00023581081768497825f, 9.762796980794519e-05f, 0.00011198975698789582f, 0.0003552406560629606f, 0.00030327902641147375f, 0.00013040022167842835f, 0.00010795170237543061f, 0.00013829419913236052f, 9.145287913270295e-05f, 0.00017132221546489745f, 0.00010375953570473939f, 0.00031984102679416537f, 0.00022010799148119986f, 0.00013545101683121175f, 6.071394818718545e-05f, 0.0005238117882981896f, 0.0001534169859951362f, 0.0003643701784312725f, 0.0001871717831818387f, 0.00025310335331596434f, 0.0002270325639983639f, 0.0004102681123185903f, 0.0002356446930207312f, 0.0003875176189467311f, 0.00018597455346025527f, 0.00022787040506955236f, 0.00015077766147442162f, 4.156037175562233e-05f, 0.0002835571940522641f, 0.00042394676711410284f, 0.00010703326552174985f, 0.00015015018288977444f, 0.00013952043082099408f, 0.00026664359029382467f, 5.9548015997279435e-05f, 0.0002480525290593505f, 0.00040038759470917284f, 0.00018967504729516804f, 0.00022351679217536002f, 0.0002832584723364562f, 0.00032625626772642136f, 0.0007118292851373553f, 0.0007337123970501125f, 0.0001645361044211313f, 8.532861102139577e-05f, 0.00020199081336613744f, 0.00021143905178178102f, 0.00021912329248152673f, 0.00023935902572702616f, 0.00025462888879701495f, 0.00023188428895082325f, 0.00036958561395294964f, 0.00022203076514415443f, 0.00022784281463827938f, 0.00032641467987559736f, 0.00014028558507561684f, 0.00020858058996964246f, 0.00020453952311072499f, 0.0006317063234746456f, 0.0004573960031848401f, 0.00023743922065477818f, 0.0001518522622063756f, 0.00044821217306889594f, 0.0006284236442297697f, 0.00046691912575624883f, 8.787230035522953e-05f, 0.00014493938942905515f, 0.00016126652189996094f, 0.00011018741497537121f, 0.00021782708063255996f, 0.00020944450807292014f, 7.350835221586749e-05f, 0.00015164392243605107f, 0.0002536775136832148f, 0.0005956550594419241f, 0.0001458205806557089f, 0.00020666672207880765f, 0.0004472301807254553f, 0.00013070776185486466f, 0.0002610025985632092f, 0.0003629921702668071f, 0.0004276980471331626f, 0.00015007574984338135f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #118 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_34_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 24,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0061287046410143375f, 0.006585197523236275f, 0.01880340278148651f, 0.006635571364313364f, 0.007589112035930157f, 0.008424500934779644f, 0.007097371853888035f, 0.03862857446074486f, 0.005394166801124811f, 0.009015630930662155f, 0.005293200258165598f, 0.003735198639333248f, 0.00920844729989767f, 0.012755360454320908f, 0.005774639546871185f, 0.00470780860632658f, 0.006730298511683941f, 0.0044958218932151794f, 0.007607314269989729f, 0.02644272707402706f, 0.006425867788493633f, 0.005260999780148268f, 0.009319833479821682f, 0.005732689052820206f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #119 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_34_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 24,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00014420482330024242f, 0.00015494582476094365f, 0.0004424330254551023f, 0.00015613109280820936f, 0.0001785673521226272f, 0.00019822355534415692f, 0.00016699699335731566f, 0.0009089076775126159f, 0.00012692157179117203f, 0.00021213249419815838f, 0.00012454588431864977f, 8.788702689344063e-05f, 0.00021666935936082155f, 0.0003001261211466044f, 0.00013587388093583286f, 0.00011077197268605232f, 0.00015835996600799263f, 0.00010578404908301309f, 0.00017899562953971326f, 0.0006221818039193749f, 0.00015119688760023564f, 0.00012378823885228485f, 0.0002192902029491961f, 0.0001348868099739775f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #120 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_36_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 144,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0005976696847938001f, 0.0002820446970872581f, 0.0007641325355507433f, 0.001131705241277814f, 0.0010221196571364999f, 0.0014385911636054516f, 0.0006277065840549767f, 0.0005828496068716049f, 0.0005150555516593158f, 0.000821490481030196f, 0.0003706766292452812f, 0.0006288366857916117f, 0.001233546296134591f, 0.00033139617880806327f, 0.0003616449248511344f, 0.0006440716679207981f, 0.0002153415116481483f, 0.0005326181999407709f, 0.0005314882146194577f, 0.0008328097173944116f, 0.0005528422188945115f, 0.0009500936139374971f, 0.0009540598257444799f, 0.0002909285540226847f, 0.0004332067910581827f, 0.0007979118963703513f, 0.0007477801409550011f, 0.0004850893747061491f, 0.0006015574908815324f, 0.000501180300489068f, 0.0001727952330838889f, 0.0005641435272991657f, 0.0004518083587754518f, 0.0004234289226587862f, 0.0003394866653252393f, 0.0003011512162629515f, 0.0009671712177805603f, 0.0004900573403574526f, 0.0006503384793177247f, 0.0005710494006052613f, 0.0012166529195383191f, 0.00031141043291427195f, 0.0006181364296935499f, 0.00030449204496107996f, 0.0011076602386310697f, 0.0015292383031919599f, 0.0008184488397091627f, 0.0007552862516604364f, 0.0007097946363501251f, 0.0005251682014204562f, 0.00032018590718507767f, 0.0009703488321974874f, 0.0005971239879727364f, 0.00040303569403477013f, 0.000418557261582464f, 0.00024517637211829424f, 0.0005559895653277636f, 0.0006954467971809208f, 0.00031784665770828724f, 0.000887232949025929f, 0.0007057776092551649f, 0.0004217522800900042f, 0.00047091254964470863f, 0.0006554274586960673f, 0.0007745992625132203f, 0.0007794431876391172f, 0.0008094097720459104f, 0.0003365963639225811f, 0.0006223678938113153f, 0.0005119159468449652f, 0.0007631967309862375f, 0.00032490177545696497f, 0.0005576846306212246f, 0.0004346637288108468f, 0.0002358278725296259f, 0.0006513079279102385f, 0.0005555053357966244f, 0.0004674586816690862f, 0.00038085266714915633f, 0.0014960700646042824f, 0.0006831552600488067f, 0.0005342629738152027f, 0.0009324136772193015f, 0.00041481206426396966f, 0.0010368841467425227f, 0.00024811734328977764f, 0.0005553867667913437f, 0.000643699080683291f, 0.00034705063444562256f, 0.0002876862126868218f, 0.00029824796365574f, 0.0010605215793475509f, 0.0004621503467205912f, 0.0008461183751933277f, 0.0006730604218319058f, 0.0006980410544201732f, 0.0005416597123257816f, 0.0006147269159555435f, 0.0010650854092091322f, 0.0003993994614575058f, 0.0011315803276374936f, 0.0005503007560037076f, 0.0009309386950917542f, 0.0008660035091452301f, 0.0009933133842423558f, 0.0004461410571821034f, 0.0003826879255939275f, 0.0005081480485387146f, 0.00020825598039664328f, 0.0007538394420407712f, 0.0008354141609743237f, 0.00037664876435883343f, 0.0007450131233781576f, 0.0005748214898630977f, 0.0008568914490751922f, 0.0006740280077792704f, 0.0006277685170061886f, 0.0016709488118067384f, 0.0006951891700737178f, 0.00030548262293450534f, 0.0007282842416316271f, 0.0006702606333419681f, 0.00029687583446502686f, 0.0005294450675137341f, 0.00019844755297526717f, 0.0006160382181406021f, 0.00019721641729120165f, 0.0008047491428442299f, 0.0005799848586320877f, 0.0003642109513748437f, 0.0003940811147913337f, 0.0005476904334500432f, 0.0006262842216528952f, 0.0007942984229885042f, 0.0005521448329091072f, 0.0002809001016430557f, 0.0007053810986690223f, 0.0003835584793705493f, 0.0009348824387416244f, 0.0008902110275812447f, 0.0007444386719726026f, 0.00034260237589478493f, 0.00019935221644118428f, 0.00040745525620877743f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #121 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_36_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 144,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00017440281226299703f, 8.230195817304775e-05f, 0.00022297743998933583f, 0.0003302368859294802f, 0.0002982592850457877f, 0.0004197876260150224f, 0.00018316770729143173f, 0.0001700782449916005f, 0.00015029561473056674f, 0.00023971476184669882f, 0.00010816517169587314f, 0.00018349748279433697f, 0.0003599545743782073f, 9.670295548858121e-05f, 0.00010552968160482123f, 0.0001879431220004335f, 6.283765833359212e-05f, 0.00015542047913186252f, 0.00015509074728470296f, 0.00024301777011714876f, 0.00016132193559315056f, 0.00027724175015464425f, 0.0002783991221804172f, 8.489430911140516e-05f, 0.00012641175999306142f, 0.00023283441259991378f, 0.0002182057360187173f, 0.00014155133976601064f, 0.0001755372795742005f, 0.00014624674804508686f, 5.0422455387888476e-05f, 0.0001646197197260335f, 0.00013183978444430977f, 0.00012355853687040508f, 9.906379273161292e-05f, 8.787732804194093e-05f, 0.00028222508262842894f, 0.00014300101611297578f, 0.00018977180297952145f, 0.00016663488349877298f, 0.00035502499667927623f, 9.08710208022967e-05f, 0.00018037509289570153f, 8.885220449883491e-05f, 0.000323220418067649f, 0.0004462388751562685f, 0.00023882719688117504f, 0.0002203960611950606f, 0.00020712139667011797f, 0.00015324653941206634f, 9.343174315290526e-05f, 0.00028315233066678047f, 0.000174243570654653f, 0.00011760769848478958f, 0.00012213696027174592f, 7.154361082939431e-05f, 0.00016224035061895847f, 0.00020293462148401886f, 9.274914191337302e-05f, 0.00025889871176332235f, 0.00020594919624272734f, 0.00012306928692851216f, 0.00013741447764914483f, 0.00019125679682474583f, 0.00022603168326895684f, 0.00022744516900274903f, 0.00023618954583071172f, 9.822039282880723e-05f, 0.0001816098520066589f, 0.00014937946980353445f, 0.00022270437330007553f, 9.480785229243338e-05f, 0.0001627349847694859f, 0.0001268369087483734f, 6.881567242089659e-05f, 0.0001900546922115609f, 0.00016209905152209103f, 0.00013640662655234337f, 0.00011113458458567038f, 0.00043656022171489894f, 0.00019934789452236146f, 0.00015590043039992452f, 0.00027208265964873135f, 0.00012104409688618034f, 0.0003025676414836198f, 7.240180275402963e-05f, 0.00016206444706767797f, 0.00018783440464176238f, 0.00010127099812962115f, 8.394817996304482e-05f, 8.703015191713348e-05f, 0.0003094651619903743f, 0.00013485763338394463f, 0.00024690129794180393f, 0.0001964021794265136f, 0.00020369164121802896f, 0.0001580588286742568f, 0.00017938017845153809f, 0.00031079689506441355f, 0.00011654663103399798f, 0.0003302004188299179f, 0.0001605803263373673f, 0.00027165227220393717f, 0.0002527038741391152f, 0.0002898534876294434f, 0.00013018604659009725f, 0.00011167012416990474f, 0.00014827997074462473f, 6.077006764826365e-05f, 0.00021997386647854f, 0.00024377775844186544f, 0.00010990786540787667f, 0.00021739830845035613f, 0.00016773559036664665f, 0.00025004491908475757f, 0.00019668451568577439f, 0.00018318578077014536f, 0.0004875906743109226f, 0.00020285944628994912f, 8.914125646697357e-05f, 0.0002125167375197634f, 0.00019558517669793218f, 8.662975596962497e-05f, 0.00015449454076588154f, 5.7907924201572314e-05f, 0.00017976283561438322f, 5.75486701563932e-05f, 0.000234829552937299f, 0.00016924229566939175f, 0.00010627845767885447f, 0.00011499471293063834f, 0.00015981862088665366f, 0.00018275265756528825f, 0.00023177999537438154f, 0.00016111844161059707f, 8.196796261472628e-05f, 0.0002058334939647466f, 0.00011192415695404634f, 0.0002728030667640269f, 0.00025976772303692997f, 0.00021723068493884057f, 9.997297456720844e-05f, 5.817190685775131e-05f, 0.00011889734741998836f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #122 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_37_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 144,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.003110728692263365f, 0.00532615277916193f, 0.006226935889571905f, 0.0048185428604483604f, 0.009487706236541271f, 0.004124792758375406f, 0.007175390142947435f, 0.0070832823403179646f, 0.007146093528717756f, 0.004571627825498581f, 0.010761543177068233f, 0.006599226035177708f, 0.0051454417407512665f, 0.009599043987691402f, 0.016468841582536697f, 0.005943840369582176f, 0.017680838704109192f, 0.01338634081184864f, 0.015713872388005257f, 0.009390018880367279f, 0.005196409299969673f, 0.010350451804697514f, 0.004686477594077587f, 0.016027698293328285f, 0.01816103234887123f, 0.014645860530436039f, 0.009494636207818985f, 0.00981936976313591f, 0.00728941336274147f, 0.007873891852796078f, 0.027747344225645065f, 0.008640417829155922f, 0.007306350395083427f, 0.0072802649810910225f, 0.014234046451747417f, 0.016512487083673477f, 0.002680273959413171f, 0.009531000629067421f, 0.011123282834887505f, 0.01656949333846569f, 0.006337449420243502f, 0.01213756576180458f, 0.0030018684919923544f, 0.00841359980404377f, 0.004853169899433851f, 0.004422230180352926f, 0.009506681933999062f, 0.004201516043394804f, 0.006609027273952961f, 0.0076009067706763744f, 0.009616888128221035f, 0.00844650249928236f, 0.010570677928626537f, 0.005582856014370918f, 0.006955415941774845f, 0.019116494804620743f, 0.0063521964475512505f, 0.005232315044850111f, 0.014871546998620033f, 0.006491719279438257f, 0.002704483922570944f, 0.010461381636559963f, 0.010150041431188583f, 0.004501800052821636f, 0.004779390059411526f, 0.0033694615121930838f, 0.008028258569538593f, 0.01016219612210989f, 0.004586437251418829f, 0.005436585750430822f, 0.004672317765653133f, 0.016045313328504562f, 0.005903664510697126f, 0.009876633062958717f, 0.023872310295701027f, 0.027978720143437386f, 0.006400824524462223f, 0.007922607474029064f, 0.029438110068440437f, 0.0021624197252094746f, 0.022681914269924164f, 0.013674110174179077f, 0.006887273862957954f, 0.011383346281945705f, 0.007116683758795261f, 0.01774994470179081f, 0.003972754348069429f, 0.006573223974555731f, 0.008551388047635555f, 0.01895952597260475f, 0.009825044311583042f, 0.006350503768771887f, 0.004834163933992386f, 0.004312154836952686f, 0.006186125334352255f, 0.002845830749720335f, 0.0047468929551541805f, 0.015634605661034584f, 0.01622748374938965f, 0.010241420939564705f, 0.014381340704858303f, 0.004052890930324793f, 0.006072135642170906f, 0.014223974198102951f, 0.008119406178593636f, 0.009830351918935776f, 0.015219908207654953f, 0.007587836589664221f, 0.02816707454621792f, 0.004321010317653418f, 0.0055343941785395145f, 0.006007237825542688f, 0.005294024478644133f, 0.004645633976906538f, 0.010476539842784405f, 0.009689077734947205f, 0.010005846619606018f, 0.003501271363347769f, 0.007641206495463848f, 0.011312429793179035f, 0.011326034553349018f, 0.006274661980569363f, 0.01583917625248432f, 0.008590578101575375f, 0.037210140377283096f, 0.009864205494523048f, 0.01810447685420513f, 0.0029010840225964785f, 0.00811890047043562f, 0.01292533427476883f, 0.009763059206306934f, 0.008550344035029411f, 0.005032883957028389f, 0.009465383365750313f, 0.010867699980735779f, 0.007082417141646147f, 0.009444432333111763f, 0.011856851167976856f, 0.0029719267040491104f, 0.005093845073133707f, 0.005969946272671223f, 0.019168829545378685f, 0.016156118363142014f, 0.007329705636948347f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #123 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_37_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 144,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(7.319361611735076e-05f, 0.0001253212394658476f, 0.00014651614765170962f, 0.00011337747855577618f, 0.00022324014571495354f, 9.705394768388942e-05f, 0.00016883271746337414f, 0.000166665471624583f, 0.00016814337868709117f, 0.00010756771371234208f, 0.00025321278371848166f, 0.0001552759058540687f, 0.00012106922076782212f, 0.0002258598688058555f, 0.00038750216481275856f, 0.0001398550666635856f, 0.0004160197568126023f, 0.00031497274176217616f, 0.00036973817623220384f, 0.0002209416270488873f, 0.00012226845137774944f, 0.00024354005290661007f, 0.00011027006257791072f, 0.00037712231278419495f, 0.000427318416768685f, 0.0003446085029281676f, 0.00022340321447700262f, 0.00023104400315787643f, 0.00017151561041828245f, 0.00018526804342400283f, 0.0006528787198476493f, 0.0002033039490925148f, 0.0001719141291687265f, 0.00017130035848822445f, 0.00033491876092739403f, 0.00038852912257425487f, 6.306527211563662e-05f, 0.00022425883798860013f, 0.00026172431535087526f, 0.00038987043080851436f, 0.00014911645848769695f, 0.0002855897764675319f, 7.063220255076885e-05f, 0.00019796706328634173f, 0.00011419223301345482f, 0.00010405248031020164f, 0.00022368664212990552f, 9.88592000794597e-05f, 0.00015550652460660785f, 0.00017884487169794738f, 0.00022627972066402435f, 0.00019874123972840607f, 0.000248721829848364f, 0.00013136131747160107f, 0.00016365684859920293f, 0.00044979987433180213f, 0.00014946344890631735f, 0.00012311329192016274f, 0.00034991875872947276f, 0.00015274633187800646f, 6.363491411320865e-05f, 0.0002461501571815461f, 0.0002388245047768578f, 0.00010592470789561048f, 0.00011245624045841396f, 7.92814462329261e-05f, 0.0001889002014650032f, 0.00023911050811875612f, 0.00010791617387440056f, 0.00012791967310477048f, 0.00010993688920279965f, 0.0003775367804337293f, 0.00013890975969843566f, 0.00023239136498887092f, 0.0005617014248855412f, 0.000658322824165225f, 0.00015060763689689338f, 0.00018641429778654128f, 0.0006926614441908896f, 5.08804660057649e-05f, 0.0005336921312846243f, 0.0003217437770217657f, 0.00016205350402742624f, 0.00026784345391206443f, 0.00016745139146223664f, 0.00041764575871638954f, 9.347657760372385e-05f, 0.00015466409968212247f, 0.00020120912813581526f, 0.00044610651093535125f, 0.0002311775169800967f, 0.0001494236203143373f, 0.00011374503810657188f, 0.000101462472230196f, 0.00014555589586962014f, 6.696072523482144e-05f, 0.00011169160279678181f, 0.0003678730863612145f, 0.0003818231634795666f, 0.0002409746084595099f, 0.0003383845032658428f, 9.536214201943949e-05f, 0.00014287378871813416f, 0.0003346817393321544f, 0.00019104484817944467f, 0.00023130240151658654f, 0.0003581155033316463f, 0.00017853733152151108f, 0.0006627546972595155f, 0.00010167083382839337f, 0.00013022104394622147f, 0.00014134676894173026f, 0.00012456528202164918f, 0.00010930903954431415f, 0.00024650682462379336f, 0.0002279783075209707f, 0.0002354316966375336f, 8.238285954575986e-05f, 0.00017979310359805822f, 0.00026617481489665806f, 0.0002664949279278517f, 0.00014763910439796746f, 0.0003726865106727928f, 0.0002021312539000064f, 0.0008755327435210347f, 0.00023209895880427212f, 0.00042598770232871175f, 6.826080061728135e-05f, 0.0001910329592647031f, 0.00030412551132030785f, 0.00022971905127633363f, 0.00020118456450290978f, 0.0001184208013000898f, 0.00022271490888670087f, 0.0002557105908636004f, 0.00016664511349517852f, 0.0002222219482064247f, 0.0002789847494568676f, 6.99276861269027e-05f, 0.00011985518358414993f, 0.00014046933210920542f, 0.000451031286502257f, 0.0003801439597737044f, 0.00017246366769541055f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #124 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_38_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 24,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.010051850229501724f, 0.004839664790779352f, 0.01858077012002468f, 0.010179376229643822f, 0.0069092148914933205f, 0.007158525288105011f, 0.004470166750252247f, 0.022898321971297264f, 0.004210153128951788f, 0.0070328679867088795f, 0.005860778968781233f, 0.003834925126284361f, 0.005762257147580385f, 0.008405794389545918f, 0.004070744849741459f, 0.00430779904127121f, 0.005550101865082979f, 0.013249375857412815f, 0.006002161651849747f, 0.02382984757423401f, 0.004972091410309076f, 0.004605294670909643f, 0.006685925181955099f, 0.004483662545681f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #125 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_38_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 24,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00023651412629988045f, 0.00011387447011657059f, 0.00043719459790736437f, 0.00023951474577188492f, 0.00016256976232398301f, 0.00016843588673509657f, 0.00010518039925955236f, 0.0005387840792536736f, 9.906243212753907e-05f, 0.00016547924315091223f, 0.00013790068624075502f, 9.023353777593002e-05f, 0.0001355825224891305f, 0.0001977834035642445f, 9.57822339842096e-05f, 0.000101359975815285f, 0.00013059063348919153f, 0.0003117500164080411f, 0.00014122734137345105f, 0.0005607022903859615f, 0.00011699039168888703f, 0.00010835987632162869f, 0.00015731589519418776f, 0.00010549794387770817f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #126 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_40_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 144,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0006174944574013352f, 0.0009634193847887218f, 0.00039139724685810506f, 0.000836626160889864f, 0.0004747321945615113f, 0.0007645963341929018f, 0.0005538272671401501f, 0.0008455922943539917f, 0.0007891933782957494f, 0.0008699876489117742f, 0.00034730261540971696f, 0.0013138017384335399f, 0.0006760471151210368f, 0.0006551618571393192f, 0.0007265963940881193f, 0.0007331036613322794f, 0.0009160839836113155f, 0.00042975027463398874f, 0.0008008669246919453f, 0.0005830925656482577f, 0.000571216456592083f, 0.00036202865885570645f, 0.0005408068536780775f, 0.0008704546489752829f, 0.000456256209872663f, 0.0010033843573182821f, 0.0006330669275484979f, 0.0009129746467806399f, 0.0007149634184315801f, 0.0010390381794422865f, 0.0006627148832194507f, 0.001234671799466014f, 0.0007725024479441345f, 0.000769748177845031f, 0.0007583481492474675f, 0.0006701149395667017f, 0.001124715432524681f, 0.0008386083645746112f, 0.00044401848572306335f, 0.000891707488335669f, 0.00048207546933554113f, 0.0007847700035199523f, 0.0008609604556113482f, 0.0006067442591302097f, 0.0012295705964788795f, 0.0010595334460958838f, 0.0006503426120616496f, 0.0005402590613812208f, 0.0008000903762876987f, 0.0005644012708216906f, 0.0004878178588114679f, 0.0006516605499200523f, 0.0009900297736749053f, 0.0006284212577156723f, 0.0006990657420828938f, 0.0009626229293644428f, 0.0006666452391073108f, 0.000798012362793088f, 0.0010211598128080368f, 0.0005624503246508539f, 0.0004656058154068887f, 0.0007946403347887099f, 0.0006165216909721494f, 0.000699475931469351f, 0.0006751866894774139f, 0.0007342067547142506f, 0.0006094375276006758f, 0.0002402197860646993f, 0.0004749927029479295f, 0.0006207512342371047f, 0.0006404370069503784f, 0.0006790782790631056f, 0.0005571378278546035f, 0.000570803415030241f, 0.0006260897498577833f, 0.0009618652984499931f, 0.0002629126829560846f, 0.000712833134457469f, 0.0006422225851565599f, 0.0006982477498240769f, 0.00030069227796047926f, 0.0006199886556714773f, 0.0007852977723814547f, 0.00022466498194262385f, 0.00042999154538847506f, 0.00119111652020365f, 0.0006004053866490722f, 0.0008174936519935727f, 0.0007503388915210962f, 0.0006359537946991622f, 0.0009116189321503043f, 0.0008756978786550462f, 0.000891463307198137f, 0.001127002527937293f, 0.0004786815552506596f, 0.0008186472696252167f, 0.0010954263852909207f, 0.0016435642028227448f, 0.0007486651302315295f, 0.0005734424921683967f, 0.0005285105435177684f, 0.000652797578368336f, 0.0003917019348591566f, 0.0010325171751901507f, 0.0005644508637487888f, 0.000903602282050997f, 0.000990555388852954f, 0.000689683307427913f, 0.00044113030890002847f, 0.0009322313708253205f, 0.0006349378381855786f, 0.0006820401758886874f, 0.0006966429646126926f, 0.001348449382930994f, 0.0006635942845605314f, 0.001387212541885674f, 0.0007201744592748582f, 0.0007378642912954092f, 0.0006271782913245261f, 0.0006199810304678977f, 0.0004391100083012134f, 0.0011167044285684824f, 0.0008363865199498832f, 0.0003327704325783998f, 0.0009005898609757423f, 0.000560159794986248f, 0.0008434295887127519f, 0.0008568188641220331f, 0.0006624810630455613f, 0.0008519143448211253f, 0.0006007978809066117f, 0.0007572628674097359f, 0.0005749617703258991f, 0.0005656417342834175f, 0.0003227375855203718f, 0.0008029677555896342f, 0.001057579298503697f, 0.0011927009327337146f, 0.000569100258871913f, 0.0006615121383219957f, 0.0005469214520417154f, 0.000994242960587144f, 0.0007564357365481555f, 0.0011151880025863647f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #127 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_40_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 144,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.000205996839213185f, 0.00032139779068529606f, 0.00013057055184617639f, 0.0002790994185488671f, 0.0001583711855346337f, 0.0002550701901782304f, 0.0001847574021667242f, 0.00028209053562022746f, 0.0002632757823448628f, 0.0002902288397308439f, 0.00011586053733481094f, 0.00043828572961501777f, 0.00022553007875103503f, 0.00021856272360309958f, 0.00024239336198661476f, 0.0002445642021484673f, 0.0003056066343560815f, 0.00014336517779156566f, 0.00026717010769061744f, 0.0001945203257491812f, 0.0001905584504129365f, 0.00012077316205250099f, 0.00018041377188637853f, 0.0002903846325352788f, 0.00015220757632050663f, 0.00033473013900220394f, 0.0002111918292939663f, 0.0003045693738386035f, 0.00023851259902585298f, 0.00034662429243326187f, 0.000221082431380637f, 0.0004118878860026598f, 0.000257707666605711f, 0.0002567888586781919f, 0.0002529858029447496f, 0.00022355109103955328f, 0.0003752063203137368f, 0.00027976068668067455f, 0.00014812506560701877f, 0.0002974746166728437f, 0.00016082091315183789f, 0.0002618001599330455f, 0.0002872173790819943f, 0.0002024105633608997f, 0.00041018612682819366f, 0.0003534615389071405f, 0.00021695502800866961f, 0.0001802310289349407f, 0.00026691105449572206f, 0.00018828488828148693f, 0.000162736585480161f, 0.00021739468502346426f, 0.000330275041051209f, 0.00020964203577023f, 0.000233209109865129f, 0.0003211320727132261f, 0.00022239360259845853f, 0.00026621780125424266f, 0.00034066004445776343f, 0.00018763405387289822f, 0.00015532661927863955f, 0.00026509290910325944f, 0.00020567233150359243f, 0.00023334595607593656f, 0.00022524302767124027f, 0.00024493219098076224f, 0.00020330904226284474f, 8.013758633751422e-05f, 0.0001584580895723775f, 0.0002070832997560501f, 0.00021365050633903593f, 0.00022654127678833902f, 0.00018586180522106588f, 0.0001904206583276391f, 0.0002088642359012738f, 0.0003208793350495398f, 8.770796557655558e-05f, 0.00023780192714184523f, 0.0002142461744369939f, 0.00023293623235076666f, 0.00010031127749243751f, 0.0002068289031740278f, 0.0002619762090034783f, 7.494848978240043e-05f, 0.00014344566443469375f, 0.0003973577986471355f, 0.00020029590814374387f, 0.0002727168030105531f, 0.0002503138966858387f, 0.00021215488959569484f, 0.00030411710031330585f, 0.00029213380184955895f, 0.0002973931550513953f, 0.00037596930633299053f, 0.0001596887013874948f, 0.0002731016429606825f, 0.00036543546593748033f, 0.0005482948618009686f, 0.0002497555105946958f, 0.0001913010491989553f, 0.00017631170339882374f, 0.00021777399524580687f, 0.00013067219697404653f, 0.00034444889752194285f, 0.00018830143380910158f, 0.00030144272022880614f, 0.0003304503916297108f, 0.00023007912386674434f, 0.00014716156874783337f, 0.00031099343323148787f, 0.00021181597549002618f, 0.00022752936638426036f, 0.00023240086738951504f, 0.0004498442285694182f, 0.00022137579799164087f, 0.0004627756425179541f, 0.00024025099992286414f, 0.00024615233996883035f, 0.00020922737894579768f, 0.00020682637114077806f, 0.00014648758224211633f, 0.00037253383197821677f, 0.00027901947032660246f, 0.00011101258860435337f, 0.0003004377940669656f, 0.00018686993280425668f, 0.00028136905166320503f, 0.0002858357329387218f, 0.00022100441856309772f, 0.0002841995737981051f, 0.00020042684627696872f, 0.0002526237512938678f, 0.00019180789240635931f, 0.00018869871564675122f, 0.00010766561899799854f, 0.0002678709279280156f, 0.0003528096422087401f, 0.00039788635331206024f, 0.00018985247879754752f, 0.00022068119142204523f, 0.00018245360115543008f, 0.000331680552335456f, 0.00025234781787730753f, 0.0003720279491972178f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #128 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_41_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 144,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0029841363430023193f, 0.005995205137878656f, 0.007004679646342993f, 0.003545577870681882f, 0.007053198292851448f, 0.004147255793213844f, 0.010242913849651814f, 0.0024866117164492607f, 0.006682397797703743f, 0.004874475300312042f, 0.011086937971413136f, 0.003267998807132244f, 0.003163825022056699f, 0.00977818388491869f, 0.00941914226859808f, 0.006552170030772686f, 0.0052838996052742004f, 0.003152022371068597f, 0.0037150648422539234f, 0.0033976214472204447f, 0.00869695283472538f, 0.007753635291010141f, 0.010228998959064484f, 0.004042783286422491f, 0.010559143498539925f, 0.0038615211378782988f, 0.004029311705380678f, 0.010376961901783943f, 0.007095980457961559f, 0.0038007425609976053f, 0.001567807630635798f, 0.004197677131742239f, 0.0071316552348434925f, 0.0035691612865775824f, 0.0011893403716385365f, 0.003498796606436372f, 0.0034297150559723377f, 0.004281913861632347f, 0.005542142782360315f, 0.00554401520639658f, 0.005582611542195082f, 0.004541020840406418f, 0.007534656208008528f, 0.009916427545249462f, 0.005953615065664053f, 0.002282437402755022f, 0.0025885687209665775f, 0.011075062677264214f, 0.005195832811295986f, 0.006253313738852739f, 0.0025730973575264215f, 0.008730398491024971f, 0.0037526418454945087f, 0.008011244237422943f, 0.0018264595419168472f, 0.006469725631177425f, 0.010508637875318527f, 0.006349272094666958f, 0.0015204169321805239f, 0.008274934254586697f, 0.010961782187223434f, 0.0031677852384746075f, 0.006750704720616341f, 0.006164464633911848f, 0.004629968199878931f, 0.002566226990893483f, 0.0038309034425765276f, 0.011019843630492687f, 0.0064808982424438f, 0.008366056717932224f, 0.007821911945939064f, 0.009666790254414082f, 0.003337787464261055f, 0.004996431991457939f, 0.005330851301550865f, 0.002732479013502598f, 0.010916313156485558f, 0.0053072706796228886f, 0.006760291289538145f, 0.004944914020597935f, 0.013647542335093021f, 0.007602347992360592f, 0.002521122805774212f, 0.014639090746641159f, 0.006671501323580742f, 0.004462277051061392f, 0.003711903002113104f, 0.002948162844404578f, 0.007435864768922329f, 0.008077677339315414f, 0.0015271026641130447f, 0.0030386282596737146f, 0.001764911226928234f, 0.006811697967350483f, 0.008689329028129578f, 0.006378783378750086f, 0.0024505776818841696f, 0.006655883509665728f, 0.002902981825172901f, 0.00864369049668312f, 0.010989951901137829f, 0.0051060449331998825f, 0.009063181467354298f, 0.00702241575345397f, 0.003806142834946513f, 0.006180412136018276f, 0.0031642524991184473f, 0.006625382695347071f, 0.008021682500839233f, 0.0018683007219806314f, 0.00955947395414114f, 0.0035004534292966127f, 0.005467269103974104f, 0.006862829905003309f, 0.008252430707216263f, 0.002099323319271207f, 0.004564140923321247f, 0.0050563509576022625f, 0.009483256377279758f, 0.002670727204531431f, 0.02215396985411644f, 0.0019725465681403875f, 0.0020279863383620977f, 0.016287297010421753f, 0.006024806294590235f, 0.0038138984236866236f, 0.006688530091196299f, 0.005684155039489269f, 0.003118159482255578f, 0.005093610845506191f, 0.0034047297667711973f, 0.0031071326229721308f, 0.007540865335613489f, 0.006311879027634859f, 0.012801128439605236f, 0.00942396279424429f, 0.00448590749874711f, 0.005243724677711725f, 0.0038203357253223658f, 0.007880623452365398f, 0.01197364553809166f, 0.0035530722234398127f, 0.005349074490368366f, 0.0018779762322083116f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #129 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_41_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 144,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(7.021497731329873e-05f, 0.00014106364687904716f, 0.00016481599595863372f, 8.342536602867767e-05f, 0.00016595760826021433f, 9.758248779689893e-05f, 0.0002410097367828712f, 5.850851084687747e-05f, 0.00015723289106972516f, 0.00011469353921711445f, 0.0002608691283967346f, 7.689408812439069e-05f, 7.444294169545174e-05f, 0.00023007491836324334f, 0.0002216268767369911f, 0.00015416870883200318f, 0.0001243270526174456f, 7.416523294523358e-05f, 8.741328929318115e-05f, 7.994403858901933e-05f, 0.0002046341833192855f, 0.0001824384817155078f, 0.00024068233324214816f, 9.512431279290468e-05f, 0.00024845043662935495f, 9.085932106245309e-05f, 9.480733569944277e-05f, 0.000244163820752874f, 0.00016696425154805183f, 8.942923886934295e-05f, 3.688959259307012e-05f, 9.876887634163722e-05f, 0.00016780364967416972f, 8.398026693612337e-05f, 2.7984480766463093e-05f, 8.232463005697355e-05f, 8.069918112596497e-05f, 0.00010075091995531693f, 0.00013040336489211768f, 0.00013044741353951395f, 0.00013135556946508586f, 0.00010684755397960544f, 0.00017728602688293904f, 0.00023332770797424018f, 0.00014008505968376994f, 5.370441067498177e-05f, 6.090749957365915e-05f, 0.0002605897025205195f, 0.0001222548889927566f, 0.0001471368013881147f, 6.054346886230633e-05f, 0.0002054211508948356f, 8.829745638649911e-05f, 0.0001884998637251556f, 4.2975520045729354e-05f, 0.00015222883666865528f, 0.0002472620690241456f, 0.00014939464745111763f, 3.577451570890844e-05f, 0.0001947043347172439f, 0.00025792428641580045f, 7.453612488461658e-05f, 0.00015884012100286782f, 0.00014504622959066182f, 0.000108940432255622f, 6.03818116360344e-05f, 9.013890667119995e-05f, 0.00025929044932127f, 0.00015249173156917095f, 0.00019684839935507625f, 0.00018404498405288905f, 0.00022745388559997082f, 7.85361771704629e-05f, 0.00011756311141652986f, 0.00012543180491775274f, 6.429362838389352e-05f, 0.0002568544296082109f, 0.00012487695494201034f, 0.0001590656756889075f, 0.00011635092232609168f, 0.0003211186558473855f, 0.00017887877766042948f, 5.93205368204508e-05f, 0.0003444491885602474f, 0.00015697650087531656f, 0.00010499475320102647f, 8.733889262657613e-05f, 6.936853606021032e-05f, 0.00017496153304819018f, 0.0001900630013551563f, 3.59318291884847e-05f, 7.149713928811252e-05f, 4.1527324356138706e-05f, 0.00016027524543460459f, 0.00020445480186026543f, 0.00015008902119006962f, 5.766065078205429e-05f, 0.0001566090213600546f, 6.830545316915959e-05f, 0.00020338095782790333f, 0.0002585870970506221f, 0.00012014223466394469f, 0.0002132513327524066f, 0.00016523331578355283f, 8.955630619311705e-05f, 0.0001454214652767405f, 7.445300434483215e-05f, 0.00015589136455673724f, 0.00018874547095037997f, 4.396001895656809e-05f, 0.00022492880816571414f, 8.236361463787034e-05f, 0.00012864162272308022f, 0.00016147835412994027f, 0.00019417484872974455f, 4.9395843234378844e-05f, 0.00010739155550254509f, 0.00011897296644747257f, 0.00022313544468488544f, 6.284064147621393e-05f, 0.0005212699179537594f, 4.641286068363115e-05f, 4.771732710651122e-05f, 0.00038323053740896285f, 0.00014176014519762248f, 8.973878721008077e-05f, 0.00015737718786112964f, 0.0001337448338745162f, 7.336845737881958e-05f, 0.00011984966840827838f, 8.011129102669656e-05f, 7.310900400625542e-05f, 0.00017743212811183184f, 0.00014851480955258012f, 0.0003012030210811645f, 0.00022174030891619623f, 0.00010555076732998714f, 0.00012338176020421088f, 8.989025081973523e-05f, 0.0001854264410212636f, 0.0002817328495439142f, 8.360169886145741e-05f, 0.00012586057709995657f, 4.418767639435828e-05f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #130 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_42_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 32,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.012838111259043217f, 0.017853830009698868f, 0.012478134594857693f, 0.01143353246152401f, 0.0161504615098238f, 0.01381057221442461f, 0.01593155600130558f, 0.01056982297450304f, 0.011273053474724293f, 0.014868639409542084f, 0.010623942129313946f, 0.012780276127159595f, 0.011092394590377808f, 0.013817887753248215f, 0.012336748652160168f, 0.014966508373618126f, 0.012002602219581604f, 0.014463100582361221f, 0.01204083301126957f, 0.011039318516850471f, 0.016662325710058212f, 0.020841902121901512f, 0.012325777672231197f, 0.012023001909255981f, 0.01505302544683218f, 0.02647845447063446f, 0.011427520774304867f, 0.012081943452358246f, 0.010690893977880478f, 0.01531920675188303f, 0.017272070050239563f, 0.014659933745861053f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #131 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_42_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 32,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0003020732256118208f, 0.0004200901312287897f, 0.00029360316693782806f, 0.00026902431272901595f, 0.00038001086795702577f, 0.00032495465711690485f, 0.0003748601593542844f, 0.0002487017191015184f, 0.0002652483235578984f, 0.000349850335624069f, 0.0002499751280993223f, 0.00030071238870732486f, 0.0002609975344967097f, 0.000325126777170226f, 0.0002902764535974711f, 0.0003521531471051276f, 0.00028241417021490633f, 0.0003403082664590329f, 0.00028331371140666306f, 0.00025974868913181126f, 0.00039205473149195313f, 0.0004903976805508137f, 0.0002900183026213199f, 0.00028289417969062924f, 0.00035418884363025427f, 0.0006230224971659482f, 0.00026888283900916576f, 0.0002842810354195535f, 0.0002515504602342844f, 0.00036045192973688245f, 0.0004064016684424132f, 0.00034493961720727384f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #132 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_43_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 192,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00036428667954169214f, 0.0021962227765470743f, 0.0009626360260881484f, 0.00042537524132058024f, 0.0007415865547955036f, 0.0013130271108821034f, 0.0005660417955368757f, 0.0008167427149601281f, 0.0004904836532659829f, 0.0010617115767672658f, 0.001989255892112851f, 0.0004496203036978841f, 0.0004836972220800817f, 0.0003777928068302572f, 0.0006641685613431036f, 0.0005726937670260668f, 0.0008927685557864606f, 0.0010652253404259682f, 0.0007912256405688822f, 0.001073881983757019f, 0.0011007137363776565f, 0.0007490345742553473f, 0.0009955045534297824f, 0.00045143612078391016f, 0.0023688182700425386f, 0.00044134954805485904f, 0.0008551934733986855f, 0.0007194657810032368f, 0.0007734908140264452f, 0.0011052716290578246f, 0.0003756693040486425f, 0.0005145386676304042f, 0.0011438984656706452f, 0.002291177399456501f, 0.0007076900219544768f, 0.0008529617916792631f, 0.001544339582324028f, 0.00047586901928298175f, 0.0005702445050701499f, 0.0013089764397591352f, 0.0008495115907862782f, 0.0008390014409087598f, 0.0011675459099933505f, 0.0007360534509643912f, 0.0006513014668598771f, 0.0013538752682507038f, 0.0007923380471765995f, 0.000929083616938442f, 0.0009193103760480881f, 0.00064823281718418f, 0.0009845716413110495f, 0.0008313847938552499f, 0.0005048269522376359f, 0.0008629621588625014f, 0.0008209673687815666f, 0.0007921739597804844f, 0.0006357553065754473f, 0.0009455202962271869f, 0.0004904794623143971f, 0.0011819216888397932f, 0.0005862379912286997f, 0.0008570219506509602f, 0.0009130252292379737f, 0.0009148657554760575f, 0.00107013329397887f, 0.0010976142948493361f, 0.0008238632581196725f, 0.0006864352617412806f, 0.0009230844443663955f, 0.0007085712859407067f, 0.001827385975047946f, 0.0011156952241435647f, 0.001286722021177411f, 0.0005184506298974156f, 0.00041949684964492917f, 0.0009381686104461551f, 0.0010434836149215698f, 0.0006277271895669401f, 0.0012044513132423162f, 0.001092598307877779f, 0.0013310101348906755f, 0.0004767576465383172f, 0.0014076698571443558f, 0.0004765071498695761f, 0.0003190685238223523f, 0.0009788041934370995f, 0.0008642161265015602f, 0.000281931774225086f, 0.00027061370201408863f, 0.0009033678215928376f, 0.0003045527555514127f, 0.0006494540139101446f, 0.00047539197839796543f, 0.0004578641091939062f, 0.0007495791069231927f, 0.0006570572732016444f, 0.0010798422154039145f, 0.0013500017812475562f, 0.0006926335045136511f, 0.0006904051988385618f, 0.0005527089233510196f, 0.00038416520692408085f, 0.0014487578300759196f, 0.00043954854481853545f, 0.001199633814394474f, 0.0006661771330982447f, 0.0005472720949910581f, 0.000516161962877959f, 0.0003802902065217495f, 0.0003055339038837701f, 0.0010708413319662213f, 0.0006760280812159181f, 0.0006838642875663936f, 0.0007540472433902323f, 0.0006247113924473524f, 0.00035277451388537884f, 0.0008650057716295123f, 0.00028885496431030333f, 0.0008416257915087044f, 0.0007237007957883179f, 0.00043778319377452135f, 0.0008736350573599339f, 0.0006142165511846542f, 0.000383502192562446f, 0.0010038278996944427f, 0.0008316935272887349f, 0.0007840749458409846f, 0.0008923988207243383f, 0.0004573435871861875f, 0.00019881685147993267f, 0.0009986007353290915f, 0.0011237162398174405f, 0.00037589375278912485f, 0.0004495802568271756f, 0.00032788445241749287f, 0.0006301998510025442f, 0.0011358261108398438f, 0.00036345142871141434f, 0.0005671085091307759f, 0.0007483019144274294f, 0.001120474305935204f, 0.000636712065897882f, 0.00037211034214124084f, 0.00148813019040972f, 0.0009681764640845358f, 0.0008659289451315999f, 0.00036136966082267463f, 0.001170050585642457f, 0.0006967652589082718f, 0.0010243160650134087f, 0.000518188055139035f, 0.0027961796149611473f, 0.0008186972700059414f, 0.000562875356990844f, 0.0008820397197268903f, 0.00044952056487090886f, 0.0012923942413181067f, 0.0005028436426073313f, 0.0012346087023615837f, 0.001305776764638722f, 0.0010192192858085036f, 0.0007548040011897683f, 0.0008363579399883747f, 0.0008947225869633257f, 0.0005306981620378792f, 0.0009213049779646099f, 0.0015902250306680799f, 0.0007262934232130647f, 0.001084870076738298f, 0.0009181702043861151f, 0.0008250271202996373f, 0.0010955925099551678f, 0.000605500943493098f, 0.0007683006697334349f, 0.0011007528519257903f, 0.0010196452494710684f, 0.0009475703118368983f, 0.0007946307305246592f, 0.001081295544281602f, 0.0008336746832355857f, 0.0019910703413188457f, 0.0020402073860168457f, 0.000818290573079139f, 0.0007967695128172636f, 0.0004905503010377288f, 0.0007505448302254081f, 0.0009120549075305462f, 0.0003183269582223147f, 0.00040004102629609406f, 0.0009750181343406439f, 0.0013059037737548351f, 0.00029105713474564254f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #133 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_43_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 192,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(8.3884660853073e-05f, 0.0005057264352217317f, 0.00022166717099025846f, 9.795158985070884e-05f, 0.00017076588119380176f, 0.0003023520694114268f, 0.00013034301809966564f, 0.00018807216838467866f, 0.0001129441661760211f, 0.0002444814017508179f, 0.00045806795242242515f, 0.00010353451943956316f, 0.00011138145055156201f, 8.699473255546764e-05f, 0.00015293876640498638f, 0.00013187476724851876f, 0.00020557871903292835f, 0.00024529051734134555f, 0.00018219632329419255f, 0.00024728389689698815f, 0.00025346246547997f, 0.00017248095537070185f, 0.00022923584037926048f, 0.00010395265417173505f, 0.0005454701604321599f, 0.00010163000843022019f, 0.00019692626665346324f, 0.000165672114235349f, 0.00017811251746024936f, 0.0002545120078139007f, 8.650575182400644e-05f, 0.00011848333815578371f, 0.00026340666227042675f, 0.0005275917355902493f, 0.0001629604957997799f, 0.0001964123803190887f, 0.00035561664844863117f, 0.00010957883932860568f, 0.00013131077867001295f, 0.0003014193207491189f, 0.00019561788940336555f, 0.00019319771672599018f, 0.0002688519889488816f, 0.00016949177370406687f, 0.0001499758509453386f, 0.0003117582236882299f, 0.0001824524806579575f, 0.00021394102077465504f, 0.00021169052342884243f, 0.00014926922449376434f, 0.0002267183008370921f, 0.0001914438180392608f, 0.00011624701437540352f, 0.00019871516269631684f, 0.00018904499302152544f, 0.00018241470388602465f, 0.00014639602159149945f, 0.00021772591571789235f, 0.00011294319847365841f, 0.00027216231683269143f, 0.00013499362103175372f, 0.0001973473117686808f, 0.00021024324814788997f, 0.00021066705812700093f, 0.00024642067728564143f, 0.0002527487522456795f, 0.00018971181998495013f, 0.00015806614828761667f, 0.00021255959291011095f, 0.00016316342225763947f, 0.0004207940073683858f, 0.00025691225891932845f, 0.00029629477648995817f, 0.00011938415264012292f, 9.659796342020854e-05f, 0.00021603303321171552f, 0.00024028403277043253f, 0.00014454737538471818f, 0.0002773502201307565f, 0.0002515937085263431f, 0.0003064930497203022f, 0.00010978346836054698f, 0.00032414557063020766f, 0.00010972578456858173f, 7.347223436227068e-05f, 0.00022539023484569043f, 0.00019900391635019332f, 6.492071406682953e-05f, 6.231448787730187e-05f, 0.00020801942446269095f, 7.012967398623005e-05f, 0.0001495504257036373f, 0.00010946899419650435f, 0.00010543283133301884f, 0.00017260633467230946f, 0.00015130123938433826f, 0.00024865634622983634f, 0.0003108662785962224f, 0.00015949341468513012f, 0.00015898029960226268f, 0.00012727284047286958f, 8.846211130730808e-05f, 0.0003336069348733872f, 0.00010121528612216935f, 0.00027624089852906764f, 0.0001534012844786048f, 0.0001260208955500275f, 0.00011885714047821239f, 8.756980969337747e-05f, 7.035559974610806e-05f, 0.00024658371694386005f, 0.00015566966612823308f, 0.0001574741181684658f, 0.00017363522783853114f, 0.00014385292888619006f, 8.123374573187903e-05f, 0.000199185757082887f, 6.651492731180042e-05f, 0.0001938020286615938f, 0.000166647310834378f, 0.00010080877837026492f, 0.00020117283565923572f, 0.00014143626322038472f, 8.830943988868967e-05f, 0.00023115247313398868f, 0.00019151490414515138f, 0.00018054973043035716f, 0.00020549357577692717f, 0.00010531296720728278f, 4.578175867209211e-05f, 0.00022994879691395909f, 0.00025875927531160414f, 8.655743295093998e-05f, 0.00010352530080126598f, 7.550228474428877e-05f, 0.00014511676272377372f, 0.0002615478297229856f, 8.369232818949968e-05f, 0.00013058865442872047f, 0.00017231224046554416f, 0.0002580127620603889f, 0.00014661633758805692f, 8.568622433813289e-05f, 0.0003426732437219471f, 0.00022294298105407506f, 0.00019939833146054298f, 8.321295899804682e-05f, 0.0002694287395570427f, 0.0001604448480065912f, 0.00023587029136251658f, 0.00011932368943234906f, 0.0006438791169784963f, 0.00018852224457077682f, 0.0001296138798352331f, 0.0002031081821769476f, 0.00010351155651733279f, 0.0002976009272970259f, 0.00011579031706787646f, 0.00028429459780454636f, 0.00030068252817727625f, 0.00023469665029551834f, 0.00017380948702339083f, 0.00019258899556007236f, 0.00020602867880370468f, 0.0001222044083988294f, 0.00021214982552919537f, 0.0003661827358882874f, 0.00016724431770853698f, 0.00024981412570923567f, 0.00021142797777429223f, 0.00018997982260771096f, 0.0002522832073736936f, 0.00013942932127974927f, 0.0001769173686625436f, 0.0002534714585635811f, 0.00023479474475607276f, 0.00021819797984790057f, 0.00018298042414244264f, 0.0002489910111762583f, 0.00019197110668756068f, 0.0004584857961162925f, 0.00046980060869827867f, 0.00018842860299628228f, 0.0001834729191614315f, 0.00011295951117062941f, 0.00017282871704082936f, 0.0002100198034895584f, 7.33014676370658e-05f, 9.211785072693601e-05f, 0.00022451841505244374f, 0.00030071177752688527f, 6.702201790176332e-05f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #134 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_44_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 192,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.046942196786403656f, 0.004710671957582235f, 0.002459843410179019f, 0.007402095012366772f, 0.014629831537604332f, 0.0041643469594419f, 0.007782588247209787f, 0.0036658416502177715f, 0.010795565322041512f, 0.00875934213399887f, 0.003182300366461277f, 0.010924671776592731f, 0.012093795463442802f, 0.016087256371974945f, 0.004132103640586138f, 0.007586905267089605f, 0.017747940495610237f, 0.002289003226906061f, 0.007044852711260319f, 0.00952522549778223f, 0.014482925646007061f, 0.007077699061483145f, 0.005303522571921349f, 0.00976259633898735f, 0.0037127567920833826f, 0.005162815563380718f, 0.009318497031927109f, 0.010010327212512493f, 0.006019141990691423f, 0.0028592783492058516f, 0.012808265164494514f, 0.00760244857519865f, 0.00250694970600307f, 0.003406043164432049f, 0.009206486865878105f, 0.008072911761701107f, 0.0021594492718577385f, 0.006429148837924004f, 0.009760482236742973f, 0.009046788327395916f, 0.014904259704053402f, 0.0021853651851415634f, 0.002003225963562727f, 0.004456475842744112f, 0.01100810058414936f, 0.002288318006321788f, 0.006576135754585266f, 0.005844013299793005f, 0.015276388265192509f, 0.0029109616298228502f, 0.007600662764161825f, 0.012371255084872246f, 0.00562682282179594f, 0.006626797374337912f, 0.009056487120687962f, 0.006075229495763779f, 0.0037558896001428366f, 0.009308973327279091f, 0.006502983160316944f, 0.016215071082115173f, 0.012048779055476189f, 0.0034528460819274187f, 0.009418726898729801f, 0.006456931587308645f, 0.012407416477799416f, 0.0038069351576268673f, 0.0016095598693937063f, 0.009374338202178478f, 0.010058749467134476f, 0.005278794094920158f, 0.011283067055046558f, 0.006064196582883596f, 0.012646961025893688f, 0.008191939443349838f, 0.010370399802923203f, 0.006552250124514103f, 0.005376583430916071f, 0.0026312940753996372f, 0.009906566701829433f, 0.01133377943187952f, 0.0017333076102659106f, 0.016410009935498238f, 0.00436731381341815f, 0.013497809879481792f, 0.012430221773684025f, 0.0053052823059260845f, 0.0017467939760535955f, 0.022979287430644035f, 0.019999589771032333f, 0.0032913140021264553f, 0.016581935808062553f, 0.005828671623021364f, 0.037389956414699554f, 0.007884937338531017f, 0.006976117845624685f, 0.014935127459466457f, 0.0013486800016835332f, 0.0013485501985996962f, 0.008364704437553883f, 0.003975766710937023f, 0.004696137271821499f, 0.0082006910815835f, 0.006887434516102076f, 0.014005574397742748f, 0.006957448553293943f, 0.0062583815306425095f, 0.014889354817569256f, 0.007946381345391273f, 0.014341278001666069f, 0.006204618606716394f, 0.01082233153283596f, 0.0090745585039258f, 0.004849965218454599f, 0.005670501384884119f, 0.01438483502715826f, 0.0151559729129076f, 0.014975928701460361f, 0.014071554876863956f, 0.010862670838832855f, 0.010513832792639732f, 0.009987286292016506f, 0.00768231600522995f, 0.012605009600520134f, 0.009925391525030136f, 0.0066897450014948845f, 0.004613006021827459f, 0.0113217793405056f, 0.009585180319845676f, 0.008298096247017384f, 0.025118907913565636f, 0.0026832646690309048f, 0.008273836225271225f, 0.013436151668429375f, 0.01839824765920639f, 0.01574105955660343f, 0.006211406551301479f, 0.0036648029927164316f, 0.018135417252779007f, 0.013815307058393955f, 0.01272482518106699f, 0.00647587887942791f, 0.011332354508340359f, 0.019032150506973267f, 0.004335592966526747f, 0.008339968509972095f, 0.006048279348760843f, 0.013578210026025772f, 0.010473163798451424f, 0.0049683949910104275f, 0.011293197050690651f, 0.0067434231750667095f, 0.0031425936613231897f, 0.007899240590631962f, 0.009779905900359154f, 0.010296981781721115f, 0.010591687634587288f, 0.005623671691864729f, 0.007545006927102804f, 0.007638066541403532f, 0.003884682198986411f, 0.002704074839130044f, 0.005110862199217081f, 0.012291585095226765f, 0.006233875174075365f, 0.013154031708836555f, 0.012301715090870857f, 0.001439178129658103f, 0.019934559240937233f, 0.0033071436919271946f, 0.011682486161589622f, 0.007820969447493553f, 0.0016353450482711196f, 0.01223932858556509f, 0.008480619639158249f, 0.004936766345053911f, 0.0018232238944619894f, 0.004718070384114981f, 0.013479691930115223f, 0.011067020706832409f, 0.013600993901491165f, 0.004384809639304876f, 0.005705572199076414f, 0.011959872208535671f, 0.011693129315972328f, 0.007094244472682476f, 0.010143520310521126f, 0.005417888052761555f, 0.009882817044854164f, 0.0091926334425807f, 0.00422336021438241f, 0.002019645879045129f, 0.014927414245903492f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #135 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_44_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 192,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0011045222636312246f, 0.00011083934077760205f, 5.787867121398449e-05f, 0.00017416694026906043f, 0.00034423134638927877f, 9.798463725019246e-05f, 0.0001831197296269238f, 8.625510236015543e-05f, 0.0002540133136790246f, 0.00020610216597560793f, 7.487765833502635e-05f, 0.00025705111329443753f, 0.00028455990832298994f, 0.00037852369132451713f, 9.722597314976156e-05f, 0.00017851541633717716f, 0.00041759861051104963f, 5.385890108300373e-05f, 0.00016576124471612275f, 0.00022412295220419765f, 0.00034077471354976296f, 0.0001665340969339013f, 0.00012478877033572644f, 0.00022970815189182758f, 8.735898154554889e-05f, 0.0001214780131704174f, 0.0002192587562603876f, 0.0002355371107114479f, 0.0001416268787579611f, 6.727714207954705e-05f, 0.00030137095018289983f, 0.0001788811496226117f, 5.898705421714112e-05f, 8.0142192018684e-05f, 0.00021662322978954762f, 0.0001899508642964065f, 5.0810573156923056e-05f, 0.00015127410006243736f, 0.00022965841344557703f, 0.00021286560513544828f, 0.000350688467733562f, 5.142035661265254e-05f, 4.713473026640713e-05f, 0.00010485825623618439f, 0.00025901413755491376f, 5.38427775609307e-05f, 0.00015473261009901762f, 0.00013750619837082922f, 0.0003594444424379617f, 6.849321653135121e-05f, 0.00017883912369143218f, 0.0002910883631557226f, 0.0001323958276771009f, 0.00015592464478686452f, 0.00021309382282197475f, 0.00014294657739810646f, 8.837387576932088e-05f, 0.00021903467131778598f, 0.0001530113659100607f, 0.0003815310774371028f, 0.0002835007035173476f, 8.124343730742112e-05f, 0.00022161711240187287f, 0.00015192780119832605f, 0.00029193921363912523f, 8.957494719652459e-05f, 3.787199602811597e-05f, 0.00022057266323827207f, 0.0002366764674661681f, 0.00012420692655723542f, 0.0002654839481692761f, 0.00014268698578234762f, 0.00029757554875686765f, 0.000192751525901258f, 0.00024400941038038582f, 0.00015417060058098286f, 0.00012650784628931433f, 6.191280408529565e-05f, 0.0002330956922378391f, 0.00026667717611417174f, 4.078371057403274e-05f, 0.00038611789932474494f, 0.00010276032844558358f, 0.0003175955207552761f, 0.00029247580096125603f, 0.00012483017053455114f, 4.110103691346012e-05f, 0.0005406890995800495f, 0.0004705785831902176f, 7.74426807765849e-05f, 0.0003901632153429091f, 0.00013714522356167436f, 0.0008797636837698519f, 0.00018552794062998146f, 0.00016414395940955728f, 0.00035141478292644024f, 3.1733648938825354e-05f, 3.17305930366274e-05f, 0.00019681657431647182f, 9.354745270684361e-05f, 0.00011049734894186258f, 0.00019295743550173938f, 0.00016205728752538562f, 0.00032954293419606984f, 0.00016370468074455857f, 0.00014725603978149593f, 0.00035033776657655835f, 0.00018697368795983493f, 0.0003374418301973492f, 0.00014599102723877877f, 0.00025464309146627784f, 0.00021351902978494763f, 0.00011411683226469904f, 0.00013342357124201953f, 0.00033846672158688307f, 0.00035661112633533776f, 0.00035237480187788606f, 0.0003310954198241234f, 0.0002555922546889633f, 0.0002473843051120639f, 0.0002349949791096151f, 0.000180760383955203f, 0.00029658846324309707f, 0.00023353862343356013f, 0.00015740576782263815f, 0.00010854131687665358f, 0.0002663948107510805f, 0.0002255336585221812f, 0.0001952493330463767f, 0.0005910331383347511f, 6.313563790172338e-05f, 0.00019467850506771356f, 0.0003161447530146688f, 0.0004328999493736774f, 0.00037037787842564285f, 0.00014615074906032532f, 8.623066241852939e-05f, 0.0004267157055437565f, 0.00032506606657989323f, 0.0002994076639879495f, 0.00015237362822517753f, 0.0002666436485014856f, 0.0004478153132367879f, 0.00010201395343756303f, 0.00019623455591499805f, 0.00014231246314011514f, 0.00031948729883879423f, 0.00024642740027047694f, 0.00011690341489156708f, 0.0002657222794368863f, 0.00015866878675296903f, 7.394338172161952e-05f, 0.0001858644827734679f, 0.00023011543089523911f, 0.00024228192341979593f, 0.0002492161875125021f, 0.00013232168566901237f, 0.00017752958228811622f, 0.0001797192235244438f, 9.140429028775543e-05f, 6.362528802128509e-05f, 0.00012025558680761606f, 0.0002892137854360044f, 0.0001466794201405719f, 0.00030950663494877517f, 0.0002894521167036146f, 3.386301614227705e-05f, 0.00046904844930395484f, 7.781514432281256e-05f, 0.00027488204068504274f, 0.00018402280693408102f, 3.847870902973227e-05f, 0.0002879842068068683f, 0.00019954399613197893f, 0.00011615920811891556f, 4.2899388063233346e-05f, 0.000111013425339479f, 0.0003171692369505763f, 0.00026040049851872027f, 0.00032002339139580727f, 0.00010317199485143647f, 0.00013424876669887453f, 0.000281408749287948f, 0.0002751324500422925f, 0.0001669234043220058f, 0.0002386710693826899f, 0.00012747972505167127f, 0.00023253686958923936f, 0.0002162972668884322f, 9.937318100128323e-05f, 4.7521079977741465e-05f, 0.00035123329143971205f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #136 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_45_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 32,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.004006598610430956f, 0.004531754180788994f, 0.006670856848359108f, 0.005431637167930603f, 0.0046000913716852665f, 0.005115892738103867f, 0.005602724384516478f, 0.012029101140797138f, 0.013809370808303356f, 0.017599496990442276f, 0.0045039295218884945f, 0.0114774564281106f, 0.0045662992633879185f, 0.015574323013424873f, 0.00584182795137167f, 0.00379307777620852f, 0.014685352332890034f, 0.004373838659375906f, 0.008086958900094032f, 0.005501884501427412f, 0.0060981218703091145f, 0.01844651997089386f, 0.012802022509276867f, 0.013204751536250114f, 0.013480529189109802f, 0.011217965744435787f, 0.014194400981068611f, 0.0053678834810853004f, 0.004153203219175339f, 0.004958273842930794f, 0.008883305825293064f, 0.005031839944422245f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #137 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_45_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 32,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(9.427290933672339e-05f, 0.0001066295153577812f, 0.0001569613377796486f, 0.0001278032286791131f, 0.00010823744378285483f, 0.00012037395208608359f, 0.00013182881230022758f, 0.0002830376906786114f, 0.0003249263681937009f, 0.00041410583071410656f, 0.00010597481741569936f, 0.00027005778974853456f, 0.00010744233441073447f, 0.0003664546529762447f, 0.00013745477190241218f, 8.924888970796019e-05f, 0.0003455377009231597f, 0.00010291385115124285f, 0.00019028139649890363f, 0.00012945610797032714f, 0.00014348521654028445f, 0.0004340357845649123f, 0.0003012240631505847f, 0.00031070003751665354f, 0.0003171889402437955f, 0.00026395212626084685f, 0.0003339859249535948f, 0.0001263031444977969f, 9.772243356565014e-05f, 0.00011666527279885486f, 0.000209018966415897f, 0.00011839623766718432f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #138 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_47_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 192,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0003737914375960827f, 0.0004260619462002069f, 0.0003561530611477792f, 0.0005379536305554211f, 0.0003045647463295609f, 0.0004798937006853521f, 0.0006858843262307346f, 0.0008811086881905794f, 0.0006570740952156484f, 0.0007250150083564222f, 0.0005608205101452768f, 0.0007375655695796013f, 0.0007368677761405706f, 0.0004852257843594998f, 0.0007975462940521538f, 0.0003655149193946272f, 0.0008898777887225151f, 0.0006337788072414696f, 0.0009646096150390804f, 0.0009571886621415615f, 0.0003049950173590332f, 0.00038886824040673673f, 0.0008361627697013319f, 0.00060511555057019f, 0.00019663944840431213f, 0.0004407429660204798f, 0.0007106306147761643f, 0.0006300140521489084f, 0.0006245390395633876f, 0.0007374367560259998f, 0.0006845471798442304f, 0.00107988016679883f, 0.00033458074904046953f, 0.00028372585074976087f, 0.0004973496543243527f, 0.0012047194177284837f, 0.0003212684241589159f, 0.0005344399833120406f, 0.00064102589385584f, 0.0005943612777628005f, 0.00041692948434501886f, 0.0007250859052874148f, 0.0009188205585815012f, 0.00023367816174868494f, 0.0007930404390208423f, 0.0005797537742182612f, 0.00036757884663529694f, 0.0006566629745066166f, 0.0009375408408232033f, 0.0010728567140176892f, 0.0008838116773404181f, 0.0007577707292512059f, 0.0003470909141469747f, 0.0012372417841106653f, 0.0007190589676611125f, 0.000797486340161413f, 0.0006556892767548561f, 0.00027533690445125103f, 0.0004686431784648448f, 0.0007226684247143567f, 0.0006351553020067513f, 0.0008617552230134606f, 0.0006616535247303545f, 0.0008109785267151892f, 0.0005800799699500203f, 0.0004733620153274387f, 0.0007480198401026428f, 0.0006772165070287883f, 0.0005264460342004895f, 0.0010841786861419678f, 0.00031766764004714787f, 0.0002105062158079818f, 0.0008644869085401297f, 0.00048150180373340845f, 0.00013982868404127657f, 0.00022755644749850035f, 0.0002737759205047041f, 0.0003780849801842123f, 0.000764738826546818f, 0.00032609046320430934f, 0.0006009518983773887f, 0.0005748902331106365f, 0.000461623101728037f, 0.0005851795431226492f, 0.0005676013533957303f, 0.0007120267255231738f, 0.001223660190589726f, 9.906767081702128e-05f, 0.0007810925017111003f, 0.0008363498491235077f, 0.0010407420340925455f, 0.0009172559366561472f, 0.0005701371119357646f, 0.0007954692700877786f, 0.0005044682766310871f, 0.0007383673219010234f, 0.001080737099982798f, 0.000672779162414372f, 0.00032445817487314343f, 0.0007380700553767383f, 0.0008450922323390841f, 0.0002704981598071754f, 0.001065641874447465f, 0.0006974128191359341f, 0.0010434422874823213f, 0.00035162069252692163f, 0.0008732967544347048f, 0.00044004962546750903f, 0.0006652171723544598f, 0.0007374699343927205f, 0.0005043770070187747f, 0.0008262522169388831f, 0.0007690239581279457f, 0.0006691448506899178f, 0.0008024534326978028f, 0.001038838061504066f, 0.0002835032937582582f, 0.0009904035832732916f, 0.0006727369618602097f, 0.0010892566060647368f, 0.0003875696274917573f, 0.0007089166319929063f, 0.000766532844863832f, 0.0008133410010486841f, 0.0006299979286268353f, 0.0006983967614360154f, 0.0003129011020064354f, 0.0013706038007512689f, 0.0002205212222179398f, 0.0011901711113750935f, 0.0007898830226622522f, 0.00090393255231902f, 0.0007277311524376273f, 0.00038073828909546137f, 0.0002724874357227236f, 0.00028085350641049445f, 0.0005698330351151526f, 0.000833053607493639f, 0.000686081824824214f, 0.0005182146560400724f, 0.00036907446337863803f, 0.0003812661743722856f, 0.0008517211535945535f, 0.0006784467259421945f, 0.00047820748295634985f, 0.000977562740445137f, 0.0006189263658598065f, 0.0008391186711378396f, 0.0009139258181676269f, 0.0007252833456732333f, 0.0013155568158254027f, 0.0004994383198209107f, 0.0010608305456116796f, 0.000955565832555294f, 0.0011008508736267686f, 0.0008170789806172252f, 0.0009854147210717201f, 0.0009175470331683755f, 0.0006104611093178391f, 0.0003137354797217995f, 0.0006513139815069735f, 0.0002010166790569201f, 0.0008798475610092282f, 0.0006153813446871936f, 0.0003557735471986234f, 0.0006483908509835601f, 0.0006012433441355824f, 0.001044058008119464f, 0.0006292951875366271f, 0.0005654119304381311f, 0.000907217909116298f, 0.0004945204127579927f, 0.00042846580618061125f, 0.0010075533064082265f, 0.0007065870449878275f, 0.0004387974622659385f, 0.00033583721960894763f, 0.0007062139338813722f, 0.000974599621258676f, 0.0005916819791309536f, 0.0006124887731857598f, 0.0007509291172027588f, 0.0008941475534811616f, 0.00045923705329187214f, 0.0008864997653290629f, 0.00032921016099862754f, 0.00039698550244793296f, 0.0009750895551405847f, 0.0007057308685034513f, 0.0005885052378289402f, 0.0005354902823455632f, 0.0007603065459989011f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #139 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_47_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 192,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00012090092059224844f, 0.00013780755398329347f, 0.00011519587860675529f, 0.00017399834177922457f, 9.85099031822756e-05f, 0.00015521915338467807f, 0.0002218457666458562f, 0.0002849900920409709f, 0.0002125272440025583f, 0.00023450238222721964f, 0.00018139451276510954f, 0.0002385617990512401f, 0.00023833609884604812f, 0.0001569437881698832f, 0.0002579622669145465f, 0.00011822392843896523f, 0.0002878264058381319f, 0.00020499250967986882f, 0.0003119980392511934f, 0.0003095977590419352f, 9.86490776995197e-05f, 0.0001257774420082569f, 0.0002704525541048497f, 0.00019572152814362198f, 6.360201950883493e-05f, 0.00014255604764912277f, 0.00022984982933849096f, 0.0002037748199654743f, 0.00020200395374558866f, 0.00023852013691794127f, 0.0002214132691733539f, 0.0003492817049846053f, 0.00010821842442965135f, 9.176967432722449e-05f, 0.0001608651946298778f, 0.0003896603302564472f, 0.00010391262185294181f, 0.00017286186630371958f, 0.00020733653218485415f, 0.0001922431110870093f, 0.00013485370436683297f, 0.00023452531604561955f, 0.0002971877984236926f, 7.558200013590977e-05f, 0.0002565048635005951f, 0.00018751838069874793f, 0.00011889149027410895f, 0.00021239426860120147f, 0.0003032427921425551f, 0.00034701000549830496f, 0.00028586434200406075f, 0.00024509706418029964f, 0.00011226477363379672f, 0.0004001795023214072f, 0.00023257594148162752f, 0.00025794285465963185f, 0.00021207933605182916f, 8.905630966182798e-05f, 0.0001515802287030965f, 0.0002337433979846537f, 0.0002054377255262807f, 0.00027873029466718435f, 0.00021400843979790807f, 0.00026230685762129724f, 0.00018762389663606882f, 0.000153106520883739f, 0.00024194318393711f, 0.00021904220920987427f, 0.00017027626745402813f, 0.00035067202406935394f, 0.00010274796659359708f, 6.808715988881886e-05f, 0.00027961385785602033f, 0.0001557392970426008f, 4.522687231656164e-05f, 7.360196468653157e-05f, 8.855141641106457e-05f, 0.00012228965351823717f, 0.0002473508648108691f, 0.00010547228885116056f, 0.00019437480659689754f, 0.00018594530411064625f, 0.0001493096206104383f, 0.00018927332712337375f, 0.00018358774832449853f, 0.00023030138981994241f, 0.00039578662835992873f, 3.2042931707110256e-05f, 0.0002526403695810586f, 0.00027051306096836925f, 0.00033662267378531396f, 0.0002966817410197109f, 0.00018440792337059975f, 0.0002572904631961137f, 0.00016316767141688615f, 0.0002388211287325248f, 0.0003495588607620448f, 0.00021760696836281568f, 0.00010494433081476018f, 0.00023872496967669576f, 0.00027334076003171504f, 8.749124390305951e-05f, 0.00034467640216462314f, 0.00022557460761163384f, 0.0003374960506334901f, 0.000113729911390692f, 0.0002824633556883782f, 0.0001423317880835384f, 0.00021516108245123178f, 0.0002385308762313798f, 0.00016313816013280302f, 0.0002672470291145146f, 0.00024873684742487967f, 0.0002164314646506682f, 0.00025954944430850446f, 0.0003360068367328495f, 9.169768600258976e-05f, 0.00032034097239375114f, 0.00021759331866633147f, 0.00035231446963734925f, 0.00012535741552710533f, 0.00022929544502403587f, 0.000247931107878685f, 0.0002630709786899388f, 0.00020376959582790732f, 0.00022589285799767822f, 0.00010120625665877014f, 0.00044331478420645f, 7.1326459874399e-05f, 0.0003849547356367111f, 0.0002554836100898683f, 0.00029237233684398234f, 0.0002353809104533866f, 0.0001231478527188301f, 8.813466411083937e-05f, 9.084062912734225e-05f, 0.00018430956697557122f, 0.0002694469294510782f, 0.00022190964955370873f, 0.0001676138781476766f, 0.00011937523959204555f, 0.00012331859034020454f, 0.0002754848392214626f, 0.00021944011677987874f, 0.0001546737621538341f, 0.00031618765206076205f, 0.0002001885586651042f, 0.00027140864403918386f, 0.0002956046082545072f, 0.00023458918440155685f, 0.00042551010847091675f, 0.00016154076729435474f, 0.00034312019124627113f, 0.000309072871459648f, 0.00035606458550319076f, 0.0002642800100147724f, 0.000318727339617908f, 0.00029677589191123843f, 0.0001974505139514804f, 0.00010147612920263782f, 0.00021066416229587048f, 6.501781172119081e-05f, 0.00028458217275328934f, 0.00019904194050468504f, 0.00011507313320180401f, 0.00020971869525965303f, 0.0001944690739037469f, 0.0003376952081453055f, 0.00020354229491204023f, 0.0001828795939218253f, 0.0002934349759016186f, 0.00015995009744074196f, 0.00013858506281394511f, 0.0003258879587519914f, 0.00022854196140542626f, 0.00014192679373081774f, 0.00010862483031814918f, 0.00022842128237243742f, 0.0003152292629238218f, 0.00019137650087941438f, 0.00019810635421890765f, 0.00024288416898343712f, 0.00028920744080096483f, 0.00014853787433821708f, 0.0002867337898351252f, 0.00010648134048096836f, 0.00012840292765758932f, 0.00031538770417682827f, 0.00022826503845863044f, 0.00019034900469705462f, 0.0001732015807647258f, 0.0002459172683302313f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #140 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_48_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 192,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00764789804816246f, 0.011456573382019997f, 0.023506375029683113f, 0.01724756322801113f, 0.008987811394035816f, 0.008122568018734455f, 0.011260022409260273f, 0.0015479896683245897f, 0.00872514583170414f, 0.007152528967708349f, 0.003485969500616193f, 0.011481725610792637f, 0.00485622975975275f, 0.009889806620776653f, 0.009695000946521759f, 0.010288703255355358f, 0.0023462509270757437f, 0.008480802178382874f, 0.011049739085137844f, 0.011576036922633648f, 0.011117384769022465f, 0.007089925464242697f, 0.006431685760617256f, 0.0035070362500846386f, 0.0107283815741539f, 0.008768726140260696f, 0.013859136030077934f, 0.007566043641418219f, 0.005719933193176985f, 0.01133232843130827f, 0.005428856238722801f, 0.0026349257677793503f, 0.007125884760171175f, 0.021770697087049484f, 0.0096139470115304f, 0.006279895547777414f, 0.011136794462800026f, 0.01629721187055111f, 0.0019855147693306208f, 0.006036351900547743f, 0.004496394190937281f, 0.008055138401687145f, 0.0040617045015096664f, 0.004776648245751858f, 0.005280745681375265f, 0.004167042672634125f, 0.013448315672576427f, 0.011708571575582027f, 0.0061383238062262535f, 0.004586083814501762f, 0.004093978088349104f, 0.0046407682821154594f, 0.008141244761645794f, 0.008891831152141094f, 0.009708069264888763f, 0.005139533430337906f, 0.007965189404785633f, 0.013354186899960041f, 0.01229645311832428f, 0.002029683906584978f, 0.0022947448305785656f, 0.006739465985447168f, 0.008272404782474041f, 0.0034090355038642883f, 0.009464151225984097f, 0.0038008412811905146f, 0.009853284806013107f, 0.005112888757139444f, 0.017019031569361687f, 0.0027860451955348253f, 0.015546470880508423f, 0.02067098766565323f, 0.0029004202224314213f, 0.009023474529385567f, 0.03351006656885147f, 0.008316373452544212f, 0.01218341663479805f, 0.005118090659379959f, 0.0018505684565752745f, 0.011748469434678555f, 0.008794494904577732f, 0.005593850743025541f, 0.008070351555943489f, 0.009752269834280014f, 0.01243034191429615f, 0.010225596837699413f, 0.004136714618653059f, 0.05830937996506691f, 0.011916651390492916f, 0.006776221562176943f, 0.002468343125656247f, 0.004105666186660528f, 0.008540580049157143f, 0.0031876706052571535f, 0.00722119165584445f, 0.007067818194627762f, 0.006953308824449778f, 0.016293536871671677f, 0.01963604986667633f, 0.01861516945064068f, 0.006457924842834473f, 0.022239265963435173f, 0.015149160288274288f, 0.006551876664161682f, 0.004492023028433323f, 0.02060697413980961f, 0.011910396628081799f, 0.009755617938935757f, 0.007581457495689392f, 0.0069718132726848125f, 0.004930409137159586f, 0.0047801765613257885f, 0.007007153704762459f, 0.004039953462779522f, 0.01001712679862976f, 0.003502114675939083f, 0.011192389763891697f, 0.005419951863586903f, 0.001704964553937316f, 0.007282671984285116f, 0.00552984606474638f, 0.010523151606321335f, 0.004303280729800463f, 0.0055497391149401665f, 0.004066178575158119f, 0.010925309732556343f, 0.008423900231719017f, 0.002383179496973753f, 0.009794045239686966f, 0.005623830482363701f, 0.006386375520378351f, 0.0026138690300285816f, 0.00477868365123868f, 0.011903999373316765f, 0.01712167076766491f, 0.013184802606701851f, 0.010784721933305264f, 0.008185743354260921f, 0.002831722842529416f, 0.0021525616757571697f, 0.004584298934787512f, 0.006041479296982288f, 0.0041304766200482845f, 0.005898104514926672f, 0.02319047972559929f, 0.007551837712526321f, 0.004736416041851044f, 0.006524938624352217f, 0.0046244957484304905f, 0.0034519918262958527f, 0.004549685399979353f, 0.010449852794408798f, 0.0024117245338857174f, 0.004597177729010582f, 0.007580150384455919f, 0.010979938320815563f, 0.010441255755722523f, 0.005218143574893475f, 0.007099695969372988f, 0.020404215902090073f, 0.006516326684504747f, 0.010929469019174576f, 0.0064780814573168755f, 0.00919401179999113f, 0.006879572756588459f, 0.004312891513109207f, 0.00567930331453681f, 0.013208199292421341f, 0.0066378735937178135f, 0.008838370442390442f, 0.007255219388753176f, 0.019902488216757774f, 0.007274662144482136f, 0.007495812606066465f, 0.0030781282112002373f, 0.006275414023548365f, 0.013397461734712124f, 0.0077075776644051075f, 0.0030846656300127506f, 0.005112191196531057f, 0.0034893976990133524f, 0.005699602887034416f, 0.008415247313678265f, 0.007806002162396908f, 0.006930142175406218f, 0.015061269514262676f, 0.006786600220948458f, 0.0041114091873168945f, 0.00858321413397789f, 0.005743610672652721f, 0.0037829303182661533f, 0.0020761555060744286f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #141 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_48_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 192,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00017995054076891392f, 0.0002695664297789335f, 0.0005530911730602384f, 0.00040582503424957395f, 0.00021147791994735599f, 0.0001911192521220073f, 0.0002649417147040367f, 3.6423287383513525e-05f, 0.00020529754692688584f, 0.00016829480591695756f, 8.20228160591796e-05f, 0.0002701582561712712f, 0.00011426422861404717f, 0.00023270133533515036f, 0.00022811767121311277f, 0.00024208714603446424f, 5.520590639207512e-05f, 0.0001995482889469713f, 0.0002599938597995788f, 0.0002723773359321058f, 0.0002615855191834271f, 0.0001668217737460509f, 0.00015133379201870412f, 8.251850522356108e-05f, 0.00025243251002393663f, 0.00020632297673728317f, 0.00032609733170829713f, 0.00017802456568460912f, 0.0001345866621704772f, 0.000266643037321046f, 0.00012773780326824635f, 6.199825293151662e-05f, 0.00016766788030508906f, 0.0005122516886331141f, 0.00022621052630711347f, 0.00014776225725654513f, 0.00026204221649095416f, 0.00038346380461007357f, 4.671799615607597e-05f, 0.00014203181490302086f, 0.00010579750960459933f, 0.0001895326713565737f, 9.556952136335894e-05f, 0.000112391724542249f, 0.00012425283784978092f, 9.80480617727153e-05f, 0.00031643096008338034f, 0.0002754958113655448f, 0.00014443114923778921f, 0.00010790785745484754f, 9.632889850763604e-05f, 0.00010919455235125497f, 0.00019155870540998876f, 0.00020921956456732005f, 0.0002284251677338034f, 0.00012093019904568791f, 0.0001874162262538448f, 0.0003142161585856229f, 0.00028932830900885165f, 4.775726847583428e-05f, 5.399399742600508e-05f, 0.0001585756690474227f, 0.0001946448173839599f, 8.021260146051645e-05f, 0.00022268592147156596f, 8.943155989982188e-05f, 0.0002318420010851696f, 0.0001203032661578618f, 0.0004004478105343878f, 6.555400614161044e-05f, 0.0003657993220258504f, 0.0004863762005697936f, 6.824518641224131e-05f, 0.00021231705613899976f, 0.0007884721853770316f, 0.00019567938579712063f, 0.0002866686263587326f, 0.00012042566231684759f, 4.354278644314036e-05f, 0.0002764345845207572f, 0.0002069292968371883f, 0.00013162002142053097f, 0.0001898906339192763f, 0.00022946517856325954f, 0.0002924786531366408f, 0.00024060228315647691f, 9.733446495374665e-05f, 0.001371985417790711f, 0.0002803918032441288f, 0.00015944050392135978f, 5.807866182294674e-05f, 9.660391515353695e-05f, 0.00020095483341719955f, 7.500401261495426e-05f, 0.0001699103886494413f, 0.0001663016009842977f, 0.00016360727022401989f, 0.0003833773371297866f, 0.00046202470548450947f, 0.0004380040045361966f, 0.0001519511715741828f, 0.0005232768598943949f, 0.0003564508515410125f, 0.00015416181122418493f, 0.00010569466394372284f, 0.00048486999003216624f, 0.0002802446251735091f, 0.00022954396263230592f, 0.0001783872430678457f, 0.00016404266352765262f, 0.00011600962898228317f, 0.00011247474321862683f, 0.0001648742036195472f, 9.505773050477728e-05f, 0.0002356971090193838f, 8.240270108217373e-05f, 0.00026335034635849297f, 0.00012752828479278833f, 4.011681448901072e-05f, 0.00017135699454229325f, 0.00013011402916163206f, 0.0002476035733707249f, 0.00010125366679858416f, 0.0001305821060668677f, 9.567478991812095e-05f, 0.0002570661308709532f, 0.00019820942543447018f, 5.607481216429733e-05f, 0.00023044813133310527f, 0.00013232542551122606f, 0.00015026766050141305f, 6.150280387373641e-05f, 0.00011243961489526555f, 0.0002800941001623869f, 0.0004028628463856876f, 0.00031023065093904734f, 0.0002537581603974104f, 0.00019260573026258498f, 6.662877422058955e-05f, 5.064851211500354e-05f, 0.00010786586062749848f, 0.00014215245028026402f, 9.718768706079572e-05f, 0.00013877893798053265f, 0.0005456583457998931f, 0.00017769030819181353f, 0.00011144508607685566f, 0.00015352797345258296f, 0.0001088116696337238f, 8.122334111249074e-05f, 0.00010705142631195486f, 0.0002458788803778589f, 5.6746459449641407e-05f, 0.00010816888971021399f, 0.00017835648031905293f, 0.00025835150154307485f, 0.0002456766087561846f, 0.00012277984933461994f, 0.00016705167945474386f, 0.0004800992028322071f, 0.00015332533803302795f, 0.00025716397794894874f, 0.00015242544759530574f, 0.000216329688555561f, 0.00016187230357900262f, 0.00010147980356123298f, 0.00013363067409954965f, 0.0003107811789959669f, 0.00015618526958860457f, 0.00020796166791114956f, 0.00017071104957722127f, 0.00046829384518787265f, 0.00017116851813625544f, 0.000176372064743191f, 7.242654828587547e-05f, 0.00014765679952688515f, 0.00031523441430181265f, 0.00018135477148462087f, 7.258036930579692e-05f, 0.0001202868515974842f, 8.210347732529044e-05f, 0.00013410831161309034f, 0.0001980058295885101f, 0.0001836706360336393f, 0.0001630621700314805f, 0.0003543828206602484f, 0.00015968471416272223f, 9.673904423834756e-05f, 0.00020195798424538225f, 0.00013514378224499524f, 8.901012915885076e-05f, 4.88507175759878e-05f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #142 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_49_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 32,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.005553191062062979f, 0.005765500944107771f, 0.010641716420650482f, 0.006880013272166252f, 0.0062163821421563625f, 0.010495875030755997f, 0.00687435595318675f, 0.011521388776600361f, 0.012037539854645729f, 0.01796288788318634f, 0.006254152394831181f, 0.015422940254211426f, 0.004983332473784685f, 0.01551006268709898f, 0.0068407137878239155f, 0.004478498362004757f, 0.021575776860117912f, 0.005196070298552513f, 0.00972248800098896f, 0.005581994540989399f, 0.007685428950935602f, 0.020771415904164314f, 0.01921169087290764f, 0.012077436782419682f, 0.014304755255579948f, 0.0128486854955554f, 0.012708371505141258f, 0.006982305087149143f, 0.004806716460734606f, 0.006924264598637819f, 0.008278029039502144f, 0.009736964479088783f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #143 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_49_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 32,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00013066332030575722f, 0.00013565884728450328f, 0.0002503933210391551f, 0.00016188266454264522f, 0.00014626781921833754f, 0.000246961775701493f, 0.00016174955817405134f, 0.00027109149959869683f, 0.00028323623700998724f, 0.00042265618685632944f, 0.00014715653378516436f, 0.0003628927224781364f, 0.00011725488730007783f, 0.00036494265077635646f, 0.00016095797764137387f, 0.0001053764353855513f, 0.0005076653324067593f, 0.0001222604769282043f, 0.00022876443108543754f, 0.00013134104665368795f, 0.00018083362374454737f, 0.0004887392278760672f, 0.0004520397924352437f, 0.0002841749810613692f, 0.0003365824813954532f, 0.000302322005154565f, 0.000299020524835214f, 0.00016428953676950186f, 0.00011309920955682173f, 0.00016292388318106532f, 0.00019477715250104666f, 0.00022910504776518792f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #144 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_51_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 192,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0009494789992459118f, 0.0009202082292176783f, 0.0009422312141396105f, 0.001129884272813797f, 0.0007043813238851726f, 0.0006136732990853488f, 0.0005774956080131233f, 0.0006927991635166109f, 0.0011053013149648905f, 0.0007431680569425225f, 0.0007157698273658752f, 0.000520409899763763f, 0.0008135242969729006f, 0.0008608362986706197f, 0.001084963558241725f, 0.00047038454795256257f, 0.0005707665113732219f, 0.0005164044559933245f, 0.000924648717045784f, 0.0008150794310495257f, 0.0007680341368541121f, 0.0004387880035210401f, 0.0011347213294357061f, 0.0008480390533804893f, 0.0010791511740535498f, 0.0009329461609013379f, 0.000768599973525852f, 0.0006780371186323464f, 0.0007371900719590485f, 0.0009434702224098146f, 0.0005798728088848293f, 0.000712849956471473f, 0.000673307164106518f, 0.0007457056199200451f, 0.000388540793210268f, 0.0006886890041641891f, 0.0006855775136500597f, 0.0011351312277838588f, 0.0006778367678634822f, 0.0008441277896054089f, 0.0007291250512935221f, 0.0004964557010680437f, 0.0010299676796421409f, 0.001508177607320249f, 0.0005849477602168918f, 0.0006119672325439751f, 0.0006752276094630361f, 0.0006222303491085768f, 0.0001254130038432777f, 0.0006256838096305728f, 0.0005336005706340075f, 0.0005928491591475904f, 0.0006203069933690131f, 0.0005075864028185606f, 0.0013009492540732026f, 0.000612512172665447f, 0.0004908132832497358f, 0.0006243757670745254f, 0.0008637470891699195f, 0.000846615934278816f, 0.0012045925250276923f, 0.0008381854277104139f, 0.0011449564481154084f, 0.0005736645543947816f, 0.0003252096939831972f, 0.0008816871559247375f, 0.0005892988410778344f, 0.0010725230677053332f, 0.0009585844236426055f, 0.0008104610024020076f, 0.0009129419340752065f, 0.0007371809333562851f, 0.00112898088991642f, 0.0005375969922170043f, 0.0004518522182479501f, 0.0006748880259692669f, 0.0008643598412163556f, 0.001138027524575591f, 0.000363961880793795f, 0.0007338987779803574f, 0.0009515135316178203f, 0.0006840996793471277f, 0.0010423010680824518f, 0.0010400124592706561f, 0.000556565762963146f, 0.0009183287038467824f, 0.0004965769476257265f, 0.0006959558231756091f, 0.0005151120712980628f, 0.0007493356242775917f, 0.0005490250769071281f, 0.0007859183824621141f, 0.0007499651983380318f, 0.0008319906773976982f, 0.0005965689197182655f, 0.0007083266391418874f, 0.00042671634582802653f, 0.0006266069831326604f, 0.0006734663038514555f, 0.0005543134757317603f, 0.0006520230090245605f, 0.0006233727908693254f, 0.0007418005843646824f, 0.0006519526359625161f, 0.000660991296172142f, 0.0010570659069344401f, 0.0012133006239309907f, 0.0007657509995624423f, 0.0007515710312873125f, 0.0007589019369333982f, 0.000713131099473685f, 0.0008488643215969205f, 0.000750330975279212f, 0.0005584054160863161f, 0.0006222596857696772f, 0.0007311984081752598f, 0.0007628769963048398f, 0.0006313500343821943f, 0.0008013595943339169f, 0.0007987313438206911f, 0.0011364762904122472f, 0.0009443578310310841f, 0.001035024761222303f, 0.0009440900175832212f, 0.0010324782924726605f, 0.0007119549554772675f, 0.0006903541507199407f, 0.0008111211354844272f, 0.0006256125052459538f, 0.0008395454497076571f, 0.0011316536692902446f, 0.0005363284726627171f, 0.0017127605387941003f, 0.0006383475265465677f, 0.0008217160939238966f, 0.0016561666270717978f, 0.00047167850425466895f, 0.0008090679766610265f, 0.0007098080823197961f, 0.000788186676800251f, 0.0007909670821391046f, 0.000558921427000314f, 0.0008112395880743861f, 0.0006755213253200054f, 0.0007956133340485394f, 0.0009083302575163543f, 0.0007038923213258386f, 0.0009120231843553483f, 0.0007929133716970682f, 0.0007194256759248674f, 0.0006542748888023198f, 0.00048334416351281106f, 0.0007001007907092571f, 0.0006193636218085885f, 0.0008131533395498991f, 0.0018556719878688455f, 0.0006270931335166097f, 0.0006222317460924387f, 0.0008469026652164757f, 0.0004498196649365127f, 0.0007893238798715174f, 0.0009818596299737692f, 0.0009470205986872315f, 0.0006215157336555421f, 0.000897718477062881f, 0.00142269569914788f, 0.0009132963023148477f, 0.00038896361365914345f, 0.0007990348385646939f, 0.00012232124572619796f, 0.0009921820601448417f, 0.0007695617387071252f, 0.0011507972376421094f, 0.0009179151966236532f, 0.0004489937564358115f, 0.0005979356938041747f, 0.0006939836894161999f, 0.0004979000077582896f, 0.0006317848456092179f, 0.000615617900621146f, 0.0008320208289660513f, 0.0010053517762571573f, 0.0009320249664597213f, 0.0005165821057744324f, 0.00014965623267926276f, 0.0011655183043330908f, 0.0006113029667176306f, 0.0009435553220100701f, 0.0009236670448444784f, 0.0006278340588323772f, 0.0010558519279584289f, 0.0008294808212667704f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #145 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_51_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 192,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.000326765701174736f, 0.00031669207965023816f, 0.00032427135738544166f, 0.0003888526407536119f, 0.00024241468054242432f, 0.00021119728626217693f, 0.0001987466384889558f, 0.00023842864902690053f, 0.00038039236096665263f, 0.0002557632396928966f, 0.0002463340642862022f, 0.00017910043243318796f, 0.0002799765206873417f, 0.00029625906608998775f, 0.0003733930643647909f, 0.00016188407607842237f, 0.00019643078849185258f, 0.00017772195860743523f, 0.0003182202926836908f, 0.000280511740129441f, 0.00026432095910422504f, 0.0001510100410087034f, 0.0003905173216480762f, 0.0002918548707384616f, 0.0003713926998898387f, 0.00032107587321661413f, 0.00026451569283381104f, 0.00023334825527854264f, 0.0002537058899179101f, 0.00032469775760546327f, 0.00019956474716309458f, 0.00024532919633202255f, 0.00023172043438535184f, 0.0002566365583334118f, 0.00013371733075473458f, 0.00023701413010712713f, 0.0002359432983212173f, 0.00039065838791429996f, 0.00023327930830419064f, 0.0002905087894760072f, 0.0002509303158149123f, 0.00017085653962567449f, 0.0003544660867191851f, 0.0005190433003008366f, 0.00020131131168454885f, 0.00021061013103462756f, 0.0002323813532711938f, 0.00021414221555460244f, 4.3161213397979736e-05f, 0.00021533072867896408f, 0.00018364003335591406f, 0.0002040305989794433f, 0.0002134802780346945f, 0.000174687200342305f, 0.0004477251204662025f, 0.00021079767611809075f, 0.00016891468840185553f, 0.00021488056518137455f, 0.00029726081993430853f, 0.0002913651114795357f, 0.0004145636921748519f, 0.00028846372151747346f, 0.00039403975824825466f, 0.00019742816220968962f, 0.00011192177043994889f, 0.00030343496473506093f, 0.0002028087474172935f, 0.0003691116289701313f, 0.000329899339703843f, 0.0002789222926367074f, 0.00031419136212207377f, 0.00025370274670422077f, 0.0003885417536366731f, 0.00018501542217563838f, 0.0001555061317048967f, 0.0002322644868399948f, 0.000297471706289798f, 0.00039165516500361264f, 0.00012525843339972198f, 0.0002525731979403645f, 0.0003274658811278641f, 0.00023543470888398588f, 0.00035871064756065607f, 0.0003579230105970055f, 0.00019154357141815126f, 0.00031604524701833725f, 0.00017089825996663421f, 0.00023951502225827426f, 0.0001772771793184802f, 0.00025788581115193665f, 0.00018894842651207f, 0.00027047586627304554f, 0.00025810248916968703f, 0.00028633177862502635f, 0.0002053107600659132f, 0.00024377247609663755f, 0.00014685555652249604f, 0.000215648440644145f, 0.00023177519324235618f, 0.00019076843454968184f, 0.00022439543681684881f, 0.00021453537920024246f, 0.0002552926307544112f, 0.00022437120787799358f, 0.00022748189803678542f, 0.00036379200173541903f, 0.00041756060090847313f, 0.00026353521388955414f, 0.00025865514180622995f, 0.0002611780946608633f, 0.00024542593746446073f, 0.0002921388950198889f, 0.00025822839234024286f, 0.00019217669614590704f, 0.0002141523000318557f, 0.00025164385442622006f, 0.00026254612021148205f, 0.0002172807726310566f, 0.0002757900219876319f, 0.0002748855040408671f, 0.00039112131344154477f, 0.00032500323140993714f, 0.0003562064957804978f, 0.00032491105957888067f, 0.0003553301212377846f, 0.0002450211613904685f, 0.00023758719908073545f, 0.0002791494771372527f, 0.00021530619414988905f, 0.00028893176931887865f, 0.00038946158019825816f, 0.00018457885016687214f, 0.0005894510541111231f, 0.00021968898363411427f, 0.00028279575053602457f, 0.0005699740722775459f, 0.00016232939378824085f, 0.00027844286523759365f, 0.00024428233155049384f, 0.0002712565183173865f, 0.000272213394055143f, 0.0001923542731674388f, 0.00027919025160372257f, 0.00023248244542628527f, 0.00027381241670809686f, 0.0003126042429357767f, 0.00024224638764280826f, 0.0003138751781079918f, 0.0002728832187131047f, 0.00024759225198067725f, 0.00022517042816616595f, 0.00016634416533634067f, 0.00024094153195619583f, 0.00021315562480594963f, 0.00027984887128695846f, 0.0006386343738995492f, 0.00021581574401352555f, 0.00021414269576780498f, 0.000291463773464784f, 0.0001548066211398691f, 0.0002716478775255382f, 0.0003379095869604498f, 0.0003259196237195283f, 0.00021389627363532782f, 0.00030895217787474394f, 0.0004896244499832392f, 0.00031431333627551794f, 0.00013386284990701824f, 0.00027498992858454585f, 4.209717735648155e-05f, 0.00034146205871365964f, 0.0002648466906975955f, 0.00039604990161024034f, 0.0003159029292874038f, 0.0001545223785797134f, 0.00020578113617375493f, 0.000238836306380108f, 0.00017135360394604504f, 0.0002174304099753499f, 0.0002118665142916143f, 0.0002863421686924994f, 0.0003459944564383477f, 0.0003207588451914489f, 0.0001777830912033096f, 5.1504586735973135e-05f, 0.0004011161800008267f, 0.00021038152044638991f, 0.00032472703605890274f, 0.000317882455419749f, 0.00021607073722407222f, 0.0003633742162492126f, 0.00028546800604090095f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #146 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_53_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 192,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.005297917407006025f, 0.004259275738149881f, 0.003134041326120496f, 0.002898763632401824f, 0.004082865547388792f, 0.00454402482137084f, 0.0032183192670345306f, 0.005286545027047396f, 0.003337467322126031f, 0.0023720129393041134f, 0.0026950035244226456f, 0.004407673608511686f, 0.004956775810569525f, 0.0035353011917322874f, 0.003191170049831271f, 0.004359034821391106f, 0.004734617192298174f, 0.003179394407197833f, 0.0024443482980132103f, 0.006419949699193239f, 0.004753135144710541f, 0.005853681825101376f, 0.0019988841377198696f, 0.004511216189712286f, 0.004961942322552204f, 0.004620988853275776f, 0.006126279477030039f, 0.004412003792822361f, 0.004646915476769209f, 0.003116731299087405f, 0.0033677774481475353f, 0.00454373937100172f, 0.004423331003636122f, 0.0034992333967238665f, 0.005898310802876949f, 0.0059967017732560635f, 0.0044960095547139645f, 0.003849012777209282f, 0.007065076380968094f, 0.0018812185153365135f, 0.0036415448412299156f, 0.003213411895558238f, 0.003204816021025181f, 0.004305281210690737f, 0.004480660427361727f, 0.005533978808671236f, 0.004209230188280344f, 0.007059804163873196f, 0.02048536390066147f, 0.0031849206425249577f, 0.004764751065522432f, 0.0030162502080202103f, 0.0028734372463077307f, 0.004598616622388363f, 0.0020591497886925936f, 0.003991172183305025f, 0.0051584551110863686f, 0.004903445020318031f, 0.003268818138167262f, 0.0020726826041936874f, 0.0034654163755476475f, 0.00417584041133523f, 0.004025701433420181f, 0.005319824442267418f, 0.0035509306471794844f, 0.002461085794493556f, 0.003507244633510709f, 0.004689970053732395f, 0.0033255894668400288f, 0.0021010919008404016f, 0.004651238676160574f, 0.002670902758836746f, 0.006644063163548708f, 0.005420232657343149f, 0.004740787670016289f, 0.004108862020075321f, 0.0038466500118374825f, 0.0036927044857293367f, 0.006744513288140297f, 0.0040518902242183685f, 0.0038496165070682764f, 0.0026928598526865244f, 0.004649005364626646f, 0.006203439552336931f, 0.005213384050875902f, 0.003117005340754986f, 0.004300710279494524f, 0.004652760457247496f, 0.004673485644161701f, 0.005240217316895723f, 0.006413505878299475f, 0.004487169440835714f, 0.006365503184497356f, 0.004258993547409773f, 0.0031930599361658096f, 0.0026015103794634342f, 0.003425341099500656f, 0.005245073698461056f, 0.004572227597236633f, 0.003513556206598878f, 0.004700512625277042f, 0.0037088626995682716f, 0.002949443645775318f, 0.004613363649696112f, 0.004435223061591387f, 0.005829337518662214f, 0.005662971641868353f, 0.0038198514375835657f, 0.002066260203719139f, 0.003709588199853897f, 0.006500883959233761f, 0.005289209540933371f, 0.004415796138346195f, 0.004204816184937954f, 0.0057960739359259605f, 0.0033134131226688623f, 0.0037904265336692333f, 0.004193662665784359f, 0.004463991150259972f, 0.005648569203913212f, 0.005054535809904337f, 0.0041351779364049435f, 0.006702245678752661f, 0.004811543505638838f, 0.0020998900290578604f, 0.003411573590710759f, 0.0022400496527552605f, 0.0034867131616920233f, 0.0040032085962593555f, 0.004765997640788555f, 0.0033759763464331627f, 0.00369480112567544f, 0.0025457264855504036f, 0.002776915207505226f, 0.006222760304808617f, 0.0014672877732664347f, 0.005585481412708759f, 0.002894046949222684f, 0.0030899611301720142f, 0.00411489000543952f, 0.0030853906646370888f, 0.0030743556562811136f, 0.0035810370463877916f, 0.004471181891858578f, 0.003349706996232271f, 0.0050981189124286175f, 0.003103155642747879f, 0.005129268392920494f, 0.004716857336461544f, 0.003571262815967202f, 0.003973841667175293f, 0.005988944321870804f, 0.002672756090760231f, 0.003653549123555422f, 0.0032049494329839945f, 0.0024872326757758856f, 0.005197363439947367f, 0.004927631467580795f, 0.0029194559901952744f, 0.0031508086249232292f, 0.005788660608232021f, 0.0020737661980092525f, 0.002884735818952322f, 0.002231756690889597f, 0.005339889787137508f, 0.003822894534096122f, 0.0026394983287900686f, 0.005632174201309681f, 0.0017511526821181178f, 0.00832920242100954f, 0.003661248367279768f, 0.002704625716432929f, 0.004928933922201395f, 0.0030556158162653446f, 0.0035963819827884436f, 0.004394228104501963f, 0.004688357934355736f, 0.00516267167404294f, 0.0033193272538483143f, 0.005236668512225151f, 0.0026498904917389154f, 0.005281019955873489f, 0.005087430588901043f, 0.004234767518937588f, 0.02394210174679756f, 0.0053523327223956585f, 0.004331712145358324f, 0.0027486339677125216f, 0.0038315299898386f, 0.0038972015026956797f, 0.0027817857917398214f, 0.005188611336052418f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #147 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_53_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 192,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00012465688632801175f, 0.00010021825437434018f, 7.374215056188405e-05f, 6.820620183134452e-05f, 9.606742969481274e-05f, 0.00010691823263186961f, 7.572516187792644e-05f, 0.0001243892911588773f, 7.852864655433223e-05f, 5.581207005889155e-05f, 6.341184780467302e-05f, 0.00010370997188147157f, 0.00011663002078421414f, 8.31835568533279e-05f, 7.508635462727398e-05f, 0.00010256552923237905f, 0.00011140276183141395f, 7.480927888536826e-05f, 5.751408025389537e-05f, 0.0001510576403234154f, 0.00011183847527718171f, 0.00013773368846159428f, 4.703256854554638e-05f, 0.00010614626808091998f, 0.00011675158748403192f, 0.00010872915299842134f, 0.00014414775068871677f, 0.00010381185711594298f, 0.00010933919111266732f, 7.333485700655729e-05f, 7.924182136775926e-05f, 0.00010691151692299172f, 0.00010407837544335052f, 8.233490370912477e-05f, 0.0001387837837683037f, 0.0001410988625138998f, 0.0001057884655892849f, 9.056500857695937e-05f, 0.00016623709234409034f, 4.426396480994299e-05f, 8.56834085425362e-05f, 7.560969243058935e-05f, 7.540743536083028e-05f, 0.00010130073496839032f, 0.00010542730888118967f, 0.000130211265059188f, 9.904071339406073e-05f, 0.00016611303726676852f, 0.0004820085596293211f, 7.493930752389133e-05f, 0.0001121117893490009f, 7.09705927874893e-05f, 6.761028635082766e-05f, 0.00010820274474099278f, 4.84505835629534e-05f, 9.390993363922462e-05f, 0.0001213754148920998f, 0.00011537518003024161f, 7.691336941206828e-05f, 4.8769004934001714e-05f, 8.153921226039529e-05f, 9.825507004279643e-05f, 9.472238889429718e-05f, 0.00012517234426923096f, 8.355131285497919e-05f, 5.790790237369947e-05f, 8.252340194303542e-05f, 0.00011035223724320531f, 7.824916247045621e-05f, 4.9437458073953167e-05f, 0.0001094409090001136f, 6.284477422013879e-05f, 0.00015633090515621006f, 0.000127534891362302f, 0.00011154794628964737f, 9.667910489952192e-05f, 9.05094129848294e-05f, 8.688716479809955e-05f, 0.0001586944272276014f, 9.533859702059999e-05f, 9.057921124622226e-05f, 6.33614108664915e-05f, 0.00010938836203422397f, 0.0001459632912883535f, 0.00012266785779502243f, 7.334130350500345e-05f, 0.00010119318176293746f, 0.00010947672126349062f, 0.00010996437049470842f, 0.0001232992362929508f, 0.00015090602391865104f, 0.00010558046051301062f, 0.0001497765479143709f, 0.00010021161142503843f, 7.513082528021187e-05f, 6.121201295172796e-05f, 8.059626270551234e-05f, 0.00012341349793132395f, 0.0001075818290701136f, 8.267191151389852e-05f, 0.00011060029646614566f, 8.726736268727109e-05f, 6.939867307664827e-05f, 0.00010854973515961319f, 0.00010435819422127679f, 0.00013716088142246008f, 0.00013324638712219894f, 8.987885667011142e-05f, 4.861788693233393e-05f, 8.728443208383396e-05f, 0.00015296197670977563f, 0.00012445199536159635f, 0.00010390108946012333f, 9.893685637507588e-05f, 0.00013637820666190237f, 7.796266436344013e-05f, 8.918650564737618e-05f, 9.86744198598899e-05f, 0.0001050350911100395f, 0.00013290751667227596f, 0.00011893025657627732f, 9.729830344440416e-05f, 0.00015769990568514913f, 0.00011321278725517914f, 4.9409176426706836e-05f, 8.027232252061367e-05f, 5.2707051509059966e-05f, 8.204031473724172e-05f, 9.41931430133991e-05f, 0.00011214112601010129f, 7.943473610794172e-05f, 8.693649579072371e-05f, 5.98994483880233e-05f, 6.533918349305168e-05f, 0.00014641789312008768f, 3.4524418879300356e-05f, 0.00013142309035174549f, 6.809522164985538e-05f, 7.270497007993981e-05f, 9.682094241725281e-05f, 7.259743142640218e-05f, 7.233778160298243e-05f, 8.425970008829609e-05f, 0.00010520427895244211f, 7.881663623265922e-05f, 0.00011995574459433556f, 7.30154279153794e-05f, 0.0001206886736326851f, 0.00011098488175775856f, 8.402971434406936e-05f, 9.350215987069532e-05f, 0.0001409163378411904f, 6.288837903412059e-05f, 8.59658612171188e-05f, 7.54105785745196e-05f, 5.852312460774556e-05f, 0.0001222909049829468f, 0.00011594426905503497f, 6.869308708701283e-05f, 7.413667481159791e-05f, 0.00013620378740597516f, 4.879449988948181e-05f, 6.78761352901347e-05f, 5.2511924877762794e-05f, 0.0001256444666069001f, 8.99504593689926e-05f, 6.210584251675755e-05f, 0.00013252174539957196f, 4.1203591536032036e-05f, 0.00019598123617470264f, 8.614702528575435e-05f, 6.363825377775356e-05f, 0.0001159749153885059f, 7.189684401964769e-05f, 8.462075493298471e-05f, 0.00010339360596844926f, 0.00011031430767616257f, 0.0001214746298501268f, 7.810181705281138e-05f, 0.00012321573740337044f, 6.235036562429741e-05f, 0.0001242592989001423f, 0.0001197042511194013f, 9.964159107767045e-05f, 0.0005633435794152319f, 0.0001259372365893796f, 0.00010192264016950503f, 6.467373896157369e-05f, 9.015364776132628e-05f, 9.169885743176565e-05f, 6.545378710143268e-05f, 0.0001220849808305502f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #148 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_54_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 56,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.009557019919157028f, 0.008032577112317085f, 0.0109510887414217f, 0.0072178770788013935f, 0.008568302728235722f, 0.0097382552921772f, 0.009062311612069607f, 0.006645910441875458f, 0.007811747025698423f, 0.007105476222932339f, 0.008010189048945904f, 0.00784240011125803f, 0.007878568954765797f, 0.010282568633556366f, 0.010455464944243431f, 0.008994132280349731f, 0.0081785311922431f, 0.008868335746228695f, 0.01210425328463316f, 0.008774648420512676f, 0.011304961517453194f, 0.012341726571321487f, 0.007723439484834671f, 0.00938425213098526f, 0.008121984079480171f, 0.009429728612303734f, 0.010280719958245754f, 0.01033995021134615f, 0.008212234824895859f, 0.010500088334083557f, 0.00886106863617897f, 0.010216740891337395f, 0.009057165123522282f, 0.008933641016483307f, 0.012084136717021465f, 0.010119031183421612f, 0.011137560941278934f, 0.0067760334350168705f, 0.00837013777345419f, 0.012169607914984226f, 0.013056446798145771f, 0.008240865543484688f, 0.011419815011322498f, 0.01129542849957943f, 0.012615073472261429f, 0.008044200949370861f, 0.0077453069388866425f, 0.010050836950540543f, 0.006787663325667381f, 0.008791867643594742f, 0.007785907480865717f, 0.008918903768062592f, 0.007924944162368774f, 0.010267235338687897f, 0.008923300541937351f, 0.006680451799184084f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #149 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_54_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 56,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00022487106616608799f, 0.00018900181748904288f, 0.000257672683801502f, 0.00016983240493573248f, 0.0002016071230173111f, 0.00022913541761226952f, 0.0002132308727595955f, 0.0001563743717269972f, 0.0001838058087741956f, 0.00016718768165446818f, 0.000188475038157776f, 0.00018452705990057439f, 0.00018537809955887496f, 0.00024194279103539884f, 0.00024601095356047153f, 0.0002116266405209899f, 0.00019243602582719177f, 0.00020866672275587916f, 0.00028480595210567117f, 0.00020646232587751f, 0.0002659990859683603f, 0.000290393567411229f, 0.0001817279844544828f, 0.0002208059304393828f, 0.00019110551511403173f, 0.0002218759764218703f, 0.00024189929536078125f, 0.00024329294683411717f, 0.00019322906155139208f, 0.00024706090334802866f, 0.00020849573775194585f, 0.00024039391428232193f, 0.00021310977172106504f, 0.00021020331769250333f, 0.0002843326365109533f, 0.00023809485719539225f, 0.00026206026086583734f, 0.00015943608013913035f, 0.00019694442744366825f, 0.0002863437111955136f, 0.0003072105173487216f, 0.0001939027279149741f, 0.0002687015221454203f, 0.00026577478274703026f, 0.00029682525200769305f, 0.00018927532073576003f, 0.00018224252562504262f, 0.00023649029026273638f, 0.0001597097289049998f, 0.0002068674803012982f, 0.00018319782975595444f, 0.00020985656010452658f, 0.00018646927492227405f, 0.00024158201995305717f, 0.00020996000966988504f, 0.00015718711074441671f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #150 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_55_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 336,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0004810552636627108f, 0.001293457462452352f, 0.0008123220759443939f, 0.0006655355100519955f, 0.0007612609770148993f, 0.0008176759001798928f, 0.0006760593969374895f, 0.0006534931599162519f, 0.0005963041330687702f, 0.0006236271001398563f, 0.0005246314685791731f, 0.00045736858737654984f, 0.0008164741448126733f, 0.0003881930897478014f, 0.0006919592269696295f, 0.0006121103069745004f, 0.0008460287936031818f, 0.0013029540423303843f, 0.0008606212213635445f, 0.001155298319645226f, 0.0007425361545756459f, 0.0008986517204903066f, 0.00042131062946282327f, 0.00012445292668417096f, 0.0003295054193586111f, 0.0007136682397685945f, 0.0008734466973692179f, 0.0005734047736041248f, 0.00026096549117937684f, 0.0005056399968452752f, 0.0003005157923325896f, 0.00037001920281909406f, 0.0007536854827776551f, 0.0005355853354558349f, 0.0007201158441603184f, 0.00029157049721106887f, 0.0013576500350609422f, 0.0005557306576520205f, 0.0005152745870873332f, 0.0010463043581694365f, 0.0006872523808851838f, 0.0006323669222183526f, 0.0005183235043659806f, 0.0010040301131084561f, 0.00038921702071093023f, 0.0008584835450164974f, 0.0007605599239468575f, 0.0004179572861175984f, 0.001182377221994102f, 0.0004270558129064739f, 0.0006974182324483991f, 0.0007125905831344426f, 0.00036317744525149465f, 0.0010541502851992846f, 0.0006070057861506939f, 0.0006038306746631861f, 0.000494586129207164f, 0.0003360440896358341f, 0.0005441273096948862f, 0.0010034948354586959f, 0.0004648059548344463f, 0.0008153229136951268f, 0.0005356598412618041f, 0.0004100613296031952f, 0.00039814028423279524f, 0.0007014115108177066f, 0.0005268380627967417f, 0.00034720776602625847f, 0.0009631368448026478f, 0.0005727714160457253f, 0.000436502683442086f, 0.0006520600873045623f, 0.0007784956833347678f, 0.0004904982051812112f, 0.0009590401314198971f, 0.0006381131825037301f, 0.0011336066527292132f, 0.0004894270678050816f, 0.00035160043626092374f, 0.0004764595068991184f, 0.0005448099109344184f, 0.0009227231494151056f, 0.0010112746385857463f, 0.0007186845759861171f, 0.00042920338455587626f, 0.0007555477786809206f, 0.0006071261595934629f, 0.0007562985992990434f, 0.0004921871586702764f, 0.0004063098458573222f, 0.0011073381174355745f, 0.0010629022726789117f, 0.00034804761526174843f, 0.00044551549945026636f, 0.0015465065371245146f, 0.0009573651477694511f, 0.0006349517498165369f, 0.0009624454542063177f, 0.0002340784703847021f, 0.0010365095222368836f, 0.0012939058942720294f, 0.0004700463614426553f, 0.0003774126525968313f, 0.0006982572958804667f, 0.0009327208390459418f, 0.001035738387145102f, 0.0004918421036563814f, 0.0008026193245314062f, 0.0010563910473138094f, 0.0009108464000746608f, 0.0010595995699986815f, 0.0006246597622521222f, 0.0005199049483053386f, 0.0007928483537398279f, 0.0007339291623793542f, 0.00046208829735405743f, 0.00024675807799212635f, 0.0007558499928563833f, 0.0012243156088516116f, 0.0010779801523312926f, 0.0007442589849233627f, 0.000452838750788942f, 0.0006707381107844412f, 0.001066738273948431f, 0.0005851280293427408f, 0.0004737728741019964f, 0.0010426983935758471f, 0.00032787624513730407f, 0.001470264047384262f, 0.000585073372349143f, 0.0009211708093062043f, 0.0007142417598515749f, 0.0008965807501226664f, 0.0004075435281265527f, 0.0008954339427873492f, 0.001069313264451921f, 0.0004717081901617348f, 0.0005895300419069827f, 0.0004907284746877849f, 0.0004257971013430506f, 0.0004798096779268235f, 0.0005625788471661508f, 0.0009024082683026791f, 0.0004933485761284828f, 0.00190306908916682f, 0.000865981332026422f, 0.0006691196467727423f, 0.0010865305084735155f, 0.00041218381375074387f, 0.0013218880631029606f, 0.0006377641693688929f, 0.000563246663659811f, 0.0008537015528418124f, 0.0006630895659327507f, 0.0004805928037967533f, 0.00034602684900164604f, 0.0009390696650370955f, 0.0008413520408794284f, 0.0006938355509191751f, 0.0006348654278554022f, 0.000648423854727298f, 0.00078851159196347f, 0.00038506585406139493f, 0.0006874259561300278f, 0.0004460524069145322f, 0.0009226630791090429f, 0.0005479104584082961f, 0.00029623860609717667f, 0.0003323597484268248f, 0.0009659384377300739f, 0.0011584273306652904f, 0.0006234077736735344f, 0.0002283419162267819f, 0.00044591992627829313f, 0.0004202394047752023f, 0.0003178928454872221f, 0.0007582197431474924f, 0.0009434599196538329f, 0.0006038016290403903f, 0.001138117746450007f, 0.0009586167288944125f, 0.00044724575127474964f, 0.0009924921905621886f, 0.0012081492459401488f, 0.0010625639697536826f, 0.0009976529981940985f, 0.0009664662647992373f, 0.0004940518992953002f, 0.0007437204476445913f, 0.0004307914641685784f, 0.00035886873956769705f, 0.0012900615110993385f, 0.000700416334439069f, 0.000664770370349288f, 0.0013887248933315277f, 0.0009182961075566709f, 0.0006309720338322222f, 0.0007410484249703586f, 0.0007601428660564125f, 0.0009860829450190067f, 0.0006069924565963447f, 0.0010795645648613572f, 0.0008358703344129026f, 0.0004855102743022144f, 0.000997544382698834f, 0.0008739319164305925f, 0.0005176585982553661f, 0.0014584354357793927f, 0.0007149230223149061f, 0.0006316694198176265f, 0.0010609228629618883f, 0.0007799566374160349f, 0.0005998156848363578f, 0.00041250858339481056f, 0.0016449718968942761f, 0.00039485582965426147f, 0.0002228937519248575f, 0.0007428208482451737f, 0.0006836219690740108f, 0.0005960714188404381f, 0.000918386853300035f, 0.0006218444905243814f, 0.0008106476743705571f, 0.0008240248425863683f, 0.0006174302543513477f, 0.0006992711569182575f, 0.0005018224474042654f, 0.0008245217031799257f, 0.0007059074123390019f, 0.000610588351264596f, 0.00027119930018670857f, 0.001104370690882206f, 0.00019426445942372084f, 0.0015027319313958287f, 0.0005010138847865164f, 0.0007600210956297815f, 0.0005590303335338831f, 0.0006416820688173175f, 0.000921631115488708f, 0.0006582517526112497f, 0.0018059274880215526f, 0.0006047894130460918f, 0.0005681817419826984f, 0.0006235417095012963f, 0.0005809190915897489f, 0.0006249840371310711f, 0.0011010277085006237f, 0.0003486798086669296f, 0.0005558104603551328f, 0.0011509292526170611f, 0.0007766572525724769f, 0.000989787746220827f, 0.0006164872320368886f, 0.00016219222743529826f, 0.0010626522125676274f, 0.0006091630202718079f, 0.0003905670018866658f, 0.0009164438815787435f, 0.0009571784175932407f, 0.000679769495036453f, 0.0007123563555069268f, 0.0009351114858873188f, 0.0010046232491731644f, 0.0009325171122327447f, 0.0005207891808822751f, 0.0005884072743356228f, 0.0008303718059323728f, 0.0008704258361831307f, 0.0009263913379982114f, 0.00048122633597813547f, 0.0003313101187814027f, 0.0006793023785576224f, 0.00038275381666608155f, 0.0011517839739099145f, 0.0004766269994433969f, 0.0005504850414581597f, 0.0012692733434960246f, 0.0009115830762311816f, 0.0003597576287575066f, 0.0007425569929182529f, 0.0002803694223985076f, 0.0009934493573382497f, 0.0005500856204889715f, 0.0008698246092535555f, 0.0007914946181699634f, 0.0005050282343290746f, 0.0005692342529073358f, 0.0002825202827807516f, 0.0007195017533376813f, 0.0009057232527993619f, 0.0006840284331701696f, 0.0005360165960155427f, 0.0005826713750138879f, 0.000451501487987116f, 0.000752889784052968f, 0.0005243652267381549f, 0.0006404492887668312f, 0.000586487352848053f, 0.0009453078382648528f, 0.00044700654689222574f, 0.0008606400224380195f, 0.0005017660441808403f, 0.0008732548449188471f, 0.0006304084090515971f, 0.0006361379055306315f, 0.0005708864191547036f, 0.0007140921079553664f, 0.0006994795985519886f, 0.0003873090026900172f, 0.000994227477349341f, 0.0005407196003943682f, 0.0009865756146609783f, 0.00032089187880046666f, 0.000337623932864517f, 0.0005196124548092484f, 0.0012176074087619781f, 0.0006602570647373796f, 0.00046811136417090893f, 0.0005281732301227748f, 0.0012110996758565307f, 0.0004150640161242336f, 0.0006937326397746801f, 0.0005054245702922344f, 0.0005126363248564303f, 0.0009937125723809004f, 0.0005391039303503931f, 0.0004573795013129711f, 0.0004960249061696231f, 0.0012080797459930182f, 0.001208379166200757f, 0.000708774896338582f, 0.00047544221160933375f, 0.0011839776998385787f, 0.001727747032418847f, 0.0011915002251043916f, 0.00039533269591629505f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #151 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_55_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 336,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00010788994404720142f, 0.00029009359423071146f, 0.00018218568584416062f, 0.000149264742503874f, 0.00017073382332455367f, 0.00018338642257731408f, 0.0001516250049462542f, 0.00014656390703748912f, 0.00013373768888413906f, 0.00013986561680212617f, 0.0001176631121779792f, 0.00010257754911435768f, 0.00018311689200345427f, 8.706303196959198e-05f, 0.00015519098087679595f, 0.00013728265184909105f, 0.00018974534759763628f, 0.00029222347075119615f, 0.00019301810243632644f, 0.00025910758995451033f, 0.00016653425700496882f, 0.00020154748926870525f, 9.449055505683646e-05f, 2.791200859064702e-05f, 7.390070095425472e-05f, 0.00016005983343347907f, 0.0001958945649676025f, 0.00012860186689067632f, 5.852872709510848e-05f, 0.00011340374476276338f, 6.739897071383893e-05f, 8.29870332381688e-05f, 0.00016903479991015047f, 0.00012011981743853539f, 0.00016150588635355234f, 6.539274181704968e-05f, 0.00030449056066572666f, 0.00012463796883821487f, 0.0001155645732069388f, 0.0002346626715734601f, 0.00015413534129038453f, 0.00014182575978338718f, 0.00011624837497947738f, 0.00022518151672556996f, 8.729267574381083e-05f, 0.00019253867503721267f, 0.00017057658988051116f, 9.373847569804639e-05f, 0.0002651807735674083f, 9.577906894264743e-05f, 0.00015641532081644982f, 0.00015981814067345113f, 8.145258470904082e-05f, 0.00023642234737053514f, 0.00013613782357424498f, 0.00013542572560254484f, 0.00011092461500084028f, 7.5367177487351e-05f, 0.00012203559163026512f, 0.00022506146342493594f, 0.00010424558422528207f, 0.00018285869737155735f, 0.00012013653031317517f, 9.19675876502879e-05f, 8.929396426538005e-05f, 0.00015731091843917966f, 0.00011815800098702312f, 7.787094364175573e-05f, 0.00021601007028948516f, 0.00012845982564613223f, 9.789779142010957e-05f, 0.00014624249888584018f, 0.0001745991758070886f, 0.00011000778613379225f, 0.00021509126236196607f, 0.00014311452105175704f, 0.0002542426227591932f, 0.00010976754856528714f, 7.885611557867378e-05f, 0.00010685921733966097f, 0.00012218867777846754f, 0.0002069461770588532f, 0.00022680629626847804f, 0.0001611848856555298f, 9.626072278479114e-05f, 0.00016945248353295028f, 0.00013616483192890882f, 0.00016962086374405771f, 0.00011038657976314425f, 9.112621773965657e-05f, 0.0002483511925674975f, 0.00023838522611185908f, 7.80592963565141e-05f, 9.991916886065155e-05f, 0.0003468468494247645f, 0.00021471560467034578f, 0.00014240547898225486f, 0.00021585500508081168f, 5.249856985756196e-05f, 0.00023246591445058584f, 0.00029019417706876993f, 0.00010542089148657396f, 8.464522397844121e-05f, 0.00015660350618418306f, 0.00020918843802064657f, 0.0002322929649380967f, 0.00011030918540200219f, 0.0001800095778889954f, 0.00023692489776294678f, 0.00020428249263204634f, 0.00023764448997098953f, 0.00014009722508490086f, 0.00011660305608529598f, 0.00017781816131900996f, 0.00016460390179418027f, 0.00010363607725594193f, 5.534231968340464e-05f, 0.0001695202518021688f, 0.00027458660770207644f, 0.00024176684382837266f, 0.00016692065401002765f, 0.00010156160715268925f, 0.00015043155872263014f, 0.00023924554989207536f, 0.0001312311360379681f, 0.00010625666618579999f, 0.00023385393433272839f, 7.353530963882804e-05f, 0.00032974735950119793f, 0.00013121888332534581f, 0.00020659802248701453f, 0.0001601884578121826f, 0.00020108302123844624f, 9.140290057985112e-05f, 0.00020082581613678485f, 0.00023982305719982833f, 0.00010579360241536051f, 0.00013221841072663665f, 0.00011005942360498011f, 9.549676906317472e-05f, 0.00010761058365460485f, 0.00012617386528290808f, 0.000202390001504682f, 0.00011064705904573202f, 0.0004268158518243581f, 0.00019422025070525706f, 0.00015006857574917376f, 0.00024368450976908207f, 9.244361717719585e-05f, 0.00029646995244547725f, 0.00014303624629974365f, 0.00012632363359443843f, 0.00019146616978105158f, 0.00014871616440359503f, 0.00010778622527141124f, 7.760608423268422e-05f, 0.00021061232837382704f, 0.00018869646009989083f, 0.0001556118077132851f, 0.00014238612493500113f, 0.00014542698045261204f, 0.00017684552585706115f, 8.636166603537276e-05f, 0.0001541742676636204f, 0.00010003958595916629f, 0.00020693270198535174f, 0.0001228840701514855f, 6.643969391006976e-05f, 7.454086153302342e-05f, 0.00021663839288521558f, 0.0002598093415144831f, 0.0001398164313286543f, 5.1211987738497555e-05f, 0.00010000987094826996f, 9.425030293641612e-05f, 7.129625737434253e-05f, 0.00017005173140205443f, 0.00021159696916583925f, 0.00013541920634452254f, 0.0002552543592173606f, 0.00021499629656318575f, 0.00010030722478404641f, 0.0002225938078481704f, 0.000270960881607607f, 0.00023830935242585838f, 0.0002237512671854347f, 0.00021675677271559834f, 0.0001108047945308499f, 0.0001667998731136322f, 9.661689546192065e-05f, 8.048623567447066e-05f, 0.00028933194698765874f, 0.00015708772116340697f, 0.00014909313176758587f, 0.00031145993852987885f, 0.0002059532853309065f, 0.00014151292270980775f, 0.0001662005961406976f, 0.00017048305016942322f, 0.0002211563551099971f, 0.00013613484043162316f, 0.00024212220159824938f, 0.00018746702698990703f, 0.00010888910037465394f, 0.0002237269072793424f, 0.00019600339874159545f, 0.00011609925422817469f, 0.0003270944580435753f, 0.00016034125292208046f, 0.00014166932669468224f, 0.00023794127628207207f, 0.00017492684128228575f, 0.0001345252530882135f, 9.251645678887144e-05f, 0.00036893042852170765f, 8.855733904056251e-05f, 4.999008524464443e-05f, 0.0001665981108089909f, 0.00015332113252952695f, 0.0001336854911642149f, 0.000205973643460311f, 0.00013946581748314202f, 0.00018181014456786215f, 0.00018481035658624023f, 0.00013847580703441054f, 0.00015683089441154152f, 0.00011254755372647196f, 0.00018492178060114384f, 0.00015831924974918365f, 0.00013694132212549448f, 6.082393883843906e-05f, 0.0002476856461726129f, 4.3569176341407e-05f, 0.00033702916698530316f, 0.00011236621503485367f, 0.00017045573622453958f, 0.00012537800648715347f, 0.00014391494914889336f, 0.00020670125377364457f, 0.00014763115905225277f, 0.0004050291609019041f, 0.0001356407447019592f, 0.00012743046681862324f, 0.00013984646648168564f, 0.00013028716784901917f, 0.000140169941005297f, 0.000246935902396217f, 7.820108294254169e-05f, 0.00012465586769394577f, 0.00025812769308686256f, 0.00017418686184100807f, 0.00022198726946953684f, 0.00013826430949848145f, 3.6376091884449124e-05f, 0.00023832914303056896f, 0.00013662164565175772f, 8.759545016800985e-05f, 0.00020553787180688232f, 0.00021467372425831854f, 0.00015245709801092744f, 0.00015976560825947672f, 0.00020972460333723575f, 0.00022531453578267246f, 0.0002091427450068295f, 0.00011680136958602816f, 0.000131966604385525f, 0.0001862338394857943f, 0.0001952170568984002f, 0.00020776886958628893f, 0.00010792831017170101f, 7.430545520037413e-05f, 0.00015235233877319843f, 8.584312308812514e-05f, 0.00025831940001808107f, 0.000106896783108823f, 0.0001234614901477471f, 0.0002846696297638118f, 0.000204447700525634f, 8.068559691309929e-05f, 0.00016653892816975713f, 6.288059375947341e-05f, 0.00022280847770161927f, 0.00012337190855760127f, 0.00019508221885189414f, 0.00017751455015968531f, 0.00011326654203003272f, 0.00012766651343554258f, 6.336298247333616e-05f, 0.00016136815247591585f, 0.0002031334734056145f, 0.00015341228572651744f, 0.00012021653674310073f, 0.00013068015687167645f, 0.00010126169217983261f, 0.000168856349773705f, 0.0001176033983938396f, 0.00014363846275955439f, 0.00013153599866200238f, 0.00021201142226345837f, 0.00010025357914855704f, 0.00019302232249174267f, 0.00011253490811213851f, 0.0001958515349542722f, 0.00014138651022221893f, 0.00014267151709645987f, 0.00012803706340491772f, 0.000160154901095666f, 0.00015687763516325504f, 8.686474757269025e-05f, 0.00022298299882095307f, 0.00012127131776651368f, 0.0002212668623542413f, 7.19688760000281e-05f, 7.57215020712465e-05f, 0.0001165374560514465f, 0.00027308211429044604f, 0.00014808090054430068f, 0.000104986916994676f, 0.00011845745029859245f, 0.0002716225862968713f, 9.308957669418305e-05f, 0.0001555887283757329f, 0.0001133554324042052f, 0.00011497287050588056f, 0.00022286751482170075f, 0.00012090896052541211f, 0.00010258000111207366f, 0.0001112472964450717f, 0.0002709452819544822f, 0.0002710124244913459f, 0.00015896237164270133f, 0.00010663105786079541f, 0.0002655397402122617f, 0.00038749503437429667f, 0.00026722686016000807f, 8.866428834153339e-05f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #152 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_56_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 336,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.004927902016788721f, 0.008696096017956734f, 0.006556553766131401f, 0.011572652496397495f, 0.005881677847355604f, 0.005709446966648102f, 0.004364922642707825f, 0.008670457638800144f, 0.0082634836435318f, 0.007439155597239733f, 0.010267868638038635f, 0.00923881959170103f, 0.002150100190192461f, 0.011552097275853157f, 0.0069198221899569035f, 0.006618948187679052f, 0.009346605278551579f, 0.004149945918470621f, 0.0068163382820785046f, 0.010156289674341679f, 0.004739636555314064f, 0.0073411595076322556f, 0.00933906901627779f, 0.012748665176331997f, 0.012110669165849686f, 0.011403507553040981f, 0.009623470716178417f, 0.004767592065036297f, 0.014447610825300217f, 0.007852385751903057f, 0.010044406168162823f, 0.008889202028512955f, 0.005464333109557629f, 0.017076965421438217f, 0.008849572390317917f, 0.015136254951357841f, 0.012933983467519283f, 0.008573533967137337f, 0.008810431696474552f, 0.0062846411019563675f, 0.011226432397961617f, 0.01223806757479906f, 0.008515169844031334f, 0.007875160314142704f, 0.01955682411789894f, 0.015160857699811459f, 0.00737786153331399f, 0.007215741090476513f, 0.0024104497861117125f, 0.009275035932660103f, 0.006827621255069971f, 0.0027989933732897043f, 0.009997926652431488f, 0.005982689559459686f, 0.00813977885991335f, 0.006929747294634581f, 0.007358118891716003f, 0.008418927900493145f, 0.00514385337010026f, 0.01252075843513012f, 0.013604980893433094f, 0.006575946230441332f, 0.01341317966580391f, 0.0111618060618639f, 0.022647514939308167f, 0.003743799403309822f, 0.011268953792750835f, 0.010475443676114082f, 0.003514873329550028f, 0.01188147533684969f, 0.013962499797344208f, 0.005595054943114519f, 0.0037403239402920008f, 0.013853857293725014f, 0.007459542248398066f, 0.007824649102985859f, 0.008022449910640717f, 0.005096530541777611f, 0.01042582094669342f, 0.007470928132534027f, 0.017695723101496696f, 0.01163187250494957f, 0.009032012894749641f, 0.005766889546066523f, 0.011784886009991169f, 0.003572925226762891f, 0.0030877054668962955f, 0.006481639109551907f, 0.009424545802175999f, 0.013716616667807102f, 0.00959036871790886f, 0.009015843272209167f, 0.005557101685553789f, 0.016482200473546982f, 0.009362690150737762f, 0.012280370108783245f, 0.008232412859797478f, 0.014543243683874607f, 0.015132258646190166f, 0.003755333833396435f, 0.0037491838447749615f, 0.011824006214737892f, 0.008573286235332489f, 0.00584437558427453f, 0.006918000523000956f, 0.0058288839645683765f, 0.007804295048117638f, 0.012801404111087322f, 0.009010733105242252f, 0.004518951289355755f, 0.011623944155871868f, 0.007428990676999092f, 0.006326019763946533f, 0.001994874095544219f, 0.007077405694872141f, 0.020205466076731682f, 0.020142313092947006f, 0.005115258041769266f, 0.007561671547591686f, 0.009395786561071873f, 0.007136562839150429f, 0.008485682308673859f, 0.006531979888677597f, 0.0034556519240140915f, 0.005977360066026449f, 0.011165305972099304f, 0.01237239595502615f, 0.018103880807757378f, 0.0029209491331130266f, 0.009685998782515526f, 0.006663511507213116f, 0.0063043031841516495f, 0.0031100083142518997f, 0.013556440360844135f, 0.008100362494587898f, 0.013362379744648933f, 0.019518082961440086f, 0.006942856125533581f, 0.007326863706111908f, 0.010549971833825111f, 0.00928663183003664f, 0.010208042338490486f, 0.003188104834407568f, 0.008641017600893974f, 0.00545424735173583f, 0.004716160241514444f, 0.008107688277959824f, 0.008153211325407028f, 0.01190903875976801f, 0.0034478050656616688f, 0.007587202358990908f, 0.004447071813046932f, 0.004498256836086512f, 0.004353818483650684f, 0.011255931109189987f, 0.012411230243742466f, 0.010795529000461102f, 0.008131603710353374f, 0.008493508212268353f, 0.00674603832885623f, 0.0078499224036932f, 0.005862078629434109f, 0.011663039214909077f, 0.004772706422954798f, 0.0077386656776070595f, 0.009003597311675549f, 0.009224281646311283f, 0.013099674135446548f, 0.009626024402678013f, 0.006981974933296442f, 0.004814394284039736f, 0.008565259166061878f, 0.01569340191781521f, 0.00787239521741867f, 0.010794763453304768f, 0.013850116170942783f, 0.007009375374764204f, 0.0022114282473921776f, 0.014199362136423588f, 0.013469859026372433f, 0.005011889152228832f, 0.011624657548964024f, 0.002827339107170701f, 0.010410157963633537f, 0.017478011548519135f, 0.007438418455421925f, 0.007142776157706976f, 0.004552051890641451f, 0.004939006641507149f, 0.014120527543127537f, 0.13649559020996094f, 0.008879067376255989f, 0.008719253353774548f, 0.009351646527647972f, 0.0067178900353610516f, 0.006549342069774866f, 0.004968018736690283f, 0.00455885985866189f, 0.010424138978123665f, 0.00848736148327589f, 0.007667082361876965f, 0.008023429661989212f, 0.005037778522819281f, 0.009024916216731071f, 0.0034073747228831053f, 0.00653643487021327f, 0.008072605356574059f, 0.002082559047266841f, 0.00756856519728899f, 0.005754722747951746f, 0.002752353437244892f, 0.010627291165292263f, 0.005052599124610424f, 0.012017414905130863f, 0.008817516267299652f, 0.007863339968025684f, 0.014938303269445896f, 0.0032439562492072582f, 0.010373573750257492f, 0.006635247729718685f, 0.005234336014837027f, 0.007870007306337357f, 0.009652027860283852f, 0.00760515034198761f, 0.004967424552887678f, 0.0055303131230175495f, 0.0077231028117239475f, 0.007340288255363703f, 0.005031824577599764f, 0.007685072720050812f, 0.011462189257144928f, 0.0036664160434156656f, 0.014149696566164494f, 0.002328628208488226f, 0.0103157302364707f, 0.00615602545440197f, 0.009122802875936031f, 0.0073444596491754055f, 0.0024110213853418827f, 0.007238715421408415f, 0.014761562459170818f, 0.00827672891318798f, 0.007461590226739645f, 0.004817183595150709f, 0.005192984826862812f, 0.013721543364226818f, 0.005053461063653231f, 0.009582293219864368f, 0.01008791197091341f, 0.013001792132854462f, 0.003990268334746361f, 0.002542136935517192f, 0.009770306758582592f, 0.014215205796062946f, 0.006468610838055611f, 0.00793098472058773f, 0.01612258516252041f, 0.0015688469866290689f, 0.0047073508612811565f, 0.010915374383330345f, 0.005687050987035036f, 0.0076438067480921745f, 0.0048730866983532906f, 0.0017878160579130054f, 0.009103535674512386f, 0.0244185458868742f, 0.008445870131254196f, 0.005842827260494232f, 0.011125253513455391f, 0.009071173146367073f, 0.015589291229844093f, 0.007475573569536209f, 0.008281180635094643f, 0.008559998124837875f, 0.0087515190243721f, 0.006612550932914019f, 0.01877976581454277f, 0.011830457486212254f, 0.008191642351448536f, 0.0065944925881922245f, 0.014818217605352402f, 0.011451021768152714f, 0.007192279677838087f, 0.015940718352794647f, 0.006333302706480026f, 0.008218526840209961f, 0.010208286345005035f, 0.01067834347486496f, 0.006513078697025776f, 0.014311054721474648f, 0.010459834709763527f, 0.009966999292373657f, 0.013229998759925365f, 0.00812650378793478f, 0.00773856183513999f, 0.008429850451648235f, 0.005045653320848942f, 0.00754310330376029f, 0.012478933669626713f, 0.01020065601915121f, 0.004797447007149458f, 0.0074951923452317715f, 0.006289348006248474f, 0.007799086160957813f, 0.006160913500934839f, 0.00445514265447855f, 0.007110195234417915f, 0.004489967133849859f, 0.0068435510620474815f, 0.0061766053549945354f, 0.010708986781537533f, 0.005683635361492634f, 0.014277898706495762f, 0.009358023293316364f, 0.008042307570576668f, 0.01567000523209572f, 0.0062438915483653545f, 0.011827453039586544f, 0.007325212936848402f, 0.004599067382514477f, 0.015130381099879742f, 0.011649059131741524f, 0.012290081940591335f, 0.006257179658859968f, 0.016743117943406105f, 0.012212954461574554f, 0.009518668986856937f, 0.009073223918676376f, 0.005936725530773401f, 0.007900071330368519f, 0.00921109039336443f, 0.0074655539356172085f, 0.007788090966641903f, 0.003353432985022664f, 0.012682955712080002f, 0.017624972388148308f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #153 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_56_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 336,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00011595063551794738f, 0.00020461402891669422f, 0.00015427185280714184f, 0.00027229770785197616f, 0.000138392424560152f, 0.00013433993444778025f, 0.0001027040634653531f, 0.00020401076471898705f, 0.0001944349060067907f, 0.00017503896378912032f, 0.00024159692111425102f, 0.0002173839893657714f, 5.059059549239464e-05f, 0.00027181406039744616f, 0.00016281934222206473f, 0.00015573996643070132f, 0.00021992012625560164f, 9.764578862814233e-05f, 0.00016038442845456302f, 0.00023897152277640998f, 0.00011152086517540738f, 0.0001727331691654399f, 0.000219742811168544f, 0.0002999686112161726f, 0.00028495691367425025f, 0.00026831781724467874f, 0.0002264346112497151f, 0.00011217864084756002f, 0.0003399437991902232f, 0.0001847620151238516f, 0.00023633897944819182f, 0.00020915770437568426f, 0.00012857254478149116f, 0.00040181094664148986f, 0.00020822523219976574f, 0.00035614718217402697f, 0.0003043290344066918f, 0.00020173021766822785f, 0.0002073042851407081f, 0.00014787391410209239f, 0.0002641513419803232f, 0.0002879545500036329f, 0.00020035693887621164f, 0.0001852978894021362f, 0.0004601605760399252f, 0.0003567260573618114f, 0.00017359675257466733f, 0.0001697821426205337f, 5.671646795235574e-05f, 0.00021823614952154458f, 0.00016064991359598935f, 6.585867231478915e-05f, 0.00023524534481111914f, 0.00014076917432248592f, 0.00019152421737089753f, 0.0001630528859095648f, 0.00017313221178483218f, 0.0001980924280360341f, 0.00012103184417355806f, 0.0002946060849353671f, 0.0003201171930413693f, 0.0001547281426610425f, 0.00031560423667542636f, 0.0002626307250466198f, 0.0005328826955519617f, 8.808940037852153e-05f, 0.0002651518734637648f, 0.0002464810386300087f, 8.270290709333494e-05f, 0.0002795641194097698f, 0.00032852942240424454f, 0.0001316483539994806f, 8.800762589089572e-05f, 0.0003259731165599078f, 0.00017551863857079297f, 0.0001841093908296898f, 0.00018876352987717837f, 0.0001199183680000715f, 0.00024531345115974545f, 0.00017578655388206244f, 0.00041636996320448816f, 0.0002736911119427532f, 0.0002125179598806426f, 0.00013569151633419096f, 0.0002772914303932339f, 8.406882989220321e-05f, 7.265189196914434e-05f, 0.00015250916476361454f, 0.00022175401682034135f, 0.00032274393015541136f, 0.00022565573453903198f, 0.00021213750005699694f, 0.0001307553320657462f, 0.0003878164861816913f, 0.000220298592466861f, 0.0002889499010052532f, 0.00019370383233763278f, 0.0003421939618419856f, 0.00035605314769782126f, 8.836080087348819e-05f, 8.82160893524997e-05f, 0.00027821192634291947f, 0.00020172438235022128f, 0.00013751472579315305f, 0.0001627764868317172f, 0.00013715021486859769f, 0.00018363047274760902f, 0.00030120951123535633f, 0.00021201725758146495f, 0.00010632826888468117f, 0.000273504585493356f, 0.00017479978851042688f, 0.0001488475245423615f, 4.693821392720565e-05f, 0.00016652719932608306f, 0.0004754227411467582f, 0.00047393678687512875f, 0.00012035901454510167f, 0.00017792168364394456f, 0.00022107733821030706f, 0.00016791913367342204f, 0.00019966311811003834f, 0.0001536936470074579f, 8.130945934681222e-05f, 0.00014064376591704786f, 0.00026271308888681233f, 0.0002911151968874037f, 0.0004259736742824316f, 6.87282154103741e-05f, 0.00022790585353504866f, 0.0001567885046824813f, 0.00014833654859103262f, 7.317667041206732e-05f, 0.0003189750714227557f, 0.0001905967656057328f, 0.0003144089423585683f, 0.00045924901496618986f, 0.00016336132830474526f, 0.0001723968016449362f, 0.0002482346317265183f, 0.00021850898338016123f, 0.00024018924159463495f, 7.501423533540219e-05f, 0.00020331806445028633f, 0.00012833523214794695f, 0.00011096848174929619f, 0.0001907691330416128f, 0.00019184027041774243f, 0.00028021266916766763f, 8.11248246463947e-05f, 0.000178522415808402f, 0.00010463698708917946f, 0.00010584133997326717f, 0.00010244279110338539f, 0.00026484543923288584f, 0.00029202894074842334f, 0.0002540124405641109f, 0.00019133185560349375f, 0.0001998472580453381f, 0.00015873031225055456f, 0.000184704054845497f, 0.00013793125981464982f, 0.00027442447026260197f, 0.000112298977910541f, 0.00018208625260740519f, 0.00021184935758356005f, 0.00021704193204641342f, 0.00030822763801552355f, 0.00022649469610769302f, 0.00016428176604676992f, 0.0001132798643084243f, 0.0002015355130424723f, 0.00036925653694197536f, 0.00018523282778915018f, 0.00025399442529305816f, 0.00032588510657660663f, 0.0001649264886509627f, 5.203360706218518e-05f, 0.0003341026313137263f, 0.00031693786149844527f, 0.00011792680743383244f, 0.00027352134929969907f, 6.652563024545088e-05f, 0.00024494490935467184f, 0.00041124733979813755f, 0.0001750216179061681f, 0.0001680653222138062f, 0.00010710710193961859f, 0.00011621192243183032f, 0.00033224772778339684f, 0.003211661009117961f, 0.00020891924214083701f, 0.0002051589108305052f, 0.00022003873891662806f, 0.0001580680109327659f, 0.00015410216292366385f, 0.00011689456005115062f, 0.00010726728942245245f, 0.0002452738699503243f, 0.00019970262655988336f, 0.00018040194117929786f, 0.0001887865801109001f, 0.0001185359651572071f, 0.00021235097665339708f, 8.017352229217067e-05f, 0.00015379846445284784f, 0.00018994366109836847f, 4.900139174424112e-05f, 0.00017808389384299517f, 0.0001354052365059033f, 6.47612614557147e-05f, 0.0002500539121683687f, 0.00011888468725373968f, 0.0002827627176884562f, 0.00020747097732964903f, 0.00018501977319829166f, 0.0003514894924592227f, 7.632838241988793e-05f, 0.0002440840908093378f, 0.00015612348215654492f, 0.00012316084757912904f, 0.00018517664284445345f, 0.00022710654593538493f, 0.0001789447123883292f, 0.00011688058293657377f, 0.00013012501585762948f, 0.00018172006821259856f, 0.00017271266551688313f, 0.00011839587386930361f, 0.00018082524184137583f, 0.00026969859027303755f, 8.626861381344497e-05f, 0.00033293405431322753f, 5.4791253205621615e-05f, 0.00024272306472994387f, 0.00014484765415545553f, 0.00021465419558808208f, 0.00017281081818509847f, 5.672991756000556e-05f, 0.00017032271716743708f, 0.00034733087522909045f, 0.00019474656437523663f, 0.00017556683451402932f, 0.00011334550072206184f, 0.00012218787742312998f, 0.00032285985071212053f, 0.00011890496534761041f, 0.0002254657301818952f, 0.0002373626339249313f, 0.0003059245354961604f, 9.388866601511836e-05f, 5.981498907203786e-05f, 0.00022988957061897963f, 0.00033447545138187706f, 0.00015220261411741376f, 0.0001866114034783095f, 0.00037935495493002236f, 3.691404708661139e-05f, 0.00011076119699282572f, 0.00025683233980089426f, 0.0001338129659416154f, 0.00017985427984967828f, 0.00011466086289146915f, 4.206626181257889e-05f, 0.00021420084522105753f, 0.0005745540256612003f, 0.00019872635311912745f, 0.00013747828779742122f, 0.00026177067775279284f, 0.00021343937260098755f, 0.0003668068675324321f, 0.0001758958533173427f, 0.00019485130906105042f, 0.00020141171989962459f, 0.00020591809879988432f, 0.0001555894414195791f, 0.00044187685125507414f, 0.00027836370281875134f, 0.00019274452643003315f, 0.000155164540046826f, 0.0003486639470793307f, 0.0002694358117878437f, 0.0001692301157163456f, 0.00037507573142647743f, 0.00014901888789609075f, 0.00019337711273692548f, 0.00024019497504923493f, 0.0002512551436666399f, 0.00015324891137424856f, 0.00033673070720396936f, 0.0002461137482896447f, 0.00023451763263437897f, 0.0003112941049039364f, 0.00019121186051052064f, 0.00018208380788564682f, 0.0001983494294108823f, 0.0001187212546938099f, 0.0001774847914930433f, 0.0002936219680123031f, 0.00024001543351914734f, 0.00011288110545137897f, 0.00017635746917221695f, 0.00014798466872889549f, 0.00018350791651755571f, 0.00014496267249342054f, 0.00010482688958290964f, 0.00016729871276766062f, 0.00010564628610154614f, 0.0001610247272765264f, 0.0001453318982385099f, 0.00025197616196237504f, 0.00013373259571380913f, 0.00033595054992474616f, 0.00022018878371454775f, 0.000189230777323246f, 0.0003687060088850558f, 0.00014691510295961052f, 0.00027829300961457193f, 0.00017235794803127646f, 0.00010821335308719426f, 0.00035600896808318794f, 0.0002740955096669495f, 0.000289178395178169f, 0.0001472277654102072f, 0.00039395573548972607f, 0.0002873636258300394f, 0.00022396868735086173f, 0.00021348762675188482f, 0.00013968766143079847f, 0.00018588404054753482f, 0.00021673153969459236f, 0.00017566009773872793f, 0.00018324919801671058f, 7.890430424595252e-05f, 0.00029842249932698905f, 0.00041470525320619345f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #154 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_57_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 56,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.01126654352992773f, 0.008466233499348164f, 0.004718496464192867f, 0.011436820030212402f, 0.007860973477363586f, 0.008117095567286015f, 0.009793957695364952f, 0.008409691043198109f, 0.0034578396007418633f, 0.013966233469545841f, 0.005598190240561962f, 0.005017366725951433f, 0.007187968585640192f, 0.0062954924069345f, 0.0040007843635976315f, 0.005074671003967524f, 0.011401582509279251f, 0.0037100273184478283f, 0.010816317982971668f, 0.005213422235101461f, 0.006700098514556885f, 0.006840103771537542f, 0.013053743168711662f, 0.009156233631074429f, 0.008269701153039932f, 0.006254757288843393f, 0.004823001101613045f, 0.0031037062872201204f, 0.006659524980932474f, 0.003390497760847211f, 0.0048775747418403625f, 0.003749966388568282f, 0.00578386802226305f, 0.004553904291242361f, 0.009620539844036102f, 0.005333444569259882f, 0.005620073992758989f, 0.004459652118384838f, 0.008044485002756119f, 0.0039096735417842865f, 0.006181101314723492f, 0.004749981686472893f, 0.006466272287070751f, 0.004994099028408527f, 0.0035936059430241585f, 0.0052172173745930195f, 0.009537327103316784f, 0.003637150628492236f, 0.003027514088898897f, 0.004903013352304697f, 0.004267419688403606f, 0.007010104600340128f, 0.005112600978463888f, 0.011633118614554405f, 0.005936837755143642f, 0.005658350419253111f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #155 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_57_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 56,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0002650951500982046f, 0.0001992055040318519f, 0.00011102345160907134f, 0.0002691016416065395f, 0.0001849640830187127f, 0.0001909904822241515f, 0.00023044606496114284f, 0.00019787508063018322f, 8.136093674693257e-05f, 0.00032861725776456296f, 0.00013172213220968843f, 0.00011805568647105247f, 0.00016912867431528866f, 0.0001481292420066893f, 9.413610678166151e-05f, 0.00011940402328036726f, 0.00026827253168448806f, 8.72947639436461e-05f, 0.00025450161774642766f, 0.0001226687600137666f, 0.00015764938143547624f, 0.00016094361490104347f, 0.0003071468963753432f, 0.00021544079936575145f, 0.0001945812109624967f, 0.0001471707655582577f, 0.00011348238331265748f, 7.302838639589027e-05f, 0.00015669470303691924f, 7.977642235346138e-05f, 0.00011476646614028141f, 8.823450480122119e-05f, 0.00013609101006295532f, 0.00010715069220168516f, 0.00022636564972344786f, 0.00012549282109830528f, 0.00013223703717812896f, 0.00010493299487279728f, 0.00018928200006484985f, 9.19923186302185e-05f, 0.0001454376761103049f, 0.00011176427506143227f, 0.0001521475933259353f, 0.00011750821431633085f, 8.455543866148219e-05f, 0.00012275806511752307f, 0.00022440770408138633f, 8.558001718483865e-05f, 7.123562681954354e-05f, 0.00011536502279341221f, 0.00010040987399406731f, 0.00016494364535901695f, 0.00012029649951728061f, 0.0002737204486038536f, 0.00013969030987937003f, 0.00013313765521161258f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #156 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_59_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 336,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0008323130896314979f, 0.0005370990838855505f, 0.0005678795860148966f, 0.0002633552358020097f, 0.0007140470552258193f, 0.0003730103780981153f, 0.000258087704423815f, 0.0006259748479351401f, 0.0006407198961824179f, 0.0008282962953671813f, 0.0003251306770835072f, 0.0004089066351298243f, 0.00040341250132769346f, 0.00018715181795414537f, 0.00027899909764528275f, 0.0005138787091709673f, 0.000600855506490916f, 0.0007112103630788624f, 0.0006207692204043269f, 0.0009133740677498281f, 0.0008407974382862449f, 0.0007014049333520234f, 0.000512518803589046f, 0.0008743570651859045f, 0.0006000145804136992f, 0.00274049025028944f, 0.0005034311907365918f, 0.0007195094949565828f, 0.0004913383745588362f, 0.00016272506036330014f, 0.00029023963725194335f, 0.0006606483366340399f, 0.0007998830988071859f, 0.00026884221006184816f, 0.00041994990897364914f, 0.00039399717934429646f, 0.0009509780793450773f, 0.0007722696173004806f, 0.0004396371077746153f, 0.0009743499686010182f, 0.0007141767418943346f, 0.0007440055487677455f, 0.0006142809288576245f, 0.0005303805228322744f, 0.0005464513669721782f, 0.000423117249738425f, 0.0003534950374159962f, 0.0007191697368398309f, 0.0006107441731728613f, 0.0003588465042412281f, 0.0002996118273586035f, 0.0003685312403831631f, 0.0004612227203324437f, 0.0005126164178363979f, 0.0005564915481954813f, 0.0004109367437195033f, 0.00018658580665942281f, 0.0005396095220930874f, 0.0004537618369795382f, 0.0007483946392312646f, 0.0006828674813732505f, 0.00039043923607096076f, 0.0006475154077634215f, 0.0006577188614755869f, 0.0007933156448416412f, 0.00042718934128060937f, 0.00041022535879164934f, 0.0007148392032831907f, 0.0006815374945290387f, 0.0003164609079249203f, 0.0002924203872680664f, 0.0003820815763901919f, 0.0004313256358727813f, 0.00069044204428792f, 0.0006930146482773125f, 0.0006932876422069967f, 0.0008564380113966763f, 0.0007959125796332955f, 0.000260614906437695f, 0.0006537018343806267f, 0.000616499106399715f, 0.0007686475873924792f, 0.0007919744239188731f, 0.0007378453155979514f, 0.0007185728754848242f, 0.0004397268348839134f, 0.0005166104529052973f, 0.0007750259828753769f, 0.0007708726916462183f, 0.0005036958027631044f, 0.0005894103087484837f, 0.0006336100632324815f, 0.0005479715182445943f, 0.0006107950466684997f, 0.0006643335218541324f, 0.0009389417828060687f, 0.00035814131842926145f, 0.00044492605957202613f, 0.00031397180282510817f, 0.0005182803142815828f, 0.00022986953263171017f, 0.00041332264663651586f, 0.0003451452939771116f, 0.0003612418659031391f, 0.00037589657586067915f, 0.0006783205317333341f, 0.000742548203561455f, 0.0007081619696691632f, 0.0007549046422354877f, 0.0005942732095718384f, 0.00045530585339292884f, 0.0006192581495270133f, 0.0007759974687360227f, 0.0015906569315120578f, 0.0005402683163993061f, 0.00045011978363618255f, 0.0005983581067994237f, 0.0006577912135981023f, 0.0007486240356229246f, 0.0003447722119744867f, 0.0005802158266305923f, 0.000878929509781301f, 0.00043661444215103984f, 0.0006674887263216078f, 0.00036307802656665444f, 0.0006684655090793967f, 0.0003681032685562968f, 0.0002311107236891985f, 0.0005753327859565616f, 0.0005348544218577445f, 0.0012407501926645637f, 0.00040413191891275346f, 0.0007497607730329037f, 0.0003710638848133385f, 0.0007246490567922592f, 0.0005958513938821852f, 0.0003154951555188745f, 0.0004794999840669334f, 0.00020273422705940902f, 0.000569318188354373f, 0.0005346050020307302f, 0.0003752518678084016f, 0.0006585579249076545f, 0.0007685805321671069f, 0.0004101367958355695f, 0.0007250205962918699f, 0.0005831003654748201f, 0.0007376606808975339f, 0.0004156919603701681f, 0.0009041306329891086f, 0.0006251595332287252f, 0.00048738022451289f, 0.000731872976757586f, 0.0006671153241768479f, 0.00015323972911573946f, 0.0006520924507640302f, 0.0010188400046899915f, 0.0006395223317667842f, 0.00022085229284130037f, 0.0006170484120957553f, 0.00042475236114114523f, 0.0005453470512293279f, 0.0004573598853312433f, 0.0004614492936525494f, 0.0008637959253974259f, 0.0013275975361466408f, 0.0007397224544547498f, 0.001698023872449994f, 0.00033891512430272996f, 0.000469574035378173f, 0.0007829228998161852f, 0.0006267270655371249f, 0.00080295983934775f, 0.0007614152273163199f, 0.0005271061090752482f, 0.0008959347032941878f, 0.0007086661644279957f, 0.0002967463806271553f, 0.0004720454744528979f, 0.0005032210028730333f, 0.0005001404788345098f, 0.0005069680046290159f, 0.0006672342424280941f, 0.0007525670225732028f, 0.0008363646338693798f, 0.0005814720061607659f, 0.0007933084270916879f, 0.0006169606349430978f, 0.0006856442196294665f, 0.0006170294946059585f, 0.0009671017178334296f, 0.0014122858410701156f, 0.0006653269520029426f, 0.0008512030472047627f, 0.0011751045240089297f, 0.00038116739597171545f, 0.0012110935058444738f, 0.0006870809593237936f, 0.0006811816128902137f, 0.00033254464506171644f, 0.0001769087975844741f, 0.0007545737316831946f, 0.0008261286420747638f, 0.00050547526916489f, 0.000641329272184521f, 0.000613824522588402f, 0.0008168307249434292f, 0.0003659641370177269f, 0.0006676609627902508f, 0.00041906576370820403f, 0.0006497462163679302f, 0.0009246671106666327f, 0.0003676846972666681f, 0.0009540606406517327f, 0.00045817866339348257f, 0.0006372123607434332f, 0.00020652002422139049f, 0.00021986795763950795f, 0.00048746459651738405f, 0.0006869604112580419f, 0.0005887224688194692f, 0.0002071741910185665f, 0.0005215189303271472f, 0.0004690798232331872f, 0.00044394738506525755f, 0.000360669830115512f, 0.0005648219375871122f, 0.0007851847913116217f, 0.0006372580537572503f, 0.0006379251717589796f, 0.0009077943977899849f, 0.0006621419452130795f, 0.0010195127688348293f, 0.0006742541445419192f, 0.0006502411561086774f, 0.0005464103887788951f, 0.0007038797484710813f, 0.00037824909668415785f, 0.0007601383258588612f, 0.00023338731261901557f, 0.00024072956875897944f, 0.0006711571477353573f, 0.0008986609755083919f, 0.0009714381885714829f, 0.0006455216789618134f, 0.0009592692367732525f, 0.0008644681656733155f, 0.0009699048823677003f, 0.00048319585039280355f, 0.0006976319127716124f, 0.0006233106250874698f, 0.0004795258864760399f, 0.0008359238272532821f, 0.0007401658222079277f, 0.0008505255682393909f, 0.0006988673703745008f, 0.00031226594001054764f, 0.0007422580383718014f, 0.0008904893766157329f, 0.0006370844785124063f, 0.0004746944468934089f, 0.0005540103302337229f, 0.00041771409451030195f, 0.0005855371127836406f, 0.0007837596931494772f, 0.00040043346234597266f, 0.0008722249767743051f, 0.000823599228169769f, 0.0007718533743172884f, 0.0006324607529677451f, 0.00034038099693134427f, 0.0006544505595229566f, 0.001244993880391121f, 0.0003019108553417027f, 0.001008788589388132f, 0.0005377341294661164f, 0.0011646774364635348f, 0.0005164234316907823f, 0.0013522817753255367f, 0.0006373976357281208f, 0.0006397109827958047f, 0.0007969790021888912f, 0.0008863016264513135f, 0.00038887839764356613f, 0.00086113071301952f, 0.0002443858829792589f, 0.0007434763247147202f, 0.0006154666189104319f, 0.0011974477674812078f, 0.0007487331749871373f, 0.0005908770253881812f, 0.0010801509488373995f, 0.0007167308358475566f, 0.0005965189775452018f, 0.0007740177679806948f, 0.0009057938004843891f, 0.0006192154833115637f, 0.0006370648625306785f, 0.0006611871067434549f, 0.000369214074453339f, 0.000536606996320188f, 0.0004996824427507818f, 0.0005317849572747946f, 0.0006429582135751843f, 0.0007592983893118799f, 0.00031853283871896565f, 0.0009936746209859848f, 0.0004982863902114332f, 0.0009373181383125484f, 0.000684774830006063f, 0.0007589432643726468f, 0.0003952336555812508f, 0.0006703668623231351f, 0.0006756797665730119f, 0.0014332530554383993f, 0.0006174776935949922f, 0.0006698088254779577f, 0.0009830264607444406f, 0.0006027500494383276f, 0.00021191492851357907f, 0.0005092956707812846f, 0.0005268079112283885f, 0.0009693094762042165f, 0.00022010013344697654f, 0.0005436225328594446f, 0.00061511475360021f, 0.0005943356663919985f, 0.0004952712333761156f, 0.0003922917239833623f, 0.0006407609907910228f, 0.000555399979930371f, 0.0002977792755700648f, 0.0007178157102316618f, 0.0006826405879110098f, 0.0004937392077408731f, 0.0006058741128072143f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #157 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_59_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 336,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00022640923270955682f, 0.0001461039064452052f, 0.00015447694750037044f, 7.163897680584341e-05f, 0.0001942380185937509f, 0.00010146782005904242f, 7.020607881713659e-05f, 0.0001702802546788007f, 0.0001742912718327716f, 0.00022531657305080444f, 8.844339026836678e-05f, 0.00011123246804345399f, 0.00010973793541779742f, 5.0909809942822903e-05f, 7.589448796352372e-05f, 0.0001397874002577737f, 0.00016344719915650785f, 0.00019346637418493629f, 0.00016886420780792832f, 0.00024845977895893157f, 0.00022871718101669103f, 0.00019079906633123755f, 0.00013941747602075338f, 0.00023784620861988515f, 0.00016321844304911792f, 0.0007454794831573963f, 0.00013694542576558888f, 0.0001957239437615499f, 0.0001336558925686404f, 4.426514351507649e-05f, 7.895218004705384e-05f, 0.00017971228226087987f, 0.00021758749790024012f, 7.3131566750817e-05f, 0.00011423650721553713f, 0.00010717674012994394f, 0.00025868898956105113f, 0.0002100759738823399f, 0.0001195919030578807f, 0.00026504669222049415f, 0.00019427330698817968f, 0.00020238745491951704f, 0.00016709923511371017f, 0.00014427630230784416f, 0.00014864795957691967f, 0.00011509809701237828f, 9.61591795203276e-05f, 0.00019563152454793453f, 0.00016613714979030192f, 9.761490946402773e-05f, 8.150164649123326e-05f, 0.00010024938819697127f, 0.00012546370271593332f, 0.00013944403326604515f, 0.00015137912123464048f, 0.0001117847059504129f, 5.075583976577036e-05f, 0.00014678681327495724f, 0.00012343416165094823f, 0.00020358139590825886f, 0.00018575643480289727f, 0.00010620889224810526f, 0.00017613981617614627f, 0.00017891540483105928f, 0.00021580098837148398f, 0.00011620580335147679f, 0.00011159119458170608f, 0.00019445350335445255f, 0.00018539464508648962f, 8.608500502305105e-05f, 7.954540342325345e-05f, 0.00010393540287623182f, 0.00011733097926480696f, 0.00018781689868774265f, 0.0001885167002910748f, 0.00018859095871448517f, 0.0002329717972315848f, 0.00021650742564816028f, 7.089354039635509e-05f, 0.00017782267241273075f, 0.0001677026302786544f, 0.00020909069280605763f, 0.00021543614275287837f, 0.00020071172912139446f, 0.00019546915427781641f, 0.00011961630661971867f, 0.00014053050836082548f, 0.0002108257613144815f, 0.00020969596516806632f, 0.0001370174140902236f, 0.00016033381689339876f, 0.00017235722043551505f, 0.00014906146680004895f, 0.0001661509886616841f, 0.00018071474914904684f, 0.0002554148086346686f, 9.742307884152979e-05f, 0.00012103062181267887f, 8.540790440747514e-05f, 0.00014098474639467895f, 6.25300599494949e-05f, 0.00011243372864555568f, 9.388784383190796e-05f, 9.826650057220832e-05f, 0.0001022529395413585f, 0.00018451955111231655f, 0.00020199103164486587f, 0.0001926371332956478f, 0.00020535227668005973f, 0.00016165664419531822f, 0.00012385417358018458f, 0.00016845315985847265f, 0.00021109003864694387f, 0.0004326970665715635f, 0.00014696602011099458f, 0.00012244343815837055f, 0.00016276784299407154f, 0.00017893507902044803f, 0.0002036437945207581f, 9.378635877510533e-05f, 0.0001578327064635232f, 0.0002390900335740298f, 0.00011876966163981706f, 0.00018157303566113114f, 9.876598051050678e-05f, 0.0001818387390812859f, 0.00010013297287514433f, 6.286769348662347e-05f, 0.00015650439308956265f, 0.00014549330808222294f, 0.00033751397859305143f, 0.0001099336295737885f, 0.0002039530227193609f, 0.00010093832679558545f, 0.00019712201901711524f, 0.0001620859547983855f, 8.582229202147573e-05f, 0.00013043556828051805f, 5.514860094990581e-05f, 0.00015486827760469168f, 0.00014542545250151306f, 0.00010207755985902622f, 0.00017914363706950098f, 0.00020907244470436126f, 0.00011156710388604552f, 0.00019722309662029147f, 0.00015861736028455198f, 0.00020066149591002613f, 0.00011307824024697766f, 0.00024594535352662206f, 0.00017005846893880516f, 0.00013257918180897832f, 0.0001990871096495539f, 0.00018147146329283714f, 4.1684903408167884e-05f, 0.00017738487804308534f, 0.00027714905445463955f, 0.00017396549810655415f, 6.007715273881331e-05f, 0.00016785204934421927f, 0.00011554289085324854f, 0.00014834754983894527f, 0.00012441292346920818f, 0.00012552534462884068f, 0.00023497332585975528f, 0.0003611385473050177f, 0.00020122235582675785f, 0.0004619034589268267f, 9.219309140462428e-05f, 0.00012773546040989459f, 0.000212973915040493f, 0.000170484883710742f, 0.00021842445130459964f, 0.00020712331752292812f, 0.00014338557957671583f, 0.00024371585459448397f, 0.00019277429964859039f, 8.072217315202579e-05f, 0.00012840775889344513f, 0.00013688825129065663f, 0.00013605027925223112f, 0.00013790752564091235f, 0.0001815038122003898f, 0.00020471638708841056f, 0.00022751135111320764f, 0.00015817441453691572f, 0.00021579902386292815f, 0.00016782816965132952f, 0.00018651176651474088f, 0.00016784691251814365f, 0.0002630749950185418f, 0.00038417582982219756f, 0.0001809849782148376f, 0.00023154776135925204f, 0.0003196567704435438f, 0.00010368672519689426f, 0.00032944665872491896f, 0.00018690260185394436f, 0.0001852978311944753f, 9.04601693036966e-05f, 4.812346014659852e-05f, 0.00020526225853245705f, 0.00022472691489383578f, 0.00013750146899838f, 0.00017445703269913793f, 0.00016697507817298174f, 0.00022219766105990857f, 9.95510708889924e-05f, 0.00018161989282816648f, 0.0001139960004366003f, 0.0001767466455930844f, 0.0002515317755751312f, 0.00010001911141443998f, 0.0002595275000203401f, 0.00012463565508369356f, 0.00017333713185507804f, 5.6178429076680914e-05f, 5.9809390222653747e-05f, 0.00013260213017929345f, 0.00018686980183701962f, 0.00016014670836739242f, 5.6356377172051e-05f, 0.0001418657338945195f, 0.00012760102981701493f, 0.00012076440179953352f, 9.811089694267139e-05f, 0.00015364518912974745f, 0.00021358919912017882f, 0.00017334955919068307f, 0.00017353103612549603f, 0.00024694198509678245f, 0.0001801185862859711f, 0.0002773320593405515f, 0.00018341338727623224f, 0.00017688127991277725f, 0.00014863681280985475f, 0.00019147226703353226f, 0.00010289288184139878f, 0.000206775963306427f, 6.348697934299707e-05f, 6.548425153596327e-05f, 0.0001825709332479164f, 0.00024445747840218246f, 0.00026425463147461414f, 0.00017559746629558504f, 0.00026094436179846525f, 0.00023515619977843016f, 0.00026383751537650824f, 0.00013144093099981546f, 0.0001897727051982656f, 0.00016955552564468235f, 0.00013044261140748858f, 0.0002273914433317259f, 0.00020134296210017055f, 0.0002313634759048f, 0.00019010878168046474f, 8.494386565871537e-05f, 0.00020191208750475198f, 0.00024223460059147328f, 0.00017330235277768224f, 0.0001291283406317234f, 0.00015070417430251837f, 0.00011362830991856754f, 0.00015928021457511932f, 0.00021320155065041035f, 0.00010892756108660251f, 0.00023726624203845859f, 0.0002240388566860929f, 0.00020996274542994797f, 0.0001720445870887488f, 9.259184298571199e-05f, 0.00017802634101826698f, 0.0003386683820281178f, 8.212703687604517e-05f, 0.0002744148368947208f, 0.00014627665223088115f, 0.00031682036933489144f, 0.0001404796348651871f, 0.0003678532666526735f, 0.0001733875396894291f, 0.0001740168227115646f, 0.00021679751807823777f, 0.0002410954184597358f, 0.00010578430374152958f, 0.0002342483348911628f, 6.64788531139493e-05f, 0.0002022434928221628f, 0.0001674217637628317f, 0.0003257346688769758f, 0.00020367348042782396f, 0.00016073280130513012f, 0.00029382712091319263f, 0.00019496807362884283f, 0.0001622675481485203f, 0.00021055150136817247f, 0.000246397772571072f, 0.0001684415474301204f, 0.00017329701222479343f, 0.00017985884915105999f, 0.00010043513611890376f, 0.00014597004337701946f, 0.00013592568575404584f, 0.00014465833373833448f, 0.0001749001385178417f, 0.00020654748368542641f, 8.664861525176093e-05f, 0.00027030345518141985f, 0.00013554592442233115f, 0.00025497315800748765f, 0.00018627526878844947f, 0.0002064508735202253f, 0.0001075130858225748f, 0.00018235595780424774f, 0.00018380119581706822f, 0.00038987939478829503f, 0.0001679688284639269f, 0.00018220416677650064f, 0.0002674069255590439f, 0.00016396255523432046f, 5.7645971537567675e-05f, 0.00013854070857632905f, 0.0001433044672012329f, 0.0002636755525600165f, 5.987254553474486e-05f, 0.0001478784397477284f, 0.00016732605581637472f, 0.00016167364083230495f, 0.00013472572027239949f, 0.00010671281052054837f, 0.00017430244770366699f, 0.00015108218940440565f, 8.100314880721271e-05f, 0.0001952631864696741f, 0.00018569470557849854f, 0.00013430898252408952f, 0.00016481237253174186f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #158 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_60_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 336,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.013585983775556087f, 0.009382876567542553f, 0.002752607921138406f, 0.010009469464421272f, 0.005265421699732542f, 0.007755127735435963f, 0.015265476889908314f, 0.008210737258195877f, 0.005320639815181494f, 0.008207481354475021f, 0.009227387607097626f, 0.005138147622346878f, 0.006741170305758715f, 0.009766383096575737f, 0.013659877702593803f, 0.00903505552560091f, 0.005140988621860743f, 0.004615779500454664f, 0.00410544965416193f, 0.0034402944147586823f, 0.004007994197309017f, 0.023403102532029152f, 0.006606726441532373f, 0.0066275829449296f, 0.0014506967272609472f, 0.0022534760646522045f, 0.007326255552470684f, 0.005918057169765234f, 0.014967438764870167f, 0.013962903060019016f, 0.00737232668325305f, 0.0040186489932239056f, 0.0008791055879555643f, 0.0069910320453345776f, 0.006247923709452152f, 0.008993525058031082f, 0.007779753766953945f, 0.005820850841701031f, 0.006645876914262772f, 0.009758581407368183f, 0.03181585296988487f, 0.0047551412135362625f, 0.014484168030321598f, 0.007832043804228306f, 0.013163824565708637f, 0.007394773885607719f, 0.011328749358654022f, 0.00682337349280715f, 0.002690231893211603f, 0.008701682090759277f, 0.01580073870718479f, 0.007076643873006105f, 0.006487999577075243f, 0.00927048735320568f, 0.0035662222653627396f, 0.009414924308657646f, 0.0785907506942749f, 0.00971115194261074f, 0.012461033649742603f, 0.004091810900717974f, 0.0016106743132695556f, 0.014656986109912395f, 0.011563382111489773f, 0.0025656470097601414f, 0.005849636159837246f, 0.010173162445425987f, 0.004010576289147139f, 0.009369691833853722f, 0.005828430410474539f, 0.009921609424054623f, 0.009715422056615353f, 0.009928866289556026f, 0.004221008624881506f, 0.004199449438601732f, 0.007692858576774597f, 0.010794196277856827f, 0.007076986134052277f, 0.006869374308735132f, 0.011607266031205654f, 0.01146204024553299f, 0.009379473514854908f, 0.009498226456344128f, 0.006821254268288612f, 0.0064968834631145f, 0.004157273098826408f, 0.004851167555898428f, 0.013037851080298424f, 0.0012906602350994945f, 0.0042664180509746075f, 0.009016361087560654f, 0.004020374268293381f, 0.004778534639626741f, 0.006999053061008453f, 0.0028294359799474478f, 0.017991013824939728f, 0.0069032390601933f, 0.002155735157430172f, 0.012623907066881657f, 0.015043799765408039f, 0.0027473748195916414f, 0.014284808188676834f, 0.0032421760261058807f, 0.010843812488019466f, 0.01796213909983635f, 0.02123064547777176f, 0.0041492716409265995f, 0.008231552317738533f, 0.005348252598196268f, 0.0065359314903616905f, 0.012653631158173084f, 0.006104541942477226f, 0.005641273222863674f, 0.006082178093492985f, 0.003877060255035758f, 0.007198886480182409f, 0.010899610817432404f, 0.006727136205881834f, 0.0040482715703547f, 0.01066250167787075f, 0.004783822689205408f, 0.013207879848778248f, 0.0023453820031136274f, 0.002593051875010133f, 0.007763797417283058f, 0.004079904872924089f, 0.00732807582244277f, 0.0037492287810891867f, 0.011870373971760273f, 0.011075112968683243f, 0.010406900197267532f, 0.01087220385670662f, 0.010369187220931053f, 0.01118734385818243f, 0.0343482531607151f, 0.004562177695333958f, 0.005619728937745094f, 0.0059517305344343185f, 0.007744908798485994f, 0.02558516152203083f, 0.0035439899656921625f, 0.008838837035000324f, 0.015363769605755806f, 0.007088782265782356f, 0.0049924952909350395f, 0.013125666417181492f, 0.006459761876612902f, 0.013342841528356075f, 0.008625027723610401f, 0.008251870982348919f, 0.003869925858452916f, 0.007116052322089672f, 0.01728575862944126f, 0.003981654532253742f, 0.00919569656252861f, 0.005816837772727013f, 0.01018010638654232f, 0.00813240371644497f, 0.00815509632229805f, 0.005941032897680998f, 0.011075256392359734f, 0.004601279739290476f, 0.008072873577475548f, 0.017605410888791084f, 0.011181858368217945f, 0.0046646068803966045f, 0.003463294357061386f, 0.008858178742229939f, 0.0049636345356702805f, 0.010295161977410316f, 0.005375003907829523f, 0.005004579201340675f, 0.011612113565206528f, 0.0013800619635730982f, 0.005960187409073114f, 0.0036753646563738585f, 0.00685892952606082f, 0.00879152212291956f, 0.0043768202885985374f, 0.007480858359485865f, 0.007075004745274782f, 0.00785190612077713f, 0.01072304230183363f, 0.011047295294702053f, 0.0034983144141733646f, 0.007716181688010693f, 0.002416289411485195f, 0.006688342895358801f, 0.008533019572496414f, 0.0045375037007033825f, 0.011890086345374584f, 0.008466838859021664f, 0.0039181187748909f, 0.0032185143791139126f, 0.003886542748659849f, 0.009801255539059639f, 0.0059428103268146515f, 0.007886947132647038f, 0.006490291561931372f, 0.014391709119081497f, 0.022584637627005577f, 0.022027650848031044f, 0.008745117112994194f, 0.00878925435245037f, 0.005723629612475634f, 0.012475165538489819f, 0.005173611454665661f, 0.0027582666371017694f, 0.011081770062446594f, 0.008326335810124874f, 0.007355491165071726f, 0.002950650407001376f, 0.003028163453564048f, 0.007593149784952402f, 0.004014770034700632f, 0.011681124567985535f, 0.004234581254422665f, 0.013324237428605556f, 0.018682030960917473f, 0.008008935488760471f, 0.006285238079726696f, 0.008065219968557358f, 0.01047608908265829f, 0.011714776046574116f, 0.015445757657289505f, 0.010188325308263302f, 0.013392076827585697f, 0.013918198645114899f, 0.005149743054062128f, 0.006727614440023899f, 0.0027558505535125732f, 0.0017534000799059868f, 0.009849438443779945f, 0.011428043246269226f, 0.005799250211566687f, 0.012327468954026699f, 0.003209363901987672f, 0.007613649591803551f, 0.004743882454931736f, 0.005301263183355331f, 0.011203368194401264f, 0.016663609072566032f, 0.004402044229209423f, 0.0025445083156228065f, 0.007225510198622942f, 0.0078097800724208355f, 0.007672663312405348f, 0.008221987634897232f, 0.007701712194830179f, 0.0046607148833572865f, 0.010148589499294758f, 0.012669657357037067f, 0.0039278557524085045f, 0.018285362049937248f, 0.0060296254232525826f, 0.005544878542423248f, 0.013809842057526112f, 0.0065465704537928104f, 0.0023867993149906397f, 0.005762026179581881f, 0.009292381815612316f, 0.011763562448322773f, 0.009786306880414486f, 0.01577814854681492f, 0.006828418001532555f, 0.0074236164800822735f, 0.014086048118770123f, 0.0063489703461527824f, 0.0031427040230482817f, 0.004868654999881983f, 0.007475316058844328f, 0.008613543584942818f, 0.006062148604542017f, 0.002972760470584035f, 0.034968193620443344f, 0.007875007577240467f, 0.004844946321099997f, 0.008226956240832806f, 0.009113389998674393f, 0.011507261544466019f, 0.0024455408565700054f, 0.006386894732713699f, 0.007921053096652031f, 0.003317594528198242f, 0.0057573700323700905f, 0.00628835940733552f, 0.015092863701283932f, 0.007674063090234995f, 0.0063380529172718525f, 0.00688828295096755f, 0.004369685426354408f, 0.002001966815441847f, 0.004550742916762829f, 0.011937453411519527f, 0.010917595587670803f, 0.0036522820591926575f, 0.005922183394432068f, 0.008306425996124744f, 0.010471606627106667f, 0.012273313477635384f, 0.0032434905879199505f, 0.003499089740216732f, 0.015661654993891716f, 0.011903859674930573f, 0.008119619451463223f, 0.006294316612184048f, 0.011212614364922047f, 0.005003007594496012f, 0.007092862855643034f, 0.006871858611702919f, 0.004342005588114262f, 0.0060743894428014755f, 0.005162982270121574f, 0.00857197679579258f, 0.006502167321741581f, 0.005940649658441544f, 0.01370921265333891f, 0.002182022202759981f, 0.006462213583290577f, 0.007341197691857815f, 0.007541873026639223f, 0.010502487421035767f, 0.014747328124940395f, 0.005433614831417799f, 0.01821865700185299f, 0.003876937786117196f, 0.00469523761421442f, 0.005547117441892624f, 0.01055992767214775f, 0.007891436107456684f, 0.0032764654606580734f, 0.006437565200030804f, 0.009192753583192825f, 0.010524108074605465f, 0.007372131571173668f, 0.004404111299663782f, 0.014814261347055435f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #159 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_60_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 336,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0003196702164132148f, 0.0002207735669799149f, 6.476724956883118e-05f, 0.00023551692720502615f, 0.00012389227049425244f, 0.00018247359548695385f, 0.0003591876884456724f, 0.00019319381681270897f, 0.00012519152369350195f, 0.00019311721553094685f, 0.00021711501176469028f, 0.00012089759547961876f, 0.00015861577412579209f, 0.00022979725326877087f, 0.0003214088792447001f, 0.00021258954075165093f, 0.00012096443970222026f, 0.00010860658221645281f, 9.65988147072494e-05f, 8.094810618786141e-05f, 9.43057457334362e-05f, 0.0005506612360477448f, 0.00015545239148195833f, 0.00015594312571920455f, 3.413404192542657e-05f, 5.3022966312710196e-05f, 0.0001723824825603515f, 0.00013924841186963022f, 0.00035217503318563104f, 0.00032853891025297344f, 0.00017346651293337345f, 9.45564461289905e-05f, 2.0684838091256097e-05f, 0.00016449487884528935f, 0.00014700996689498425f, 0.00021161236509215087f, 0.0001830530381994322f, 0.00013696120004169643f, 0.00015637357137165964f, 0.00022961368085816503f, 0.0007486083195544779f, 0.00011188567441422492f, 0.000340803962899372f, 0.00018428338808007538f, 0.00030973704997450113f, 0.00017399468924850225f, 0.0002665588108357042f, 0.00016054997104220092f, 6.329957250272855e-05f, 0.00020474546181503683f, 0.00037178208003751934f, 0.00016650927136652172f, 0.00015265881665982306f, 0.00021812912018503994f, 8.391111623495817e-05f, 0.00022152763267513365f, 0.0018491941737011075f, 0.00022849769447930157f, 0.0002932008064817637f, 9.627790859667584e-05f, 3.789821857935749e-05f, 0.00034487026277929544f, 0.00027207957464270294f, 6.0368165577529e-05f, 0.00013763850438408554f, 0.0002393685281276703f, 9.436649997951463e-05f, 0.00022046333469916135f, 0.0001371395483147353f, 0.00023344963847193867f, 0.00022859817545395344f, 0.00023362039064522833f, 9.931785461958498e-05f, 9.881057485472411e-05f, 0.00018100843590218574f, 0.000253981095738709f, 0.000166517318575643f, 0.00016163234249688685f, 0.0002731121494434774f, 0.0002696950687095523f, 0.00022069350234232843f, 0.0002234876883449033f, 0.0001605001016287133f, 0.00015286785492207855f, 9.78181924438104e-05f, 0.00011414512118790299f, 0.0003067729703616351f, 3.036847738258075e-05f, 0.00010038630716735497f, 0.00021214968001004308f, 9.459704597247764e-05f, 0.00011243610788369551f, 0.00016468360263388604f, 6.657496851403266e-05f, 0.0004233179788570851f, 0.00016242916171904653f, 5.07231816300191e-05f, 0.00029703311156481504f, 0.0003539717581588775f, 6.464411126216874e-05f, 0.0003361131530255079f, 7.628649473190308e-05f, 0.00025514853768981993f, 0.0004226385790389031f, 0.0004995446070097387f, 9.762991976458579e-05f, 0.00019368359062355012f, 0.00012584123760461807f, 0.00015378661919385195f, 0.0002977325057145208f, 0.00014363627997227013f, 0.00013273584772832692f, 0.00014311008271761239f, 9.122495248448104e-05f, 0.00016938557382673025f, 0.00025646144058555365f, 0.00015828556206542999f, 9.525345376459882e-05f, 0.00025088241090998054f, 0.00011256053403485566f, 0.0003107736411038786f, 5.5185460951179266e-05f, 6.101298640714958e-05f, 0.0001826775842346251f, 9.599776240065694e-05f, 0.0001724253233987838f, 8.821715164231136e-05f, 0.0002793029125314206f, 0.0002605908957775682f, 0.0002448682498652488f, 0.00025581655791029334f, 0.000243980874074623f, 0.00026323163183405995f, 0.0008081942214630544f, 0.00010734536044765264f, 0.00013222891720943153f, 0.0001400407199980691f, 0.00018223315419163555f, 0.0006020038272254169f, 8.338800398632884e-05f, 0.00020797264005523175f, 0.00036150048254057765f, 0.00016679488180670887f, 0.0001174704812001437f, 0.00030883922590874135f, 0.00015199440531432629f, 0.00031394921825267375f, 0.00020294183923397213f, 0.00019416167924646288f, 9.10570815904066e-05f, 0.00016743653395678848f, 0.0004067237314302474f, 9.368599421577528e-05f, 0.00021636932797264308f, 0.00013686677266377956f, 0.0002395319170318544f, 0.00019135068578179926f, 0.0001918846246553585f, 0.00013978901552036405f, 0.0002605942718219012f, 0.00010826540528796613f, 0.00018994997662957758f, 0.0004142449761275202f, 0.00026310255634598434f, 0.00010975545592373237f, 8.148927736328915e-05f, 0.0002084277366520837f, 0.00011679140152409673f, 0.00024223911168519408f, 0.00012647068069782108f, 0.00011775480379583314f, 0.00027322620735503733f, 3.247204585932195e-05f, 0.0001402397028869018f, 8.647917275084183e-05f, 0.00016138657520059496f, 0.00020685934578068554f, 0.00010298400593455881f, 0.0001760201994329691f, 0.00016647070879116654f, 0.0001847507373895496f, 0.0002523068687878549f, 0.0002599363506305963f, 8.231327956309542e-05f, 0.0001815572177292779f, 5.685387077392079e-05f, 0.00015737277863081545f, 0.00020077693625353277f, 0.00010676479723770171f, 0.00027976674027740955f, 0.00019921973580494523f, 9.219103230861947e-05f, 7.572975300718099e-05f, 9.144806972471997e-05f, 0.00023061777756083757f, 0.00013983083772473037f, 0.00018557523435447365f, 0.0001527127460576594f, 0.00033862845157273114f, 0.0005314032314345241f, 0.000518297660164535f, 0.0002057674719253555f, 0.00020680598390754312f, 0.00013467363896779716f, 0.0002935333177447319f, 0.00012173203867860138f, 6.490039231721312e-05f, 0.00026074753259308636f, 0.00019591378804761916f, 0.00017307038069702685f, 6.942707113921642e-05f, 7.125090633053333e-05f, 0.00017866234702523798f, 9.446517651667818e-05f, 0.0002748499973677099f, 9.963721095118672e-05f, 0.000313511467538774f, 0.00043957721209153533f, 0.0001884455414256081f, 0.00014788795670028776f, 0.0001897698821267113f, 0.0002464962308295071f, 0.00027564179617911577f, 0.0003634296008385718f, 0.0002397253119852394f, 0.00031510769622400403f, 0.00032748703961260617f, 0.00012117042933823541f, 0.0001582968106959015f, 6.48435452603735e-05f, 4.125647319597192e-05f, 0.0002317515027243644f, 0.00026889514992944896f, 0.00013645294529851526f, 0.00029005808755755424f, 7.551444286946207e-05f, 0.00017914469935931265f, 0.00011162076407345012f, 0.00012473561218939722f, 0.00026360867195762694f, 0.0003920849412679672f, 0.00010357751307310537f, 5.9870784753002226e-05f, 0.000170012004673481f, 0.0001837595336837694f, 0.00018053325766231865f, 0.0001934585307026282f, 0.00018121676112059504f, 0.00010966388072120026f, 0.00023879035143181682f, 0.0002981096040457487f, 9.242013766197488e-05f, 0.00043024381739087403f, 0.00014187354827299714f, 0.00013046772801317275f, 0.0003249374567531049f, 0.00015403695579152554f, 5.615998452412896e-05f, 0.00013557709462475032f, 0.00021864428708795458f, 0.00027678970945999026f, 0.0002302660432178527f, 0.000371250556781888f, 0.00016066865646280348f, 0.00017467333236709237f, 0.00033143642940558493f, 0.0001493875461164862f, 7.394597923848778e-05f, 0.00011455659114290029f, 0.0001758897997206077f, 0.0002026716247200966f, 0.00014263878983911127f, 6.994730938458815e-05f, 0.0008227810612879694f, 0.0001852942950790748f, 0.00011399873619666323f, 0.0001935754407895729f, 0.00021443271543830633f, 0.00027075910475105047f, 5.754213998443447e-05f, 0.00015027988411020488f, 0.0001863777288235724f, 7.806104986229911e-05f, 0.00013546753325499594f, 0.00014796140021644533f, 0.00035512621980160475f, 0.00018056618864648044f, 0.00014913066115695983f, 0.00016207725275307894f, 0.00010281612776452675f, 4.710510256700218e-05f, 0.00010707630281103775f, 0.00028088127146475017f, 0.00025688461028039455f, 8.593605161877349e-05f, 0.00013934548769611865f, 0.00019544531824067235f, 0.0002463907585479319f, 0.00028878386365249753f, 7.631742482772097e-05f, 8.233152766479179e-05f, 0.00036850952892564237f, 0.0002800908114295453f, 0.00019104986859019846f, 0.00014810156426392496f, 0.000263826223090291f, 0.00011771782737923786f, 0.00016689089534338564f, 0.0001616907975403592f, 0.00010216484224656597f, 0.00014292681589722633f, 0.00012148193491157144f, 0.00020169357594568282f, 0.0001529921719338745f, 0.00013977999333292246f, 0.00032256971462629735f, 5.134169987286441e-05f, 0.00015205208910629153f, 0.00017273407138418406f, 0.00017745583318173885f, 0.0002471173647791147f, 0.00034699594834819436f, 0.0001278497657040134f, 0.00042867427691817284f, 9.12220639293082e-05f, 0.00011047618318116292f, 0.00013052040594629943f, 0.0002484688884578645f, 0.00018568085215520114f, 7.709330384386703e-05f, 0.00015147212252486497f, 0.0002163000899599865f, 0.00024762607063166797f, 0.00017346192908007652f, 0.00010362615284975618f, 0.00034857087302953005f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #160 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_61_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 56,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0262606218457222f, 0.009252253919839859f, 0.00779666006565094f, 0.014349979348480701f, 0.011438729241490364f, 0.011467531323432922f, 0.01351550966501236f, 0.01985815353691578f, 0.006932299584150314f, 0.02409091219305992f, 0.00949525274336338f, 0.0066294241696596146f, 0.011523748748004436f, 0.0093885138630867f, 0.0059884581714868546f, 0.0073350719176232815f, 0.011544832028448582f, 0.007051007356494665f, 0.012332226149737835f, 0.007150887046009302f, 0.006552277132868767f, 0.005969632882624865f, 0.02691042050719261f, 0.01724499836564064f, 0.01636849343776703f, 0.009708053432404995f, 0.0077254390344023705f, 0.00810921285301447f, 0.009220544248819351f, 0.0057109748013317585f, 0.005355463828891516f, 0.008416186086833477f, 0.009835245087742805f, 0.008830384351313114f, 0.007829518988728523f, 0.00869765691459179f, 0.010893465019762516f, 0.007588752079755068f, 0.01270768791437149f, 0.009637374430894852f, 0.007879791781306267f, 0.008109604939818382f, 0.00671631982550025f, 0.006800810340791941f, 0.007960344664752483f, 0.00808654259890318f, 0.021096717566251755f, 0.010097785852849483f, 0.004989370238035917f, 0.008122436702251434f, 0.006676597986370325f, 0.008473058231174946f, 0.0067832390777766705f, 0.010311341844499111f, 0.007051205262541771f, 0.01061773207038641f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #161 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_61_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 56,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0006178970215842128f, 0.00021770010062027723f, 0.00018345082935411483f, 0.0003376465756446123f, 0.0002691465779207647f, 0.00026982426061294973f, 0.00031801199656911194f, 0.00046725067659281194f, 0.00016311294166371226f, 0.0005668450030498207f, 0.0002234177227364853f, 0.00015598646132275462f, 0.0002711470297072083f, 0.00022090620768722147f, 0.0001409049000358209f, 0.0001725899346638471f, 0.0002716431044973433f, 0.00016590606537647545f, 0.00029017002088949084f, 0.00016825617058202624f, 0.00015417122631333768f, 0.00014046195428818464f, 0.0006331863696686924f, 0.0004057646729052067f, 0.0003851410292554647f, 0.00022842478938400745f, 0.00018177504534833133f, 0.00019080501806456596f, 0.00021695398027077317f, 0.00013437587767839432f, 0.00012601091293618083f, 0.00019802790484391153f, 0.00023141753626987338f, 0.00020777375902980566f, 0.00018422397261019796f, 0.00020465075795073062f, 0.00025631682365201414f, 0.0001785588829079643f, 0.00029900443041697145f, 0.000226761752855964f, 0.00018540686869528145f, 0.00019081424397882074f, 0.00015803106362000108f, 0.00016001907351892442f, 0.00018730222654994577f, 0.0001902715885080397f, 0.0004963933606632054f, 0.0002375949698034674f, 0.00011739695037249476f, 0.0001911161671159789f, 0.00015709642320871353f, 0.00019936608441639692f, 0.00015960562450345606f, 0.0002426198188913986f, 0.00016591072198934853f, 0.00024982899776659906f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #162 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_63_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 336,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0004329797811806202f, 0.0006314664497040212f, 0.0004833339771721512f, 0.00037047354271635413f, 0.0007208958268165588f, 0.0004480744246393442f, 0.0005040803807787597f, 0.0006012354861013591f, 0.0007313450332731009f, 0.0009178671170957386f, 0.0006855051615275443f, 0.0007205933798104525f, 0.0007135055493563414f, 0.0004980649100616574f, 0.000854272919241339f, 0.0004852633865084499f, 0.0009476258419454098f, 0.0006016987608745694f, 0.0006286145653575659f, 0.0008342081564478576f, 0.0006663264939561486f, 0.000606185756623745f, 0.0007517493213526905f, 0.0006376960081979632f, 0.0011450104648247361f, 0.0005269225221127272f, 0.0005074669606983662f, 0.000654288858640939f, 0.0009453232050873339f, 0.0006102198385633528f, 0.0005239752936176956f, 0.0008863905677571893f, 0.0005673333071172237f, 0.0005946094752289355f, 0.0011466124560683966f, 0.00042014458449557424f, 0.0006570476689375937f, 0.0009559917380101979f, 0.0005132366204634309f, 0.0006046923226676881f, 0.0004893885343335569f, 0.0006800934788770974f, 0.0007443345384672284f, 0.0005243294290266931f, 0.0007793758995831013f, 0.0005577843985520303f, 0.0006172846769914031f, 0.0009471927187405527f, 0.0006950071547180414f, 0.00047664475277997553f, 0.0006799980765208602f, 0.0007403453346341848f, 0.0008439015364274383f, 0.0005242840270511806f, 0.0006473448593169451f, 0.0004372771654743701f, 0.0007239979458972812f, 0.0007775862468406558f, 0.000510307727381587f, 0.0005381406517699361f, 0.0005195462144911289f, 0.0003655370092019439f, 0.0006607642862945795f, 0.0004250577767379582f, 0.0005874534836038947f, 0.00037752577918581665f, 0.0009952029213309288f, 0.0007008601678535342f, 0.0005595301045104861f, 0.0008562110597267747f, 0.0009086969075724483f, 0.0007949444116093218f, 0.0006431490764953196f, 0.0005043331766501069f, 0.0008566288161091506f, 0.0006868172786198556f, 0.0005176568520255387f, 0.0007137774373404682f, 0.0010654544457793236f, 0.0006038163555786014f, 0.0007047381950542331f, 0.0005323279183357954f, 0.0010181642137467861f, 0.0008164295577444136f, 0.0005353510496206582f, 0.0006293809856288135f, 0.000670597655698657f, 0.0005869442829862237f, 0.0007131376187317073f, 0.0006511521642096341f, 0.0005980022833682597f, 0.0005256003933027387f, 0.0003679098444990814f, 0.0008093943470157683f, 0.0005931020132265985f, 0.0004861595225520432f, 0.0004806490906048566f, 0.0003165277885273099f, 0.0006446149782277644f, 0.0005319002084434032f, 0.0004702773876488209f, 0.0008700727485120296f, 0.0006219231872819364f, 0.0007166829309426248f, 0.0005222090985625982f, 0.0007700923597440124f, 0.0005613337270915508f, 0.0005725717055611312f, 0.00040790432831272483f, 0.000760340946726501f, 0.0004019323969259858f, 0.000576318649109453f, 0.0006282652029767632f, 0.0005953176296316087f, 0.0008408542489632964f, 0.0012969220988452435f, 0.0004834593855775893f, 0.0007274165982380509f, 0.0007565704290755093f, 0.0005779657512903214f, 0.0006848091725260019f, 0.000502279435750097f, 0.0007265990716405213f, 0.00046167129767127335f, 0.0007728430791758001f, 0.0003734873025678098f, 0.0005688781966455281f, 0.0008203284232877195f, 0.00048459862591698766f, 0.0004056184843648225f, 0.000549742195289582f, 0.0005809554131701589f, 0.0005124093731865287f, 0.0005725071532651782f, 0.0007802999462001026f, 0.0006747919833287597f, 0.000772041326854378f, 0.0006627139518968761f, 0.0007138388464227319f, 0.0005859932862222195f, 0.0005623144097626209f, 0.0005175021942704916f, 0.0004622400156222284f, 0.000522888614796102f, 0.0006933010881766677f, 0.0008901210385374725f, 0.0008704237407073379f, 0.0009936712449416518f, 0.0009082250762730837f, 0.0007179747335612774f, 0.0004529872094281018f, 0.0006978504243306816f, 0.0005592819070443511f, 0.0005833084578625858f, 0.0005585576291196048f, 0.0005993756931275129f, 0.0005144744063727558f, 0.0008581719594076276f, 0.0007064183591865003f, 0.00046662837848998606f, 0.0006455785478465259f, 0.0009902839083224535f, 0.0007458904874511063f, 0.0006026045302860439f, 0.0006527764489874244f, 0.0005744960508309305f, 0.00047131735482253134f, 0.0005884052370674908f, 0.000836312654428184f, 0.0007489232230000198f, 0.0005563976592384279f, 0.000916584744118154f, 0.0007044784142635763f, 0.0008286820375360548f, 0.0004756456473842263f, 0.0008169859647750854f, 0.0006290985620580614f, 0.0005667461664415896f, 0.0005909349420107901f, 0.0005794035387225449f, 0.0006839780253358185f, 0.0005487909656949341f, 0.000509243574924767f, 0.0006259155343286693f, 0.0006857248954474926f, 0.0006831956561654806f, 0.0005226486828178167f, 0.0004973848117515445f, 0.00041741292807273567f, 0.0005709702963940799f, 0.0006431806832551956f, 0.0008145988686010242f, 0.0006568183307535946f, 0.0006690782029181719f, 0.0003986325755249709f, 0.0006270219455473125f, 0.000586549227591604f, 0.000596538302488625f, 0.0006956583820283413f, 0.0006319598178379238f, 0.0005563736194744706f, 0.0006150730769149959f, 0.0005397892091423273f, 0.0006935021374374628f, 0.00057457375805825f, 0.001001008553430438f, 0.0005242274492047727f, 0.0005891965702176094f, 0.000562181870918721f, 0.0008197523420676589f, 0.0006059114239178598f, 0.0006120042526163161f, 0.0008036420913413167f, 0.000660707475617528f, 0.0005377872730605304f, 0.0007058843621052802f, 0.0007271759095601737f, 0.000896307872608304f, 0.0005801964434795082f, 0.0007193964556790888f, 0.0008362741209566593f, 0.0004956562770530581f, 0.0011148572666570544f, 0.0007320319418795407f, 0.0005048844031989574f, 0.0005940811824984848f, 0.0004843645729124546f, 0.0005115903331898153f, 0.0006998969474807382f, 0.0008847828721627593f, 0.0008721892954781651f, 0.0010690100025385618f, 0.0005404531839303672f, 0.00044372768024913967f, 0.000620730803348124f, 0.0006166277453303337f, 0.0006125559448264539f, 0.0006140744080767035f, 0.0009187350515276194f, 0.0006117112352512777f, 0.0005351828876882792f, 0.000619715079665184f, 0.0005677439039573073f, 0.001044606207869947f, 0.0006459429860115051f, 0.0005873969057574868f, 0.0008051453623920679f, 0.0005582147859968245f, 0.0009509253432042897f, 0.0005646109348163009f, 0.0005702030030079186f, 0.0006013404345139861f, 0.0007974595064297318f, 0.0005655746208503842f, 0.0005756058963015676f, 0.0006294172490015626f, 0.0007163295522332191f, 0.0005648135556839406f, 0.0005978361004963517f, 0.0006183580844663084f, 0.0005218650330789387f, 0.0006542394403368235f, 0.000879026367329061f, 0.0005345519166439772f, 0.000710533291567117f, 0.00045932733337394893f, 0.0005229107919149101f, 0.0006976568838581443f, 0.0003020216536242515f, 0.0007710012141615152f, 0.0007294421666301787f, 0.0007582858088426292f, 0.0006780725088901818f, 0.0004496891633607447f, 0.00044199792318977416f, 0.0007859806646592915f, 0.0005007414147257805f, 0.0006327119190245867f, 0.0009100814932025969f, 0.0006092222174629569f, 0.000589231844060123f, 0.00042612518882378936f, 0.0005705025978386402f, 0.0007377495057880878f, 0.0008177185663953424f, 0.0005835203919559717f, 0.0007039904012344778f, 0.0007061106152832508f, 0.0006032120436429977f, 0.0008636401034891605f, 0.0006863435846753418f, 0.0005595984985120595f, 0.0005176772829145193f, 0.00037642958341166377f, 0.0005231290706433356f, 0.0005552848451770842f, 0.0006657866761088371f, 0.0006843689479865134f, 0.0004836047883145511f, 0.0004551478778012097f, 0.0008307805401273072f, 0.0004160988319199532f, 0.0006195990135893226f, 0.0003289213636890054f, 0.0007038863259367645f, 0.0003879665455315262f, 0.0005057296948507428f, 0.0006910873926244676f, 0.0007398684392683208f, 0.0007020386983640492f, 0.000789691461250186f, 0.000555765931494534f, 0.0007119100191630423f, 0.000551885983441025f, 0.0006373928626999259f, 0.000564023619517684f, 0.0005703057977370918f, 0.0011071176268160343f, 0.0005279288743622601f, 0.0006460284348577261f, 0.0005415732157416642f, 0.0006667975685559213f, 0.000620081031229347f, 0.00047993523185141385f, 0.000761971459724009f, 0.000876680132932961f, 0.0005376067128963768f, 0.0006521120667457581f, 0.0005419604713097215f, 0.0005280349287204444f, 0.0009691103477962315f, 0.0004944130778312683f, 0.0006495490670204163f, 0.001099442015402019f, 0.0004892994184046984f, 0.0004690060159191489f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #163 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_63_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 336,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0001483689557062462f, 0.00021638428734149784f, 0.00016562380187679082f, 0.0001269499771296978f, 0.0002470290055498481f, 0.0001535414339741692f, 0.0001727329654386267f, 0.00020602505537681282f, 0.00025060962070710957f, 0.0003145250666420907f, 0.00023490170133300126f, 0.00024692536680959165f, 0.0002444965939503163f, 0.00017067164299078286f, 0.0002927332534454763f, 0.00016628495359327644f, 0.00032472246675752103f, 0.00020618380222003907f, 0.0002154070243705064f, 0.00028585767722688615f, 0.000228329750825651f, 0.0002077213575830683f, 0.00025760155403986573f, 0.00021851896599400789f, 0.0003923601470887661f, 0.0001805602660169825f, 0.00017389343702234328f, 0.00022420482127927244f, 0.00032393340370617807f, 0.00020910371677018702f, 0.0001795503485482186f, 0.00030373901245184243f, 0.00019440781034063548f, 0.00020375452004373074f, 0.000392909103538841f, 0.0001439707266399637f, 0.0002251501864520833f, 0.0003275891940575093f, 0.00017587053298484534f, 0.00020720961038023233f, 0.00016769851208664477f, 0.00023304727801587433f, 0.00025506073143333197f, 0.00017967169696930796f, 0.00026706833159551024f, 0.00019113569578621536f, 0.00021152461704332381f, 0.0003245740372221917f, 0.00023815775057300925f, 0.00016333161329384893f, 0.00023301459441427141f, 0.00025369375362060964f, 0.00028917929739691317f, 0.00017965614097192883f, 0.00022182533575687557f, 0.00014984153676778078f, 0.0002480919938534498f, 0.0002664550847839564f, 0.00017486688739154488f, 0.00018440438725519925f, 0.00017803264199756086f, 0.00012525837519206107f, 0.00022642375552095473f, 0.00014565432502422482f, 0.00020130237680859864f, 0.000129366570035927f, 0.0003410256758797914f, 0.00024016339739318937f, 0.00019173389591742307f, 0.00029339740285649896f, 0.0003113826969638467f, 0.00027240318013355136f, 0.00022038756287656724f, 0.00017281959298998117f, 0.00029354056459851563f, 0.00023535132640972733f, 0.0001773852127371356f, 0.0002445897553116083f, 0.0003650987346190959f, 0.0002069094480248168f, 0.00024149227829184383f, 0.00018241253565065563f, 0.00034889380913227797f, 0.0002797654888126999f, 0.00018344847194384784f, 0.00021566965733654797f, 0.00022979335335548967f, 0.00020112789934501052f, 0.00024437051615677774f, 0.00022312997316475958f, 0.00020491713075898588f, 0.00018010722124017775f, 0.0001260714780073613f, 0.0002773547312244773f, 0.00020323795615695417f, 0.00016659202810842544f, 0.00016470377158839256f, 0.00010846441728062928f, 0.00022088988043833524f, 0.00018226596876047552f, 0.00016114971367642283f, 0.00029814738081768155f, 0.00021311409363988787f, 0.0002455853682477027f, 0.0001789451198419556f, 0.0002638871665112674f, 0.00019235194486100227f, 0.00019620284729171544f, 0.0001397763699060306f, 0.000260545639321208f, 0.00013772996317129582f, 0.00019748682097997516f, 0.00021528732031583786f, 0.00020399718778207898f, 0.000288135081063956f, 0.00044441563659347594f, 0.0001656667736824602f, 0.00024926348123699427f, 0.00025925360387191176f, 0.0001980512315640226f, 0.00023466320999432355f, 0.0001721158332657069f, 0.00024898332776501775f, 0.0001582006661919877f, 0.00026482975226826966f, 0.00012798269744962454f, 0.00019493719446472824f, 0.00028110152925364673f, 0.00016605715791229159f, 0.0001389930839650333f, 0.0001883798831840977f, 0.00019907568639609963f, 0.00017558706167619675f, 0.00019618072838056833f, 0.0002673849812708795f, 0.000231230616918765f, 0.0002645550121087581f, 0.00022709184850100428f, 0.00024461079738102853f, 0.00020080202375538647f, 0.00019268799223937094f, 0.00017733221466187388f, 0.00015839554544072598f, 0.00017917797958943993f, 0.00023757312737870961f, 0.0003050173108931631f, 0.00029826766694895923f, 0.00034050081740133464f, 0.00031122102518565953f, 0.00024602803750894964f, 0.00015522490139119327f, 0.0002391320449532941f, 0.00019164883997291327f, 0.00019988200801890343f, 0.00019140065705869347f, 0.0002053877542493865f, 0.00017629467765800655f, 0.000294069352094084f, 0.00024206801026593894f, 0.00015989931125659496f, 0.00022122006339486688f, 0.00033934006933122873f, 0.00025559391360729933f, 0.0002064941800199449f, 0.00022368656937032938f, 0.0001968622673302889f, 0.0001615060755284503f, 0.0002016285143326968f, 0.00028657884104177356f, 0.0002566331240814179f, 0.00019066050299443305f, 0.00031408562790602446f, 0.00024140324967447668f, 0.0002839640364982188f, 0.00016298925038427114f, 0.000279956148006022f, 0.00021557288710027933f, 0.00019420661556068808f, 0.0002024953719228506f, 0.00019854391575790942f, 0.00023437839990947396f, 0.0001880539202829823f, 0.00017450223094783723f, 0.0002144821482943371f, 0.00023497699294239283f, 0.00023411030997522175f, 0.00017909576126839966f, 0.00017043859406840056f, 0.000143034674692899f, 0.00019565409456845373f, 0.00022039838950149715f, 0.0002791381848510355f, 0.0002250716061098501f, 0.0002292726858286187f, 0.0001365992211503908f, 0.00021486128389369696f, 0.00020099252287764102f, 0.00020441546803340316f, 0.00023838090419303626f, 0.000216553351492621f, 0.0001906522666104138f, 0.00021076678240206093f, 0.00018496929260436445f, 0.0002376420161454007f, 0.0001968888973351568f, 0.00034301509731449187f, 0.00017963675782084465f, 0.0002018996892729774f, 0.0001926425757119432f, 0.0002809041179716587f, 0.00020762735221069306f, 0.000209715188248083f, 0.0002753836160991341f, 0.00022640428505837917f, 0.00018428328621666878f, 0.00024188503448385745f, 0.0002491810009814799f, 0.0003071373503189534f, 0.00019881561456713825f, 0.0002465152065269649f, 0.0002865656279027462f, 0.00016984628746286035f, 0.0003820275596808642f, 0.00025084501248784363f, 0.00017300847684964538f, 0.00020357349421828985f, 0.00016597696230746806f, 0.00017530639888718724f, 0.00023983333085197955f, 0.0003031881060451269f, 0.00029887264827266335f, 0.00036631710827350616f, 0.00018519681179895997f, 0.00015205194358713925f, 0.00021270550496410578f, 0.0002112995134666562f, 0.0002099042321788147f, 0.00021042456501163542f, 0.00031482247868552804f, 0.00020961478003300726f, 0.0001833908463595435f, 0.0002123574522556737f, 0.00019454851280897856f, 0.0003579546755645424f, 0.00022134494793135673f, 0.00020128299365751445f, 0.0002758987538982183f, 0.00019128317944705486f, 0.0003258530923631042f, 0.0001934749452630058f, 0.0001953911705641076f, 0.0002060610131593421f, 0.0002732650318648666f, 0.00019380517187528312f, 0.00019724258163478225f, 0.000215682084672153f, 0.00024546426720917225f, 0.00019354437245056033f, 0.00020486018911469728f, 0.00021189244580455124f, 0.00017882722022477537f, 0.00022418789740186185f, 0.0003012155066244304f, 0.00018317463400308043f, 0.00024347807629965246f, 0.00015739745867904276f, 0.00017918557568918914f, 0.00023906573187559843f, 0.0001034936067298986f, 0.0002641985774971545f, 0.0002499575784895569f, 0.0002598414139356464f, 0.00023235475237015635f, 0.00015409475599881262f, 0.00015145920042414218f, 0.00026933159097097814f, 0.00017158880655188113f, 0.00021681106591131538f, 0.00031185714760795236f, 0.00020876186317764223f, 0.00020191176736261696f, 0.00014602010196540505f, 0.00019549383432604373f, 0.0002528042532503605f, 0.00028020719764754176f, 0.0001999546366278082f, 0.00024123603361658752f, 0.0002419625670881942f, 0.00020670235971920192f, 0.00029594311490654945f, 0.0002351889997953549f, 0.00019175732450094074f, 0.00017739221220836043f, 0.00012899092689622194f, 0.00017926037253346294f, 0.0001902791700558737f, 0.00022814478143118322f, 0.00023451235028915107f, 0.00016571659944020212f, 0.00015596528828609735f, 0.00028468313394114375f, 0.0001425843802280724f, 0.00021231768187135458f, 0.00011271131370449439f, 0.0002412003668723628f, 0.00013294430391397327f, 0.00017329813272226602f, 0.0002368145651416853f, 0.0002535303356125951f, 0.000240567242144607f, 0.0002706031664274633f, 0.00019044402870349586f, 0.00024394983483944088f, 0.00018911449296865612f, 0.00021841507987119257f, 0.00019327367772348225f, 0.00019542640075087547f, 0.00037937541492283344f, 0.00018090511730406433f, 0.0002213742263847962f, 0.00018558061856310815f, 0.00022849117522127926f, 0.00021248284610919654f, 0.0001644591538934037f, 0.0002611043746583164f, 0.0003004115424118936f, 0.00018422141147311777f, 0.00022345890465658158f, 0.00018571331747807562f, 0.00018094145343638957f, 0.00033208454260602593f, 0.0001694202801445499f, 0.00022258063836488873f, 0.0003767452435567975f, 0.00016766798216849566f, 0.00016071404388640076f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #164 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_64_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 336,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.011252356693148613f, 0.005375302862375975f, 0.0052474914118647575f, 0.006818432826548815f, 0.009726333431899548f, 0.006616705097258091f, 0.00767090218141675f, 0.008156025782227516f, 0.007353558205068111f, 0.004987016785889864f, 0.007756315171718597f, 0.006255093030631542f, 0.004890696611255407f, 0.005497132893651724f, 0.003939550369977951f, 0.007024703081697226f, 0.007859176024794579f, 0.003412878606468439f, 0.00977442879229784f, 0.006112927105277777f, 0.007677100133150816f, 0.006025572773069143f, 0.0036179053131490946f, 0.006790397223085165f, 0.003434862708672881f, 0.007982557639479637f, 0.003907696343958378f, 0.004589695017784834f, 0.004670626018196344f, 0.00528140552341938f, 0.005594328511506319f, 0.005579062737524509f, 0.008883520029485226f, 0.0050852312706410885f, 0.0038319320883601904f, 0.007917020469903946f, 0.005277973134070635f, 0.0034022133331745863f, 0.005060667637735605f, 0.007580557372421026f, 0.00664711557328701f, 0.004763354547321796f, 0.004314133897423744f, 0.006460261531174183f, 0.009399015456438065f, 0.007277284283190966f, 0.006677455268800259f, 0.004013147670775652f, 0.0035217455588281155f, 0.00699608214199543f, 0.003422839567065239f, 0.004657146520912647f, 0.0053683314472436905f, 0.005698018241673708f, 0.004244136158376932f, 0.006067837588489056f, 0.005066937766969204f, 0.0032824305817484856f, 0.004135239869356155f, 0.004267988260835409f, 0.006284939590841532f, 0.004683542996644974f, 0.004808638710528612f, 0.006832049693912268f, 0.006256593391299248f, 0.010557315312325954f, 0.00468630064278841f, 0.004348037764430046f, 0.005345500539988279f, 0.00795753300189972f, 0.005805524531751871f, 0.004765293560922146f, 0.004902748856693506f, 0.008767940104007721f, 0.005810034926980734f, 0.0032346160151064396f, 0.006375973578542471f, 0.005120032001286745f, 0.0028138032648712397f, 0.0032664278987795115f, 0.0045431326143443584f, 0.005033298395574093f, 0.003918908536434174f, 0.004272605758160353f, 0.0044120256789028645f, 0.005489311181008816f, 0.0071983193047344685f, 0.004932540934532881f, 0.0048340135253965855f, 0.009722397662699223f, 0.004474063869565725f, 0.008056117221713066f, 0.008436019532382488f, 0.003611937863752246f, 0.003692624857649207f, 0.0052328528836369514f, 0.006120650563389063f, 0.00395430251955986f, 0.007423705421388149f, 0.009360933676362038f, 0.006845058873295784f, 0.0029939848463982344f, 0.007485893089324236f, 0.004829537123441696f, 0.006929861847311258f, 0.004850782919675112f, 0.006958060897886753f, 0.005396550986915827f, 0.006708681583404541f, 0.004938408732414246f, 0.004594372119754553f, 0.004550631158053875f, 0.006582497153431177f, 0.004790300969034433f, 0.003233763389289379f, 0.005505403503775597f, 0.0042668976821005344f, 0.004993006587028503f, 0.002990392968058586f, 0.004932604264467955f, 0.004036946687847376f, 0.008257128298282623f, 0.0064149340614676476f, 0.005814662203192711f, 0.0029494035989046097f, 0.004442710429430008f, 0.007597874850034714f, 0.006998913362622261f, 0.008384322747588158f, 0.004392014350742102f, 0.007339216768741608f, 0.004139778669923544f, 0.0047585745342075825f, 0.004440173972398043f, 0.006373414304107428f, 0.004114397335797548f, 0.0053087687119841576f, 0.005626023281365633f, 0.006971870083361864f, 0.005491921212524176f, 0.003941851202398539f, 0.003925227094441652f, 0.009044944308698177f, 0.0036049080081284046f, 0.00319062196649611f, 0.01083278562873602f, 0.004207481164485216f, 0.004970664158463478f, 0.00546101713553071f, 0.00513196736574173f, 0.007417777553200722f, 0.006248651072382927f, 0.007686464581638575f, 0.006247567944228649f, 0.005121526774019003f, 0.006214857567101717f, 0.005523179657757282f, 0.0031872030813246965f, 0.004638544283807278f, 0.008747578598558903f, 0.0022221009712666273f, 0.004965896252542734f, 0.006059137638658285f, 0.006387769244611263f, 0.00426940992474556f, 0.005187054164707661f, 0.007846233434975147f, 0.005203946493566036f, 0.002973936963826418f, 0.0052472371608018875f, 0.009814073331654072f, 0.003736094105988741f, 0.004832547623664141f, 0.002814110368490219f, 0.004023988731205463f, 0.0041548097506165504f, 0.00402700062841177f, 0.004474060144275427f, 0.006122621241956949f, 0.006499921437352896f, 0.004525671247392893f, 0.0034364103339612484f, 0.004631360527127981f, 0.005513178650289774f, 0.008089304901659489f, 0.005427129566669464f, 0.0065528396517038345f, 0.005631091073155403f, 0.005602630320936441f, 0.005543084349483252f, 0.0035395221784710884f, 0.005477446131408215f, 0.0055986689403653145f, 0.005314858630299568f, 0.009149342775344849f, 0.00556134432554245f, 0.010009512305259705f, 0.004623934626579285f, 0.002557444619014859f, 0.004764148499816656f, 0.008322621695697308f, 0.005892787594348192f, 0.004464767407625914f, 0.004649636801332235f, 0.008983229286968708f, 0.0028795471880584955f, 0.007286579813808203f, 0.005042869132012129f, 0.008156858384609222f, 0.004554729908704758f, 0.005492789205163717f, 0.011291531845927238f, 0.004521314054727554f, 0.00506720133125782f, 0.004870523698627949f, 0.004952235613018274f, 0.0035961922258138657f, 0.005294987000524998f, 0.030961427837610245f, 0.004372636321932077f, 0.006591454613953829f, 0.007948813028633595f, 0.0048288279213011265f, 0.0035048513673245907f, 0.007123957388103008f, 0.005742130801081657f, 0.006976304575800896f, 0.006808390840888023f, 0.0047306339256465435f, 0.003957969136536121f, 0.0037589536514133215f, 0.004706359002739191f, 0.0065519241616129875f, 0.007207444403320551f, 0.0089042279869318f, 0.006696762982755899f, 0.005636819638311863f, 0.004564066883176565f, 0.005290844943374395f, 0.0072893137112259865f, 0.007929095067083836f, 0.006478076335042715f, 0.004601034335792065f, 0.002710607135668397f, 0.004810074809938669f, 0.00427153380587697f, 0.006887516006827354f, 0.005397256929427385f, 0.0048622796311974525f, 0.003945861477404833f, 0.006026968825608492f, 0.004771077539771795f, 0.005773206241428852f, 0.006933188997209072f, 0.0060834926553070545f, 0.00418059341609478f, 0.00584773113951087f, 0.006513834930956364f, 0.008239490911364555f, 0.009978070855140686f, 0.010876869782805443f, 0.005267750937491655f, 0.0036985650658607483f, 0.005904206540435553f, 0.004957497585564852f, 0.0070679886266589165f, 0.0058853705413639545f, 0.006746097933501005f, 0.008461207151412964f, 0.005083132069557905f, 0.006772103253751993f, 0.0025642469990998507f, 0.006112152710556984f, 0.008242513053119183f, 0.011571879498660564f, 0.005234628450125456f, 0.0077400775626301765f, 0.0049482788890600204f, 0.0051901559345424175f, 0.00612515676766634f, 0.004319680389016867f, 0.007603146135807037f, 0.005854547955095768f, 0.0038798381574451923f, 0.0036487230099737644f, 0.005194975063204765f, 0.004385553300380707f, 0.008814112283289433f, 0.008214899338781834f, 0.0018328636651858687f, 0.004784006159752607f, 0.0047723338939249516f, 0.006802232004702091f, 0.007193214260041714f, 0.006882586050778627f, 0.008095329627394676f, 0.005029377061873674f, 0.005600149743258953f, 0.00949325691908598f, 0.00781950168311596f, 0.006271289195865393f, 0.010912181809544563f, 0.00706406170502305f, 0.009625582955777645f, 0.0040494888089597225f, 0.01639954373240471f, 0.005419635679572821f, 0.007585643790662289f, 0.008648421615362167f, 0.005997614003717899f, 0.0062768543139100075f, 0.007228211499750614f, 0.004587561823427677f, 0.006055821198970079f, 0.005370510742068291f, 0.01059206947684288f, 0.00558454217389226f, 0.0034686154685914516f, 0.005926797632128f, 0.005911737214773893f, 0.005326945334672928f, 0.004378322511911392f, 0.005979547742754221f, 0.005346977151930332f, 0.005447010975331068f, 0.0032742845360189676f, 0.006428860127925873f, 0.004741924349218607f, 0.005181165412068367f, 0.007279142737388611f, 0.005021015182137489f, 0.0056069339625537395f, 0.004182120319455862f, 0.003816870739683509f, 0.005991296377032995f, 0.00590973487123847f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #165 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_64_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 336,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0002647613291628659f, 0.0001264777238247916f, 0.00012347038136795163f, 0.0001604337157914415f, 0.00022885491489432752f, 0.00015568718663416803f, 0.00018049181380774826f, 0.00019190649618394673f, 0.0001730249059619382f, 0.00011734157305909321f, 0.00018250153516419232f, 0.0001471786672482267f, 0.00011507521412568167f, 0.0001293443056056276f, 9.269530710298568e-05f, 0.00016528712876606733f, 0.00018492179515305907f, 8.030302706174552e-05f, 0.0002299865591339767f, 0.00014383357483893633f, 0.00018063765310216695f, 0.00014177818957250565f, 8.512718341080472e-05f, 0.00015977404837030917f, 8.082030399236828e-05f, 0.00018782488768920302f, 9.194579615723342e-05f, 0.00010799282608786598f, 0.00010989708243869245f, 0.00012426836474332958f, 0.00013163125549908727f, 0.0001312720705755055f, 0.00020902400137856603f, 0.00011965250450884923f, 9.016310650622472e-05f, 0.00018628283578436822f, 0.00012418760161381215f, 8.005207928363234e-05f, 0.00011907453153980896f, 0.0001783660554792732f, 0.00015640271885786206f, 0.00011207893112441525f, 0.00010150903835892677f, 0.0001520061632618308f, 0.00022115331375971437f, 0.00017123021825682372f, 0.00015711659216322005f, 9.442700684303418e-05f, 8.286460069939494e-05f, 0.00016461369523312896f, 8.05374002084136e-05f, 0.0001095799234462902f, 0.00012631368008442223f, 0.00013407101505436003f, 9.986203076550737e-05f, 0.00014277265290729702f, 0.00011922206613235176f, 7.723366434220225e-05f, 9.72997659118846e-05f, 0.0001004232544801198f, 0.00014788092812523246f, 0.00011020101374015212f, 0.00011314444418530911f, 0.00016075411986093968f, 0.00014721397019457072f, 0.0002484074211679399f, 0.00011026590073015541f, 0.00010230677435174584f, 0.00012577648158185184f, 0.00018723607354331762f, 0.00013660057447850704f, 0.00011212455865461379f, 0.00011535880184965208f, 0.00020630448125302792f, 0.00013670670159626752f, 7.610861212015152e-05f, 0.00015002291183918715f, 0.00012047134077874944f, 6.620713975280523e-05f, 7.685712625971064e-05f, 0.0001068972414941527f, 0.00011843055108329281f, 9.22096151043661e-05f, 0.00010053189907921478f, 0.00010381237370893359f, 0.00012916026753373444f, 0.0001693722151685506f, 0.00011605978943407536f, 0.00011374149471521378f, 0.0002287623065058142f, 0.0001052720908774063f, 0.0001895557070383802f, 0.00019849458476528525f, 8.498677198076621e-05f, 8.68852948769927e-05f, 0.00012312595208641142f, 0.0001440153137082234f, 9.304241393692791e-05f, 0.00017467542784288526f, 0.00022025726502761245f, 0.00016106020484585315f, 7.044670201139525e-05f, 0.00017613866657484323f, 0.00011363616795279086f, 0.00016305557801388204f, 0.00011413606989663094f, 0.00016371908714063466f, 0.00012697766942437738f, 0.00015785133291501552f, 0.0001161978580057621f, 0.0001081028749467805f, 0.00010707367619033903f, 0.0001548822910990566f, 0.0001127129653468728f, 7.608855230500922e-05f, 0.00012953890836797655f, 0.00010039759217761457f, 0.00011748250835807994f, 7.03621917637065e-05f, 0.00011606128100538626f, 9.498698636889458e-05f, 0.000194285370525904f, 0.00015093962429091334f, 0.00013681557902600616f, 6.939773447811604e-05f, 0.00010453436698298901f, 0.0001787735236575827f, 0.00016468031390104443f, 0.00019727819017134607f, 0.00010334151738788933f, 0.0001726874615997076f, 9.740656241774559e-05f, 0.0001119664593716152f, 0.00010447468230267987f, 0.00014996269601397216f, 9.680935181677341e-05f, 0.00012491221423260868f, 0.00013237702660262585f, 0.00016404400230385363f, 0.00012922167661599815f, 9.27494402276352e-05f, 9.23582847462967e-05f, 0.00021282222587615252f, 8.482136763632298e-05f, 7.507346163038164e-05f, 0.00025488907704129815f, 9.899956057779491e-05f, 0.00011695680586853996f, 0.00012849451741203666f, 0.00012075217819074169f, 0.00017453594773542136f, 0.0001470270799472928f, 0.00018085799820255488f, 0.00014700159954372793f, 0.0001205065127578564f, 0.0001462319487472996f, 0.0001299571740673855f, 7.499301864299923e-05f, 0.00010914222366409376f, 0.0002058253885479644f, 5.228472946328111e-05f, 0.00011684461787808686f, 0.00014256795111577958f, 0.00015030046051833779f, 0.00010045670933322981f, 0.00012204833910800517f, 0.00018461726722307503f, 0.00012244579556863755f, 6.99749871273525e-05f, 0.00012346440053079277f, 0.0002309193805558607f, 8.790809806669131e-05f, 0.00011370700667612255f, 6.621436477871612e-05f, 9.468208736507222e-05f, 9.776023216545582e-05f, 9.475295519223437e-05f, 0.00010527200356591493f, 0.00014406167611014098f, 0.0001529393339296803f, 0.00010648638271959499f, 8.085671288426965e-05f, 0.00010897318861680105f, 0.00012972185504622757f, 0.00019033659191336483f, 0.00012769717432092875f, 0.0001541844685561955f, 0.00013249626499600708f, 0.00013182660040911287f, 0.00013042551290709525f, 8.32828736747615e-05f, 0.00012888108904007822f, 0.00013173339539207518f, 0.00012505549238994718f, 0.00021527866192627698f, 0.00013085515820421278f, 0.00023551794583909214f, 0.00010879846377065405f, 6.0175167163833976e-05f, 0.00011209761578356847f, 0.00019582640379667282f, 0.00013865383516531438f, 0.0001050533537636511f, 0.00010940321953967214f, 0.00021137010480742902f, 6.775405199732631e-05f, 0.00017144893354270607f, 0.0001186557492474094f, 0.0001919260830618441f, 0.00010717011900851503f, 0.00012924210750497878f, 0.00026568310568109155f, 0.00010638386447681114f, 0.00011922827252419665f, 0.0001146005597547628f, 0.0001165231951745227f, 8.46162874950096e-05f, 0.00012458792480174452f, 0.0007285042083822191f, 0.00010288556222803891f, 0.00015509304648730904f, 0.00018703089153859764f, 0.00011361948418198153f, 8.246709330705926e-05f, 0.00016762253653723747f, 0.00013510895951185375f, 0.00016414833953604102f, 0.0001601974363438785f, 0.00011130903294542804f, 9.312868496635929e-05f, 8.844597323331982e-05f, 0.00011073786299675703f, 0.00015416293172165751f, 0.00016958692867774516f, 0.00020951125770807266f, 0.00015757090295664966f, 0.00013263105938676745f, 0.00010738980927271768f, 0.00012449047062546015f, 0.00017151326755993068f, 0.00018656694737728685f, 0.00015242533117998391f, 0.00010825963545357808f, 6.377899262588471e-05f, 0.00011317823373246938f, 0.00010050668061012402f, 0.00016205920837819576f, 0.00012699428771156818f, 0.00011440658272476867f, 9.284380212193355e-05f, 0.00014181103324517608f, 0.00011226064816582948f, 0.0001358401495963335f, 0.00016313386731781065f, 0.00014314100553747267f, 9.836690878728405e-05f, 0.00013759366993326694f, 0.00015326670836657286f, 0.00019387037900742143f, 0.0002347781410207972f, 0.0002559263666626066f, 0.0001239470875589177f, 8.702505874680355e-05f, 0.0001389225071761757f, 0.00011664700286928564f, 0.00016630561731290072f, 0.00013847931404598057f, 0.0001587317237863317f, 0.00019908722606487572f, 0.00011960310803260654f, 0.00015934360271785408f, 6.033522367943078e-05f, 0.00014381535584107041f, 0.00019394149421714246f, 0.0002722795179579407f, 0.00012316773063503206f, 0.00018211947462987155f, 0.00011643009202089161f, 0.00012212131696287543f, 0.00014412133896257728f, 0.00010163953993469477f, 0.0001788975641829893f, 0.00013775407569482923f, 9.129031241172925e-05f, 8.585230534663424e-05f, 0.00012223470548633486f, 0.00010318949352949858f, 0.0002073908835882321f, 0.00019329175120219588f, 4.312620512791909e-05f, 0.00011256485595367849f, 0.00011229021038161591f, 0.0001600525138201192f, 0.00016925210366025567f, 0.00016194320050999522f, 0.00019047834211960435f, 0.00011833828466478735f, 0.0001317682326771319f, 0.00022337074915412813f, 0.0001839882752392441f, 0.00014755975280422717f, 0.00025675722281448543f, 0.0001662132126512006f, 0.00022648430604021996f, 9.528209193376824e-05f, 0.00038587162271142006f, 0.00012752084876410663f, 0.00017848574498202652f, 0.00020349227997940034f, 0.00014112032658886164f, 0.00014769069093745202f, 0.0001700755674391985f, 0.00010794263653224334f, 0.00014248990919440985f, 0.000126364961033687f, 0.0002492251805961132f, 0.00013140100054442883f, 8.161448204191402e-05f, 0.0001394540595356375f, 0.00013909970584791154f, 0.00012533989502117038f, 0.00010301935253664851f, 0.00014069525059312582f, 0.00012581123155541718f, 0.00012816496018785983f, 7.704199379077181e-05f, 0.0001512673043180257f, 0.00011157469270983711f, 0.00012190977577120066f, 0.00017127394676208496f, 0.00011814153549494222f, 0.00013192786718718708f, 9.840283019002527e-05f, 8.98087237146683e-05f, 0.00014097167877480388f, 0.00013905258674640208f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #166 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_65_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 112,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0065334150567650795f, 0.003201961750164628f, 0.003902767552062869f, 0.0035971449688076973f, 0.003924550022929907f, 0.00524829002097249f, 0.004587624687701464f, 0.00598335824906826f, 0.003692478407174349f, 0.0036095206160098314f, 0.0059910425916314125f, 0.005662466865032911f, 0.005454018246382475f, 0.006225610617548227f, 0.005777590908110142f, 0.00406667310744524f, 0.00600598705932498f, 0.005865732207894325f, 0.0038377440068870783f, 0.00570434145629406f, 0.005547964479774237f, 0.0037572868168354034f, 0.005200378596782684f, 0.006743535865098238f, 0.006006909999996424f, 0.0038335081189870834f, 0.0046888007782399654f, 0.003623981960117817f, 0.003495188197121024f, 0.006395779084414244f, 0.006852838210761547f, 0.004561634734272957f, 0.0036616057623177767f, 0.0038821313064545393f, 0.005234759300947189f, 0.004654864314943552f, 0.003832342103123665f, 0.0063019911758601665f, 0.005884407553821802f, 0.004166007973253727f, 0.005711092613637447f, 0.005219979211688042f, 0.0038410485722124577f, 0.004443717654794455f, 0.006856369320303202f, 0.006003363057971001f, 0.006011968944221735f, 0.004345528315752745f, 0.005202277563512325f, 0.003953276667743921f, 0.006937503349035978f, 0.005123583599925041f, 0.0047084251418709755f, 0.005456246435642242f, 0.0054113008081912994f, 0.004991021007299423f, 0.005053863860666752f, 0.004396550357341766f, 0.006315377540886402f, 0.004897119477391243f, 0.0064799548126757145f, 0.0038788372185081244f, 0.005314912647008896f, 0.004591341130435467f, 0.0051492247730493546f, 0.0033845233265310526f, 0.004258796107023954f, 0.00637724669650197f, 0.003142488654702902f, 0.008020672015845776f, 0.003116642590612173f, 0.005713220220059156f, 0.004939632955938578f, 0.006202853284776211f, 0.0037015427369624376f, 0.005086539313197136f, 0.0037670994643121958f, 0.0063403937965631485f, 0.004853330086916685f, 0.005437045823782682f, 0.0042975773103535175f, 0.0033763041719794273f, 0.004718739073723555f, 0.005339534021914005f, 0.005799951963126659f, 0.0029029441066086292f, 0.006608474534004927f, 0.004408361855894327f, 0.0030043215956538916f, 0.004605782683938742f, 0.0037272232584655285f, 0.004221866372972727f, 0.005566040053963661f, 0.004739545751363039f, 0.004629255272448063f, 0.00500457501038909f, 0.006766960024833679f, 0.00483385706320405f, 0.006231212522834539f, 0.0049905916675925255f, 0.003924946300685406f, 0.007917334325611591f, 0.004462527111172676f, 0.004310284275561571f, 0.005342945456504822f, 0.005874456837773323f, 0.004475062247365713f, 0.0036593936383724213f, 0.006209408398717642f, 0.005514176096767187f, 0.00924481637775898f, 0.006440508179366589f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #167 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_65_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 112,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.00015372742200270295f, 7.534027827205136e-05f, 9.182982466882095e-05f, 8.46387047204189e-05f, 9.234235767507926e-05f, 0.00012348918244242668f, 0.00010794411355163902f, 0.0001407849049428478f, 8.688184607308358e-05f, 8.492989582009614e-05f, 0.00014096571248956025f, 0.0001332345127593726f, 0.00012832984793931246f, 0.00014648496289737523f, 0.00013594332267530262f, 9.568643145030364e-05f, 0.0001413173449691385f, 0.000138017232529819f, 9.02998581295833e-05f, 0.00013421980838757008f, 0.0001305403420701623f, 8.840674854582176e-05f, 0.0001223618455696851f, 0.0001586714352015406f, 0.00014133905642665923f, 9.020019206218421e-05f, 0.00011032472684746608f, 8.527016325388104e-05f, 8.223972690757364e-05f, 0.00015048892237246037f, 0.00016124325338751078f, 0.00010733258386608213f, 8.615542901679873e-05f, 9.134427091339603e-05f, 0.00012317081564106047f, 0.00010952621960313991f, 9.017275442602113e-05f, 0.000148282153531909f, 0.00013845665671397f, 9.802371641853824e-05f, 0.00013437865709420294f, 0.00012282303941901773f, 9.037761628860608e-05f, 0.00010455806477693841f, 0.00016132634482346475f, 0.00014125560119282454f, 0.00014145809109322727f, 0.00010224772995570675f, 0.00012240653450135142f, 9.301827958552167e-05f, 0.00016323538147844374f, 0.00012055491242790595f, 0.00011078647366957739f, 0.00012838227848988026f, 0.00012732473260257393f, 0.00011743578943423927f, 0.0001189144459203817f, 0.00010344824841013178f, 0.00014859711518511176f, 0.00011522634304128587f, 0.00015246952534653246f, 9.126676013693213e-05f, 0.00012505677295848727f, 0.00010803155601024628f, 0.00012115823483327404f, 7.963584357639775e-05f, 0.00010020696936408058f, 0.00015005285968072712f, 7.39409078960307e-05f, 0.00018872169312089682f, 7.333276880672202e-05f, 0.00013442871568258852f, 0.00011622666352195665f, 0.000145949496072717f, 8.709512621862814e-05f, 0.00011968328180955723f, 8.863763650879264e-05f, 0.0001491857401560992f, 0.00011419600195949897f, 0.0001279304997297004f, 0.00010111946903634816f, 7.944245589897037e-05f, 0.00011102915595984086f, 0.00012563609925564378f, 0.00013646946172229946f, 6.830456550233066e-05f, 0.0001554935151943937f, 0.00010372616088716313f, 7.068992272252217e-05f, 0.00010837135778274387f, 8.769937267061323e-05f, 9.933803085004911e-05f, 0.00013096565089654177f, 0.00011151872604386881f, 0.00010892365389736369f, 0.00011775470920838416f, 0.00015922258899081498f, 0.000113737813080661f, 0.00014661677414551377f, 0.00011742569040507078f, 9.235167817678303e-05f, 0.00018629022815730423f, 0.00010500063945073634f, 0.00010141845268663019f, 0.00012571636762004346f, 0.00013822251639794558f, 0.0001052955849445425f, 8.610338409198448e-05f, 0.00014610373182222247f, 0.00012974532728549093f, 0.00021752509928774089f, 0.00015154137508943677f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #168 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_66_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1280,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0031626203563064337f, 0.003040978452190757f, 0.0039563304744660854f, 0.003806348890066147f, 0.0032265642657876015f, 0.0032842312939465046f, 0.002751199761405587f, 0.0031911656260490417f, 0.0027642163913697004f, 0.004204304423183203f, 0.0030888791661709547f, 0.0034648149739950895f, 0.004076450131833553f, 0.003202468389645219f, 0.00375816086307168f, 0.00275527429766953f, 0.004093613009899855f, 0.003222246188670397f, 0.0035081706009805202f, 0.0032889775466173887f, 0.00497277220711112f, 0.002870990661904216f, 0.002867443021386862f, 0.0034922920167446136f, 0.0033669699914753437f, 0.00315241445787251f, 0.002924250205978751f, 0.002999262185767293f, 0.0027321067173033953f, 0.004410903435200453f, 0.0037981809582561255f, 0.0028075827285647392f, 0.0036675112787634134f, 0.0033525656908750534f, 0.003907557111233473f, 0.0027808714658021927f, 0.003234812058508396f, 0.0034688531886786222f, 0.0026686592027544975f, 0.0033997255377471447f, 0.003326378297060728f, 0.0037334687076509f, 0.00250063044950366f, 0.005176907405257225f, 0.0027899069245904684f, 0.005546328146010637f, 0.002766387304291129f, 0.0028542988002300262f, 0.00304613308981061f, 0.004150324035435915f, 0.003527791239321232f, 0.0038003609515726566f, 0.0034070198889821768f, 0.0034879925660789013f, 0.00332016428001225f, 0.0029419786296784878f, 0.003015433670952916f, 0.0030713947489857674f, 0.0029651280492544174f, 0.002918979385867715f, 0.004663423169404268f, 0.004036566708236933f, 0.003566434606909752f, 0.0031945358496159315f, 0.002997455419972539f, 0.004039103630930185f, 0.003424302441999316f, 0.0029560092370957136f, 0.003984123934060335f, 0.004189708270132542f, 0.003284015227109194f, 0.003102494403719902f, 0.0035269802901893854f, 0.0033625017385929823f, 0.0034568330738693476f, 0.003843925427645445f, 0.005116182379424572f, 0.004809400532394648f, 0.002891872776672244f, 0.003139154054224491f, 0.0031254487112164497f, 0.002953258343040943f, 0.003248482011258602f, 0.0029523633420467377f, 0.0029153814539313316f, 0.003321303054690361f, 0.0027745228726416826f, 0.0031217439100146294f, 0.003697092179208994f, 0.003405161201953888f, 0.004133301321417093f, 0.0029514299239963293f, 0.00262141483835876f, 0.0041830167174339294f, 0.002966396976262331f, 0.004301896318793297f, 0.0027481080032885075f, 0.0032535784412175417f, 0.0037950421683490276f, 0.003164038760587573f, 0.0034640487283468246f, 0.0034417540300637484f, 0.0028894501738250256f, 0.0030875392258167267f, 0.0031349719502031803f, 0.004220910836011171f, 0.002807845827192068f, 0.0041361525654792786f, 0.0032859158236533403f, 0.003129471791908145f, 0.004025576636195183f, 0.0035460623912513256f, 0.003690446028485894f, 0.003531907917931676f, 0.003365431446582079f, 0.003059027250856161f, 0.004403822589665651f, 0.003098780056461692f, 0.00522784236818552f, 0.002853716490790248f, 0.0026817116886377335f, 0.0038117968942970037f, 0.003335827961564064f, 0.0034721768461167812f, 0.002698112977668643f, 0.0032775490544736385f, 0.0037117202300578356f, 0.0034405605401843786f, 0.003354464191943407f, 0.004369803238660097f, 0.003864525817334652f, 0.0032071128953248262f, 0.00387569866143167f, 0.0034893315751105547f, 0.0034084944054484367f, 0.002973461989313364f, 0.003344222204759717f, 0.004761490970849991f, 0.00283577642403543f, 0.0032469797879457474f, 0.00350168370641768f, 0.0038364012725651264f, 0.0028466444928199053f, 0.0029962207190692425f, 0.003772469935938716f, 0.004931197967380285f, 0.0034149070270359516f, 0.0024497294798493385f, 0.0037056151777505875f, 0.004105509724467993f, 0.003274553455412388f, 0.0037218735087662935f, 0.0025968507397919893f, 0.0026831752620637417f, 0.0034089323598891497f, 0.002810458652675152f, 0.004217817913740873f, 0.003196657868102193f, 0.003449909156188369f, 0.003312733257189393f, 0.003007990773767233f, 0.0032855665776878595f, 0.0031423885375261307f, 0.004248542711138725f, 0.0026964324060827494f, 0.0027087004855275154f, 0.0035388548858463764f, 0.0030911921057850122f, 0.003297863295301795f, 0.0038738090079277754f, 0.0030479994602501392f, 0.0044261617586016655f, 0.002893382916226983f, 0.003878914751112461f, 0.002691748319193721f, 0.003098746296018362f, 0.0027561646420508623f, 0.003508280497044325f, 0.0031517476309090853f, 0.003150339238345623f, 0.0030707528349012136f, 0.00239976542070508f, 0.004251084756106138f, 0.0033297245390713215f, 0.003060332266613841f, 0.0028430994134396315f, 0.0033518203999847174f, 0.0034150313585996628f, 0.002904468448832631f, 0.0030135076958686113f, 0.0027625858783721924f, 0.0036032721400260925f, 0.003072592196986079f, 0.003467600094154477f, 0.0029855300672352314f, 0.003108080243691802f, 0.0030189063400030136f, 0.0028406840283423662f, 0.0034698399249464273f, 0.0028742593713104725f, 0.0034128378611057997f, 0.0036742633674293756f, 0.002700166078284383f, 0.0027899581473320723f, 0.004285101313143969f, 0.004181746393442154f, 0.00329912593588233f, 0.0033533181995153427f, 0.003225095570087433f, 0.00343637284822762f, 0.00334069412201643f, 0.0033699371851980686f, 0.0031904263887554407f, 0.003231890732422471f, 0.004883000161498785f, 0.0030891932547092438f, 0.003088143654167652f, 0.003268323140218854f, 0.0028275747317820787f, 0.003514847019687295f, 0.0035156947560608387f, 0.0029441621154546738f, 0.0033796613570302725f, 0.003826975356787443f, 0.0026783295907080173f, 0.0027052208315581083f, 0.0033905180171132088f, 0.0038694816175848246f, 0.0033730817958712578f, 0.0028172789607197046f, 0.0033356088679283857f, 0.003949909005314112f, 0.003501835511997342f, 0.003024436067789793f, 0.0035975815262645483f, 0.0023984587751328945f, 0.0030215675942599773f, 0.003356578527018428f, 0.0037259049713611603f, 0.0030534316319972277f, 0.0037175847683101892f, 0.0030834204517304897f, 0.003388180397450924f, 0.004187881480902433f, 0.004088557790964842f, 0.0029818438924849033f, 0.0035894669126719236f, 0.003842145437374711f, 0.003232309827581048f, 0.002491408260539174f, 0.0031093594152480364f, 0.002848816104233265f, 0.0031461294274777174f, 0.003356901230290532f, 0.003106354735791683f, 0.0027145291678607464f, 0.0033275496680289507f, 0.004441756289452314f, 0.004768772982060909f, 0.003821262391284108f, 0.002921305363997817f, 0.0032458549831062555f, 0.004648926667869091f, 0.002664129715412855f, 0.004353745840489864f, 0.003937781322747469f, 0.0043729436583817005f, 0.0031914624851197004f, 0.0034952054265886545f, 0.003006573999300599f, 0.0031784854363650084f, 0.002951483940705657f, 0.003925985191017389f, 0.002723235171288252f, 0.004228699952363968f, 0.0027828372549265623f, 0.002625111723318696f, 0.004266066011041403f, 0.0029245305340737104f, 0.0037164269015192986f, 0.002916128607466817f, 0.0028855418786406517f, 0.0032763835042715073f, 0.0031922960188239813f, 0.0033392934128642082f, 0.002751812804490328f, 0.003944209776818752f, 0.0026426820550113916f, 0.003559921169653535f, 0.0035665975883603096f, 0.002909454982727766f, 0.002734416164457798f, 0.002359292935580015f, 0.003610605373978615f, 0.003257515374571085f, 0.004288158845156431f, 0.002795528620481491f, 0.0037950011901557446f, 0.0027337768115103245f, 0.0030017930548638105f, 0.002962094033136964f, 0.002878128085285425f, 0.0032721504103392363f, 0.003180486848577857f, 0.00396107230335474f, 0.003265510778874159f, 0.003606738056987524f, 0.00298167672008276f, 0.0035540005192160606f, 0.0039600166492164135f, 0.003095441497862339f, 0.0030373577028512955f, 0.0030456422828137875f, 0.00335788750089705f, 0.0029343958012759686f, 0.00352794979698956f, 0.003899017348885536f, 0.004608986433595419f, 0.0027247779071331024f, 0.005033973138779402f, 0.0028324516024440527f, 0.004702731966972351f, 0.0027280631475150585f, 0.002966330386698246f, 0.003423724789172411f, 0.003547152504324913f, 0.0037803484592586756f, 0.0030080194119364023f, 0.003821195103228092f, 0.003007021499797702f, 0.004099797923117876f, 0.0030800793319940567f, 0.0044326153583824635f, 0.004810321610420942f, 0.0032800373155623674f, 0.002648307476192713f, 0.003136327490210533f, 0.004830641206353903f, 0.003322502365335822f, 0.003189543029293418f, 0.004353162366896868f, 0.0030420043040066957f, 0.004248512908816338f, 0.0025856378488242626f, 0.0038199061527848244f, 0.003947192337363958f, 0.003553108312189579f, 0.0030678240582346916f, 0.0029976090881973505f, 0.003723148489370942f, 0.0032393091823905706f, 0.004701279569417238f, 0.0032651100773364305f, 0.002909567905589938f, 0.003843506798148155f, 0.0028181932866573334f, 0.0033765940461307764f, 0.003000932512804866f, 0.0039197541773319244f, 0.0031983130611479282f, 0.0033080074936151505f, 0.00290631502866745f, 0.0031413319520652294f, 0.0025392877869307995f, 0.0027465468738228083f, 0.0032591314520686865f, 0.0024638469330966473f, 0.003291371511295438f, 0.002860607113689184f, 0.0031773473601788282f, 0.0033539317082613707f, 0.0039483061991631985f, 0.003266708692535758f, 0.0026334200520068407f, 0.003450988559052348f, 0.0028227956499904394f, 0.002819561632350087f, 0.0034528421238064766f, 0.0033331802114844322f, 0.0033543026074767113f, 0.003278217511251569f, 0.003617581445723772f, 0.0032602499704807997f, 0.002878365106880665f, 0.003106609685346484f, 0.0031183494720607996f, 0.002958289347589016f, 0.002732661319896579f, 0.0030967574566602707f, 0.003111348021775484f, 0.0032453371677547693f, 0.003908249549567699f, 0.003673198400065303f, 0.0030130879022181034f, 0.0030349958688020706f, 0.0029559219256043434f, 0.0035655787214636803f, 0.003452198812738061f, 0.0031223183032125235f, 0.0031262082047760487f, 0.0035280336160212755f, 0.0029879033099859953f, 0.0037635520566254854f, 0.0036076365504413843f, 0.002942566527053714f, 0.004035627469420433f, 0.0025882881600409746f, 0.003357887966558337f, 0.0027781750541180372f, 0.00322950747795403f, 0.0034220817033201456f, 0.002608965616673231f, 0.0031699512619525194f, 0.0033350815065205097f, 0.003747575916349888f, 0.0033368028234690428f, 0.004134350921958685f, 0.0028224776033312082f, 0.004170301835983992f, 0.002873021410778165f, 0.0028928036335855722f, 0.0030807298608124256f, 0.0035303535405546427f, 0.0038577092345803976f, 0.0030788264703005552f, 0.0027613998390734196f, 0.0035511075984686613f, 0.0034703847486525774f, 0.0034713956993073225f, 0.003155145328491926f, 0.0031749182380735874f, 0.0032320444006472826f, 0.004458550363779068f, 0.0027575581334531307f, 0.0030055155511945486f, 0.0030144124757498503f, 0.0032130733598023653f, 0.003712835954502225f, 0.003968890756368637f, 0.003277016105130315f, 0.003959995228797197f, 0.0039957137778401375f, 0.002711385954171419f, 0.00420926371589303f, 0.0034097887109965086f, 0.0026443793904036283f, 0.003025994636118412f, 0.0031519175972789526f, 0.002793868537992239f, 0.00357046932913363f, 0.0027457657270133495f, 0.003155241720378399f, 0.002860885811969638f, 0.0036599505692720413f, 0.0031606571283191442f, 0.0036151751410216093f, 0.003526005195453763f, 0.003363056806847453f, 0.002759561175480485f, 0.003654828295111656f, 0.004755398258566856f, 0.0031945041846483946f, 0.003098449669778347f, 0.0038329807575792074f, 0.0025089294649660587f, 0.0032067548017948866f, 0.002892108866944909f, 0.003504136810079217f, 0.0032812925055623055f, 0.002543877810239792f, 0.003337947651743889f, 0.0033282951917499304f, 0.003117464017122984f, 0.002776274923235178f, 0.002589853247627616f, 0.0036600709427148104f, 0.003469903254881501f, 0.004275766666978598f, 0.0038207294419407845f, 0.002979914890602231f, 0.0034406257327646017f, 0.0036249887198209763f, 0.004175668116658926f, 0.003745268564671278f, 0.003037004731595516f, 0.003068531397730112f, 0.003076673950999975f, 0.0028895081486552954f, 0.0032818724866956472f, 0.0038430134300142527f, 0.003275173017755151f, 0.003245794679969549f, 0.003796514356508851f, 0.0030395283829420805f, 0.004005321301519871f, 0.002675497904419899f, 0.002986116101965308f, 0.0034382648300379515f, 0.0038171038031578064f, 0.0034335346426814795f, 0.004002808593213558f, 0.0031696083024144173f, 0.004196704365313053f, 0.0029720847960561514f, 0.0035930040758103132f, 0.002414822345599532f, 0.0035711952950805426f, 0.003528631990775466f, 0.0027089500799775124f, 0.003003307618200779f, 0.0027834938373416662f, 0.0034237622749060392f, 0.00492553785443306f, 0.0031115266028791666f, 0.0036840583197772503f, 0.0028464985080063343f, 0.0038414301816374063f, 0.0030065805185586214f, 0.0034372599329799414f, 0.002528501208871603f, 0.003620292991399765f, 0.0031606617849320173f, 0.00373321701772511f, 0.003526311134919524f, 0.003097995650023222f, 0.00368439476005733f, 0.0029580029658973217f, 0.0031129983253777027f, 0.0027771880850195885f, 0.0032360507175326347f, 0.0036951694637537003f, 0.0035219057463109493f, 0.0030261955689638853f, 0.0031529562547802925f, 0.0033140010200440884f, 0.002885861089453101f, 0.0035744020715355873f, 0.0030849501490592957f, 0.003213640069589019f, 0.002765953540802002f, 0.002727482933551073f, 0.0026504099369049072f, 0.004876553546637297f, 0.0031313670333474874f, 0.002946557244285941f, 0.003020095406100154f, 0.003338128561154008f, 0.0032918420620262623f, 0.0025952793657779694f, 0.003593291388824582f, 0.002540617249906063f, 0.0029943548142910004f, 0.0037057024892419577f, 0.0034111470449715853f, 0.002970699919387698f, 0.002947797067463398f, 0.0035364285577088594f, 0.0030791740864515305f, 0.003152249613776803f, 0.0032672532834112644f, 0.0038347283843904734f, 0.004519470036029816f, 0.0028816552367061377f, 0.00332761206664145f, 0.0033207195810973644f, 0.0032468768768012524f, 0.0030637236777693033f, 0.002677984070032835f, 0.0029841181822121143f, 0.0042282999493181705f, 0.003411036217585206f, 0.003769216127693653f, 0.003491488751024008f, 0.0038301011081784964f, 0.003547769272699952f, 0.003904441837221384f, 0.003145551308989525f, 0.003668636316433549f, 0.0029256734997034073f, 0.0029642614535987377f, 0.0028015468269586563f, 0.0025988598354160786f, 0.0031013127882033587f, 0.002973702270537615f, 0.0032050374429672956f, 0.003262692829594016f, 0.002864883979782462f, 0.0036281386855989695f, 0.003088075667619705f, 0.0022423886694014072f, 0.0034837760031223297f, 0.0028232045006006956f, 0.003401852212846279f, 0.002971925539895892f, 0.0024734092876315117f, 0.003179064719006419f, 0.0035202414728701115f, 0.0033118880819529295f, 0.0032101087272167206f, 0.003545199753716588f, 0.0041565364226698875f, 0.00410231901332736f, 0.004040468949824572f, 0.0033667883835732937f, 0.0031798765994608402f, 0.0027695191092789173f, 0.003158324398100376f, 0.0031099047046154737f, 0.003111531725153327f, 0.0038228200282901525f, 0.0035755224525928497f, 0.003634728491306305f, 0.004000065382570028f, 0.0025091932620853186f, 0.0027075717225670815f, 0.004206425976008177f, 0.003219432896003127f, 0.0029710971284657717f, 0.003712841309607029f, 0.00392255000770092f, 0.0026509847957640886f, 0.0037894498091191053f, 0.003478159662336111f, 0.0038065046537667513f, 0.003012426197528839f, 0.00392869021743536f, 0.0035868980921804905f, 0.002978494856506586f, 0.003550250781700015f, 0.0031061857007443905f, 0.003285842016339302f, 0.0034540321212261915f, 0.003323027864098549f, 0.0038261504378169775f, 0.0035344164352864027f, 0.0034091465640813112f, 0.003384209470823407f, 0.003547200234606862f, 0.0028318671975284815f, 0.0032636530231684446f, 0.00404254300519824f, 0.002745084697380662f, 0.003246999578550458f, 0.0033205586951225996f, 0.0029394482262432575f, 0.0032295931596308947f, 0.0042292289435863495f, 0.003988069016486406f, 0.0033072209917008877f, 0.0024028399493545294f, 0.0021982514299452305f, 0.0028093880973756313f, 0.003007102059200406f, 0.00351424771361053f, 0.002851921832188964f, 0.0033741819206625223f, 0.0026787961833178997f, 0.0029464836698025465f, 0.003134117228910327f, 0.004598340485244989f, 0.003087985562160611f, 0.0037422438617795706f, 0.0039652674458920956f, 0.003587090875953436f, 0.003020422998815775f, 0.0034404846373945475f, 0.0025678686797618866f, 0.004918544553220272f, 0.003961349371820688f, 0.0034767689649015665f, 0.003472684882581234f, 0.004283335991203785f, 0.003652767511084676f, 0.0032571246847510338f, 0.0031501161865890026f, 0.0027243224903941154f, 0.0029393150471150875f, 0.004100041929632425f, 0.003011018270626664f, 0.0025422561448067427f, 0.0035458391066640615f, 0.0041357530280947685f, 0.0026266027707606554f, 0.0030091158114373684f, 0.003104414790868759f, 0.003354122396558523f, 0.0031296731904149055f, 0.003418214851990342f, 0.0030767912976443768f, 0.003053829772397876f, 0.0036176315043121576f, 0.003044679295271635f, 0.003306283615529537f, 0.0029279040172696114f, 0.00311671057716012f, 0.003749250900000334f, 0.002652299590408802f, 0.0033048181794583797f, 0.004090561531484127f, 0.003656296757981181f, 0.0033394424244761467f, 0.0033261606004089117f, 0.002811648417264223f, 0.003535810625180602f, 0.0033802753314375877f, 0.003323169192299247f, 0.0036549107171595097f, 0.004499559756368399f, 0.003676478285342455f, 0.0031438095029443502f, 0.0034143654629588127f, 0.0029518739320337772f, 0.004624142311513424f, 0.002905447268858552f, 0.003299128031358123f, 0.002809677040204406f, 0.002541066613048315f, 0.003415511455386877f, 0.004876554477959871f, 0.0027026692405343056f, 0.0037158310879021883f, 0.003141049761325121f, 0.0029212802182883024f, 0.0037394179962575436f, 0.0028076746966689825f, 0.0029944940470159054f, 0.002955614821985364f, 0.0044331965036690235f, 0.0036328290589153767f, 0.003426296403631568f, 0.0041630081832408905f, 0.005103598348796368f, 0.0036325918044894934f, 0.0031620259396731853f, 0.0028681051917374134f, 0.0024440977722406387f, 0.0028425047639757395f, 0.002782921539619565f, 0.0026538828387856483f, 0.0031004350166767836f, 0.003103741677477956f, 0.003732535522431135f, 0.0031267458107322454f, 0.0030665339436382055f, 0.003577503375709057f, 0.0031111566349864006f, 0.0029689392540603876f, 0.0037075590807944536f, 0.0034331611823290586f, 0.004024071618914604f, 0.0028875640127807856f, 0.003047702368348837f, 0.0033042728900909424f, 0.00390182645060122f, 0.0030505533795803785f, 0.002420908771455288f, 0.0038146930746734142f, 0.002880118554458022f, 0.00488634780049324f, 0.0030056070536375046f, 0.003075270913541317f, 0.003530009649693966f, 0.0032853437587618828f, 0.003678494831547141f, 0.003372466890141368f, 0.0031848924700170755f, 0.0028082027565687895f, 0.0027402318082749844f, 0.0031677107326686382f, 0.0033664896618574858f, 0.003091958351433277f, 0.0038103866390883923f, 0.003503507701680064f, 0.0033391278702765703f, 0.004007282666862011f, 0.0032708875369280577f, 0.0033758964855223894f, 0.004559217020869255f, 0.003131454112008214f, 0.0042589143849909306f, 0.003516741096973419f, 0.0029848413541913033f, 0.002779897768050432f, 0.0025647333823144436f, 0.002673327922821045f, 0.0031819376163184643f, 0.003259447170421481f, 0.004277343861758709f, 0.0038087123539298773f, 0.0029956770595163107f, 0.003801397979259491f, 0.0031033603008836508f, 0.003141110297292471f, 0.003187174443155527f, 0.0027064241003245115f, 0.003545727115124464f, 0.0035635861568152905f, 0.003777833189815283f, 0.002825596369802952f, 0.0027347137220203876f, 0.0031898454762995243f, 0.0035781406331807375f, 0.0030846907757222652f, 0.004056131467223167f, 0.0034717938397079706f, 0.0031925239600241184f, 0.0036684845108538866f, 0.003397831227630377f, 0.0032080935779958963f, 0.0033052137587219477f, 0.0033052219077944756f, 0.00273939804174006f, 0.0039152423851192f, 0.0038327358197420835f, 0.003089424455538392f, 0.0030094010289758444f, 0.0035921307280659676f, 0.0029669462237507105f, 0.0030787175055593252f, 0.0036880415864288807f, 0.004074946511536837f, 0.0036635114811360836f, 0.0030141533352434635f, 0.0036528389900922775f, 0.002653593895956874f, 0.0036307992413640022f, 0.004380887374281883f, 0.003600003896281123f, 0.002983884187415242f, 0.003968491218984127f, 0.0031996481120586395f, 0.002929546870291233f, 0.003232862800359726f, 0.00390838785097003f, 0.003377638291567564f, 0.003868559841066599f, 0.003312799846753478f, 0.0034786530304700136f, 0.0034879629965871572f, 0.0028926630038768053f, 0.003463429631665349f, 0.003093813778832555f, 0.003262934973463416f, 0.003018263727426529f, 0.004001759458333254f, 0.003478309139609337f, 0.0038391617126762867f, 0.003863141406327486f, 0.004333812277764082f, 0.003037814749404788f, 0.003588384483009577f, 0.004719538614153862f, 0.0033381099347025156f, 0.0033854099456220865f, 0.0030833063647150993f, 0.002540760673582554f, 0.0029319601599127054f, 0.003408079268410802f, 0.002879534615203738f, 0.0032943140249699354f, 0.0028135646134614944f, 0.0038817389868199825f, 0.0031348078045994043f, 0.004724401514977217f, 0.0036694081500172615f, 0.003497348865494132f, 0.0038808200042694807f, 0.0041310591623187065f, 0.0030850472394376993f, 0.003465785179287195f, 0.0036451085470616817f, 0.00323945889249444f, 0.002548506483435631f, 0.0035914164036512375f, 0.002555377781391144f, 0.002891393145546317f, 0.004686339758336544f, 0.0030037083197385073f, 0.0042626624926924706f, 0.004207802005112171f, 0.002623949898406863f, 0.0031213569454848766f, 0.002869647229090333f, 0.0038961954414844513f, 0.0031985968817025423f, 0.0030073344241827726f, 0.0036170247476547956f, 0.003096170024946332f, 0.003623367752879858f, 0.002400829456746578f, 0.002966837491840124f, 0.003089634468778968f, 0.0029024556279182434f, 0.0035845832899212837f, 0.0036556858103722334f, 0.0032455141190439463f, 0.0031129149720072746f, 0.003364167409017682f, 0.0029541270341724157f, 0.0029068435542285442f, 0.005130304489284754f, 0.003757776692509651f, 0.0027392192278057337f, 0.003225465305149555f, 0.003515316639095545f, 0.003240264253690839f, 0.0031436386052519083f, 0.0029219535645097494f, 0.004158764611929655f, 0.003059083828702569f, 0.0030476830434054136f, 0.0033352442551404238f, 0.0029177048709243536f, 0.003971383906900883f, 0.003173264442011714f, 0.003539997385814786f, 0.0030973360408097506f, 0.0025817372370511293f, 0.0032419019844383f, 0.0036943580489605665f, 0.003490936476737261f, 0.003136587794870138f, 0.0032443611416965723f, 0.0027097442653030157f, 0.0032044698018580675f, 0.003169863484799862f, 0.0030512285884469748f, 0.0040875147096812725f, 0.003354300744831562f, 0.0035334601998329163f, 0.0029574590735137463f, 0.0026498623192310333f, 0.002343658357858658f, 0.0030133037362247705f, 0.003824410028755665f, 0.004069760907441378f, 0.0030947555787861347f, 0.002858228050172329f, 0.0025507535319775343f, 0.003918147180229425f, 0.0036286956164985895f, 0.003012582194060087f, 0.0032781632617115974f, 0.002814806066453457f, 0.0027881476562470198f, 0.0031575581524521112f, 0.002808308694511652f, 0.003944729454815388f, 0.0032283535692840815f, 0.0036750545259565115f, 0.004166077356785536f, 0.0023817308247089386f, 0.002834134502336383f, 0.003600683994591236f, 0.002877479186281562f, 0.003621174953877926f, 0.0036159753799438477f, 0.0036018434911966324f, 0.0030887697357684374f, 0.0027654538862407207f, 0.004011909011751413f, 0.0033840376418083906f, 0.0033713877201080322f, 0.0037290158215910196f, 0.002428724430501461f, 0.0029307447839528322f, 0.0028093985747545958f, 0.003488843562081456f, 0.00285710277967155f, 0.0036281158681958914f, 0.002693245653063059f, 0.0030296624172478914f, 0.0030726375989615917f, 0.0037890335079282522f, 0.0029518697410821915f, 0.003125112736597657f, 0.0031219772063195705f, 0.0033655352890491486f, 0.0026025273837149143f, 0.003793485229834914f, 0.003968377597630024f, 0.003085916629061103f, 0.0029968919698148966f, 0.004268295597285032f, 0.0030275220051407814f, 0.002667816122993827f, 0.0034641928505152464f, 0.0030765491537749767f, 0.002661455189809203f, 0.003113202517852187f, 0.0030690403655171394f, 0.004393864423036575f, 0.003018459537997842f, 0.0038249194622039795f, 0.003551236353814602f, 0.0040651848539710045f, 0.003652323270216584f, 0.0031877069268375635f, 0.004613891709595919f, 0.0029535978101193905f, 0.003297657473012805f, 0.0037075569853186607f, 0.002924892120063305f, 0.003633210901170969f, 0.003286234801635146f, 0.0032747008372098207f, 0.002784338314086199f, 0.003418873529881239f, 0.0030046128667891026f, 0.00419915234670043f, 0.0042231883853673935f, 0.002959385747089982f, 0.0030377397779375315f, 0.0033760634250938892f, 0.0031999533530324697f, 0.003058314323425293f, 0.003017878858372569f, 0.0038335933350026608f, 0.003035407280549407f, 0.002713914029300213f, 0.003005604026839137f, 0.0026722014881670475f, 0.0033385546412318945f, 0.003206914756447077f, 0.003080906579270959f, 0.003819216275587678f, 0.002855185652151704f, 0.002973349764943123f, 0.0025481469929218292f, 0.0036377026699483395f, 0.0031088036485016346f, 0.003055811859667301f, 0.0034194604959338903f, 0.003027645405381918f, 0.0030931669753044844f, 0.002664661966264248f, 0.00523513974621892f, 0.0027667582035064697f, 0.002401811070740223f, 0.003326304955407977f, 0.0037493284326046705f, 0.0032384474761784077f, 0.003455869620665908f, 0.003390364581719041f, 0.0030892707873135805f, 0.0034389696083962917f, 0.004878101870417595f, 0.003409117227420211f, 0.0033682729117572308f, 0.0032428272534161806f, 0.003086614888161421f, 0.004635881166905165f, 0.002902695909142494f, 0.0027429191395640373f, 0.0027016052044928074f, 0.003673108294606209f, 0.0031978036276996136f, 0.0031602538656443357f, 0.0035670073702931404f, 0.003105658106505871f, 0.003469928167760372f, 0.0031450053211301565f, 0.0029678300488740206f, 0.004259799607098103f, 0.003198646940290928f, 0.00315433694049716f, 0.0034498118329793215f, 0.003168072085827589f, 0.0030767577700316906f, 0.002702269470319152f, 0.0027368031442165375f, 0.0029517807997763157f, 0.003633402055129409f, 0.0034583788365125656f, 0.0032599554397165775f, 0.0033876181114465f, 0.0032377277966588736f, 0.0035075130872428417f, 0.0034146911930292845f, 0.0032211465295404196f, 0.002981113502755761f, 0.0033410657197237015f, 0.0040006148628890514f, 0.0026587038300931454f, 0.004180437885224819f, 0.0031886931974440813f, 0.00299827684648335f, 0.003103381721302867f, 0.002836779458448291f, 0.003766018897294998f, 0.003457000246271491f, 0.004015573300421238f, 0.0036082176957279444f, 0.003413410857319832f, 0.002853087382391095f, 0.0030138250440359116f, 0.0034067437518388033f, 0.0037122159264981747f, 0.0033702473156154156f, 0.002900866325944662f, 0.0028734062798321247f, 0.0035840547643601894f, 0.0028696793597191572f, 0.004347529262304306f, 0.0026836188044399023f, 0.003956562373787165f, 0.003206339431926608f, 0.003784283297136426f, 0.0026557964738458395f, 0.0038573455531150103f, 0.004515017848461866f, 0.003256862284615636f, 0.0035861360374838114f, 0.0030190355610102415f, 0.0037322004791349173f, 0.004197309724986553f, 0.0026822329964488745f, 0.003721538931131363f, 0.0046167634427547455f, 0.0034276710357517004f, 0.003141007386147976f, 0.002794800093397498f, 0.0032820762135088444f, 0.004374757409095764f, 0.002716789720579982f, 0.004362937528640032f, 0.004004547838121653f, 0.004708211403340101f, 0.0026774127036333084f, 0.0036010786425322294f, 0.0030086960177868605f, 0.004043941851705313f, 0.003504767781123519f, 0.004230927675962448f, 0.002234051236882806f, 0.0041321925818920135f, 0.0033443323336541653f, 0.002839277032762766f, 0.005463730078190565f, 0.002834937535226345f, 0.003856705268844962f, 0.003533794078975916f, 0.004178630653768778f, 0.003499464364722371f, 0.0040135933086276054f, 0.004468059632927179f, 0.003150086384266615f, 0.003289035754278302f, 0.0033433239441365004f, 0.0028958304319530725f, 0.004338003229349852f, 0.0056937262415885925f, 0.0034092047717422247f, 0.0036993217654526234f, 0.0029685129411518574f, 0.003860158147290349f, 0.0037467307411134243f, 0.004189009312540293f, 0.00342477485537529f, 0.0032241770531982183f, 0.003021570621058345f, 0.0037049974780529737f, 0.003931873943656683f, 0.0030539727304130793f, 0.0027110634837299585f, 0.003365661483258009f, 0.003724297508597374f, 0.002844994654878974f, 0.002537874039262533f, 0.002651234157383442f, 0.0030714180320501328f, 0.0033960489090532064f, 0.005988835357129574f, 0.004159607458859682f, 0.003913294989615679f, 0.0032937154173851013f, 0.003917646128684282f, 0.003753160359337926f, 0.002990429289638996f, 0.002754815621301532f, 0.0041879829950630665f, 0.003718373831361532f, 0.003657927270978689f, 0.0037585715763270855f, 0.0034816977567970753f, 0.004024202935397625f, 0.003752351040020585f, 0.003859864315018058f, 0.003302614204585552f, 0.00439121387898922f, 0.0029930181335657835f, 0.0032235579565167427f, 0.003458057064563036f, 0.003971596248447895f, 0.003363183466717601f, 0.004071197472512722f, 0.0023256493732333183f, 0.0031573292799293995f, 0.00397667707875371f, 0.0031976131722331047f, 0.0033946908079087734f, 0.003305070800706744f, 0.004516371060162783f, 0.0028743103612214327f, 0.0031398700084537268f, 0.003342954209074378f, 0.0029162801802158356f, 0.0035418756306171417f, 0.003337798174470663f, 0.0031842512544244528f, 0.004430951550602913f, 0.002596176927909255f, 0.0025468100793659687f, 0.0030015637166798115f, 0.0036184689961373806f, 0.003850087057799101f, 0.0038292952813208103f, 0.0036149390507489443f, 0.00336195039562881f, 0.0030070289503782988f, 0.0030245373491197824f, 0.0037423858884721994f, 0.0033746566623449326f, 0.004140564240515232f, 0.003078901208937168f, 0.0027830316685140133f, 0.003274843329563737f, 0.003336377674713731f, 0.0034196064807474613f, 0.0026633094530552626f, 0.0029640840366482735f, 0.004671071190387011f, 0.005553326103836298f, 0.003292859299108386f, 0.0034353069495409727f, 0.0039173150435090065f, 0.003275371855124831f, 0.0036839742679148912f, 0.0030917953699827194f, 0.0036026611924171448f, 0.003065431024879217f, 0.0034857667051255703f, 0.0032361100893467665f, 0.0035547874867916107f, 0.003244177671149373f, 0.0027761610690504313f, 0.003111733589321375f, 0.0029883580282330513f, 0.00463967677205801f, 0.004004715010523796f, 0.003850843757390976f, 0.002897057682275772f, 0.002823806833475828f, 0.00259323138743639f, 0.0028370246291160583f, 0.0025571822188794613f, 0.003012078581377864f, 0.0029747432563453913f, 0.004012813791632652f, 0.0028618869837373495f, 0.003086063079535961f, 0.003031814005225897f, 0.004000489600002766f, 0.0027828370220959187f, 0.004319330211728811f, 0.0025760727003216743f, 0.002923271618783474f, 0.0031001903116703033f, 0.0036032088100910187f, 0.003903247183188796f, 0.0028192056342959404f, 0.0031813480891287327f, 0.0031537360046058893f, 0.003082972951233387f, 0.003287034574896097f, 0.0030563739128410816f, 0.003235172713175416f, 0.0036528566852211952f, 0.002613774733617902f, 0.0031440211459994316f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #169 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_66_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1280,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0005218162550590932f, 0.0005017459625378251f, 0.0006527744117192924f, 0.0006280281813815236f, 0.0005323666846379638f, 0.000541881425306201f, 0.0004539339570328593f, 0.0005265260697342455f, 0.00045608164509758353f, 0.0006936888094060123f, 0.0005096493405289948f, 0.0005716768209822476f, 0.0006725935381837189f, 0.0005283909849822521f, 0.0006200774223543704f, 0.0004546062264125794f, 0.0006754252826794982f, 0.0005316542228683829f, 0.0005788303096778691f, 0.0005426645511761308f, 0.000820482091512531f, 0.0004736988339573145f, 0.00047311349771916866f, 0.0005762103828601539f, 0.0005555329262278974f, 0.0005201323656365275f, 0.00048248638631775975f, 0.0004948630230501294f, 0.00045078370021656156f, 0.0007277766126208007f, 0.0006266804994083941f, 0.00046323685091920197f, 0.0006051206728443503f, 0.0005531562492251396f, 0.0006447270279750228f, 0.00045882962876930833f, 0.0005337275215424597f, 0.000572343124076724f, 0.0004403151979204267f, 0.000560937391128391f, 0.0005488354945555329f, 0.0006160033517517149f, 0.0004125912964809686f, 0.0008541633724234998f, 0.00046032044338062406f, 0.0009151159320026636f, 0.00045643982593901455f, 0.00047094476758502424f, 0.0005025964346714318f, 0.0006847823387943208f, 0.0005820675869472325f, 0.0006270402227528393f, 0.0005621409509330988f, 0.0005755010060966015f, 0.0005478102248162031f, 0.00048541149590164423f, 0.0004975312040187418f, 0.0005067645106464624f, 0.000489231024403125f, 0.0004816167347598821f, 0.0007694410742260516f, 0.0006660129874944687f, 0.0005884435377083719f, 0.0005270821275189519f, 0.0004945648834109306f, 0.0006664315587840974f, 0.0005649924860335886f, 0.00048772647278383374f, 0.0006573601858690381f, 0.0006912805256433785f, 0.0005418458022177219f, 0.0005118958069942892f, 0.0005819338257424533f, 0.0005547956679947674f, 0.0005703598726540804f, 0.0006342281121760607f, 0.0008441440295428038f, 0.0007935265894047916f, 0.0004771442909259349f, 0.0005179444560781121f, 0.0005156831466592848f, 0.000487272598547861f, 0.0005359830101951957f, 0.0004871249257121235f, 0.0004810231039300561f, 0.0005479981191456318f, 0.00045778215280734f, 0.0005150718498043716f, 0.0006100013852119446f, 0.0005618342547677457f, 0.0006819737027399242f, 0.0004869709082413465f, 0.00043252011528238654f, 0.0006901764427311718f, 0.0004894403973594308f, 0.0007097909692674875f, 0.0004534238250926137f, 0.0005368238780647516f, 0.000626162625849247f, 0.0005220503080636263f, 0.0005715503939427435f, 0.000567871902603656f, 0.00047674457891844213f, 0.0005094282678328454f, 0.000517254404257983f, 0.000696428818628192f, 0.0004632802738342434f, 0.0006824441370554268f, 0.0005421593668870628f, 0.000516346946824342f, 0.0006641996442340314f, 0.0005850822199136019f, 0.0006089048110879958f, 0.0005827468121424317f, 0.0005552790826186538f, 0.000504723924677819f, 0.0007266083266586065f, 0.0005112829385325313f, 0.0008625673945061862f, 0.00047084869584068656f, 0.00044246879406273365f, 0.0006289270822890103f, 0.0005503946449607611f, 0.0005728914984501898f, 0.0004451748973224312f, 0.000540778914000839f, 0.0006124149658717215f, 0.0005676749860867858f, 0.0005534695228561759f, 0.00072099530370906f, 0.0006376270903274417f, 0.0005291572888381779f, 0.0006394705269485712f, 0.000575721962377429f, 0.0005623842007480562f, 0.0004906061221845448f, 0.0005517796380445361f, 0.0007856217562220991f, 0.00046788869076408446f, 0.0005357351619750261f, 0.0005777599872089922f, 0.0006329866591840982f, 0.0004696818650700152f, 0.0004943611565977335f, 0.0006224383250810206f, 0.0008136225515045226f, 0.0005634422996081412f, 0.0004041928914375603f, 0.000611407624091953f, 0.0006773882196284831f, 0.0005402846727520227f, 0.0006140901823528111f, 0.00042846714495681226f, 0.00044271026854403317f, 0.0005624564946629107f, 0.00046371135977096856f, 0.0006959185120649636f, 0.0005274323048070073f, 0.0005692174308933318f, 0.0005465841386467218f, 0.0004963031969964504f, 0.0005421017413027585f, 0.0005184781039133668f, 0.0007009879336692393f, 0.0004448976251296699f, 0.00044692179653793573f, 0.0005838930374011397f, 0.0005100309499539435f, 0.0005441306857392192f, 0.0006391587667167187f, 0.0005029044114053249f, 0.0007302941521629691f, 0.000477393448818475f, 0.0006400012061931193f, 0.00044412477291189134f, 0.0005112773505970836f, 0.000454753142548725f, 0.0005788484122604132f, 0.0005200222949497402f, 0.0005197899299673736f, 0.0005066585727035999f, 0.0003959490859415382f, 0.0007014073198661208f, 0.0005493875942192972f, 0.0005049392348155379f, 0.00046909693628549576f, 0.0005530333146452904f, 0.0005634627887047827f, 0.0004792225081473589f, 0.0004972134483978152f, 0.0004558126092888415f, 0.0005945215816609561f, 0.0005069620674476027f, 0.0005721363704651594f, 0.0004925972898490727f, 0.0005128174088895321f, 0.000498104200232774f, 0.0004686984175350517f, 0.000572505930904299f, 0.0004742381570395082f, 0.0005631008534692228f, 0.0006062347674742341f, 0.0004455136659089476f, 0.0004603288834914565f, 0.000707019935362041f, 0.0006899668951518834f, 0.0005443390109576285f, 0.000553280464373529f, 0.000532124366145581f, 0.000566984002944082f, 0.0005511975032277405f, 0.0005560225108638406f, 0.0005264041246846318f, 0.0005332455039024353f, 0.0008056701626628637f, 0.0005097011453472078f, 0.0005095279775559902f, 0.00053925666725263f, 0.0004665354499593377f, 0.0005799318896606565f, 0.0005800717626698315f, 0.00048577177221886814f, 0.0005576269468292594f, 0.0006314314668998122f, 0.00044191075721755624f, 0.00044634766527451575f, 0.0005594182293862104f, 0.0006384447915479541f, 0.0005565413157455623f, 0.0004648366884794086f, 0.0005503584980033338f, 0.0006517148576676846f, 0.000577785016503185f, 0.0004990165471099317f, 0.000593582633882761f, 0.00039573348476551473f, 0.0004985432606190443f, 0.0005538183613680303f, 0.0006147553795017302f, 0.0005038006929680705f, 0.0006133825518190861f, 0.0005087486933916807f, 0.0005590325454249978f, 0.0006909791263751686f, 0.0006745912251062691f, 0.0004919890780001879f, 0.0005922437994740903f, 0.0006339344545267522f, 0.0005333146546036005f, 0.00041106969001702964f, 0.0005130284698680043f, 0.00047004016232676804f, 0.0005190953379496932f, 0.0005538716213777661f, 0.0005125327152200043f, 0.00044788350351154804f, 0.0005490287439897656f, 0.000732867163605988f, 0.0007868232787586749f, 0.0006304888520389795f, 0.00048200052697211504f, 0.0005355495377443731f, 0.0007670492632314563f, 0.00043956784065812826f, 0.0007183459238149226f, 0.0006497138529084623f, 0.0007215134683065116f, 0.0005265750805847347f, 0.0005766911199316382f, 0.0004960694350302219f, 0.0005244339117780328f, 0.00048697981401346624f, 0.0006477675633504987f, 0.0004493199521675706f, 0.0006977139855735004f, 0.0004591539909597486f, 0.00043313007336109877f, 0.0007038791663944721f, 0.00048253266140818596f, 0.0006131915142759681f, 0.0004811463877558708f, 0.0004760997253470123f, 0.0005405865958891809f, 0.0005267125670798123f, 0.0005509664188139141f, 0.0004540350928436965f, 0.0006507745129056275f, 0.00043602907680906355f, 0.0005873688496649265f, 0.0005884704296477139f, 0.00048004527343437076f, 0.00045116475666873157f, 0.0003892713284585625f, 0.0005957314861007035f, 0.0005374734755605459f, 0.0007075243629515171f, 0.00046124798245728016f, 0.000626155873760581f, 0.0004510592552833259f, 0.0004952806048095226f, 0.0004887304385192692f, 0.00047487649135291576f, 0.0005398881621658802f, 0.0005247641238383949f, 0.0006535567808896303f, 0.0005387926357798278f, 0.00059509341372177f, 0.0004919614875689149f, 0.0005863920086994767f, 0.0006533825653605163f, 0.0005107321194373071f, 0.0005011485773138702f, 0.0005025154678151011f, 0.0005540343699976802f, 0.00048416038043797016f, 0.0005820937803946435f, 0.0006433179951272905f, 0.0007604592829011381f, 0.0004495744942687452f, 0.0008305799565277994f, 0.0004673401126638055f, 0.0007759268628433347f, 0.0004501165240071714f, 0.0004894293961115181f, 0.0005648971418850124f, 0.0005852620815858245f, 0.0006237382767722011f, 0.0004963079118169844f, 0.0006304777343757451f, 0.0004961432423442602f, 0.0006764457793906331f, 0.0005081974086351693f, 0.0007313589449040592f, 0.0007936785696074367f, 0.0005411894526332617f, 0.0004369572561699897f, 0.0005174780962988734f, 0.0007970312144607306f, 0.0005481959669850767f, 0.0005262583727017045f, 0.0007182496483437717f, 0.0005019152304157615f, 0.0007009829860180616f, 0.0004266170726623386f, 0.0006302651017904282f, 0.0006512666586786509f, 0.0005862448015250266f, 0.0005061753327026963f, 0.0004945902619510889f, 0.0006143005448393524f, 0.0005344695528037846f, 0.0007756872219033539f, 0.000538726570084691f, 0.00048006389988586307f, 0.0006341590778902173f, 0.00046498756273649633f, 0.0005571208312176168f, 0.0004951385781168938f, 0.000646739499643445f, 0.0005277053569443524f, 0.000545804388821125f, 0.00047952719614841044f, 0.000518303771968931f, 0.00041896954644471407f, 0.0004531662561930716f, 0.0005377401248551905f, 0.000406522216508165f, 0.0005430595483630896f, 0.0004719856078736484f, 0.0005242461338639259f, 0.0005533816874958575f, 0.0006514504202641547f, 0.00053899030899629f, 0.0004345008928794414f, 0.000569395546335727f, 0.00046574691077694297f, 0.0004652133211493492f, 0.0005697013693861663f, 0.0005499577964656055f, 0.0005534428637474775f, 0.00054088921751827f, 0.0005968825425952673f, 0.0005379246431402862f, 0.0004749156069010496f, 0.0005125747993588448f, 0.0005145117756910622f, 0.00048810269800014794f, 0.0004508752026595175f, 0.0005109492340125144f, 0.0005133565864525735f, 0.0005354640888981521f, 0.0006448412896133959f, 0.0006060590385459363f, 0.0004971441812813282f, 0.0005007588770240545f, 0.00048771206638775766f, 0.0005883023259229958f, 0.0005695952568203211f, 0.0005151666118763387f, 0.0005158084677532315f, 0.00058210757561028f, 0.0004929888527840376f, 0.00062096695182845f, 0.0005952416686341166f, 0.0004855084989685565f, 0.0006658579804934561f, 0.0004270543868187815f, 0.0005540344282053411f, 0.0004583847476169467f, 0.0005328523111529648f, 0.0005646260688081384f, 0.00043046605424024165f, 0.0005230258102528751f, 0.0005502714775502682f, 0.0006183309596963227f, 0.000550555472727865f, 0.0006821468705311418f, 0.0004656944365706295f, 0.0006880785804241896f, 0.00047403390635736287f, 0.0004772978718392551f, 0.0005083047435618937f, 0.000582490349188447f, 0.0006365024019032717f, 0.0005079907132312655f, 0.0004556169151328504f, 0.0005859147058799863f, 0.0005725958035327494f, 0.0005727626266889274f, 0.0005205828929319978f, 0.0005238453741185367f, 0.0005332708824425936f, 0.0007356381393037736f, 0.0004549830628093332f, 0.0004958947538398206f, 0.0004973626928403974f, 0.0005301407654769719f, 0.0006125990184955299f, 0.0006548467790707946f, 0.0005406909622251987f, 0.0006533790729008615f, 0.0006592724239453673f, 0.00044736487325280905f, 0.0006945070927031338f, 0.0005625977646559477f, 0.0004363091429695487f, 0.0004992737085558474f, 0.0005200503510423005f, 0.00046097408630885184f, 0.0005891092587262392f, 0.0004530373844318092f, 0.0005205988418310881f, 0.00047203159192577004f, 0.0006038732244633138f, 0.0005214923294261098f, 0.0005964855081401765f, 0.0005817729397676885f, 0.0005548872286453843f, 0.0004553135368041694f, 0.0006030280492268503f, 0.0007846165099181235f, 0.0005270769470371306f, 0.0005112283979542553f, 0.0006324223359115422f, 0.00041396060260012746f, 0.0005290982080623507f, 0.000477183231851086f, 0.0005781647632829845f, 0.0005413965554907918f, 0.0004197268863208592f, 0.0005507443565875292f, 0.0005491517949849367f, 0.0005143656744621694f, 0.00045807124115526676f, 0.00042731259600259364f, 0.0006038930732756853f, 0.0005725163500756025f, 0.0007054797606542706f, 0.0006304009002633393f, 0.000491670798510313f, 0.0005676857545040548f, 0.0005981046706438065f, 0.0006889639771543443f, 0.0006179502233862877f, 0.0005010903114452958f, 0.0005062920390628278f, 0.0005076355300843716f, 0.00047675412497483194f, 0.0005414922488853335f, 0.0006340776453725994f, 0.0005403868854045868f, 0.0005355395842343569f, 0.0006264055264182389f, 0.0005015067290514708f, 0.0006608576513826847f, 0.00044144352432340384f, 0.00049269397277385f, 0.000567296170629561f, 0.0006298027001321316f, 0.0005665157223120332f, 0.0006604430382139981f, 0.0005229692324064672f, 0.0006924348417669535f, 0.0004903788794763386f, 0.0005928273894824088f, 0.000398433388909325f, 0.0005892290500923991f, 0.0005822062958031893f, 0.000446962978458032f, 0.0004955304902978241f, 0.0004592623154167086f, 0.0005649033701047301f, 0.0008126886677928269f, 0.0005133860395289958f, 0.0006078508449718356f, 0.000469657767098397f, 0.0006338164093904197f, 0.0004960704827681184f, 0.0005671303952112794f, 0.00041718981810845435f, 0.0005973299266770482f, 0.0005214930861257017f, 0.0006159617914818227f, 0.0005818234058097005f, 0.0005111535429023206f, 0.0006079063750803471f, 0.0004880554333794862f, 0.0005136288818903267f, 0.00045822191168554127f, 0.0005339318886399269f, 0.0006096841534599662f, 0.0005810965085402131f, 0.0004993068869225681f, 0.0005202217143960297f, 0.0005467932787723839f, 0.00047615240328013897f, 0.0005897581577301025f, 0.0005090010818094015f, 0.0005302342469803989f, 0.00045636825961992145f, 0.0004500208015087992f, 0.0004373041447252035f, 0.0008046065340749919f, 0.0005166596383787692f, 0.00048616694402880967f, 0.0004983003600500524f, 0.0005507742171175778f, 0.0005431371973827481f, 0.0004282078880351037f, 0.0005928747705183923f, 0.00041918890201486647f, 0.0004940532962791622f, 0.0006114220595918596f, 0.0005628219223581254f, 0.0004901503561995924f, 0.00048637151485309005f, 0.0005834926851093769f, 0.0005080480477772653f, 0.00052010512445122f, 0.0005390801816247404f, 0.0006327106384560466f, 0.000745689554605633f, 0.0004754584515467286f, 0.0005490390467457473f, 0.0005479018436744809f, 0.0005357181653380394f, 0.0005054987850598991f, 0.0004418537428136915f, 0.0004923642845824361f, 0.0006976479780860245f, 0.0005628035869449377f, 0.0006219014758244157f, 0.0005760779022239149f, 0.0006319471867755055f, 0.0005853638867847621f, 0.0006442130543291569f, 0.000518999935593456f, 0.0006053062970750034f, 0.00048272122512571514f, 0.0004890880663879216f, 0.00046224097604863346f, 0.00042879863758571446f, 0.000511700811330229f, 0.0004906457616016269f, 0.000528814853169024f, 0.000538327731192112f, 0.00047269128845073283f, 0.0005986244068481028f, 0.0005095167434774339f, 0.0003699827066157013f, 0.0005748053081333637f, 0.0004658143734559417f, 0.0005612883251160383f, 0.0004903525696136057f, 0.00040809993515722454f, 0.0005245294887572527f, 0.0005808219430036843f, 0.0005464446730911732f, 0.0005296515882946551f, 0.0005849399021826684f, 0.000685807375703007f, 0.0006768617313355207f, 0.0006666568224318326f, 0.000555502949282527f, 0.0005246634827926755f, 0.00045695656444877386f, 0.0005211074603721499f, 0.0005131184589117765f, 0.0005133869126439095f, 0.0006307458388619125f, 0.0005899430252611637f, 0.0005997117259539664f, 0.000659990415442735f, 0.0004140041128266603f, 0.0004467355611268431f, 0.0006940388702787459f, 0.000531190016772598f, 0.0004902158980257809f, 0.0006125998916104436f, 0.0006472007953561842f, 0.000437398994108662f, 0.0006252399180084467f, 0.0005738786421716213f, 0.0006280539091676474f, 0.0004970349837094545f, 0.0006482138996943831f, 0.0005918199312873185f, 0.0004914365126751363f, 0.0005857733194716275f, 0.0005125048337504268f, 0.0005421472014859319f, 0.0005698977038264275f, 0.0005482826963998377f, 0.0006312953773885965f, 0.0005831607268191874f, 0.0005624918267130852f, 0.0005583773599937558f, 0.0005852699978277087f, 0.00046724366256967187f, 0.0005384861142374575f, 0.0006669990252703428f, 0.00045292501454241574f, 0.0005357384216040373f, 0.0005478753009811044f, 0.0004849940014537424f, 0.0005328664556145668f, 0.0006978012388572097f, 0.0006580110639333725f, 0.0005456746439449489f, 0.0003964563657063991f, 0.0003627002879511565f, 0.00046353472862392664f, 0.0004961565136909485f, 0.0005798329948447645f, 0.00047055259346961975f, 0.0005567228654399514f, 0.0004419877368491143f, 0.0004861548077315092f, 0.0005171133670955896f, 0.0007587027503177524f, 0.000509501900523901f, 0.0006174512091092765f, 0.0006542489281855524f, 0.0005918517126701772f, 0.000498354434967041f, 0.0005676624714396894f, 0.0004236852691974491f, 0.0008115348173305392f, 0.0006536024739034474f, 0.0005736491875723004f, 0.0005729753174819052f, 0.00070672866422683f, 0.0006026880582794547f, 0.0005374089814722538f, 0.0005197531427256763f, 0.0004494993481785059f, 0.00048497202806174755f, 0.0006764860590919852f, 0.0004968026769347489f, 0.00041945933480747044f, 0.0005850454326719046f, 0.0006823781877756119f, 0.00043337608803994954f, 0.0004964888212271035f, 0.0005122126312926412f, 0.0005534131196327507f, 0.0005163801251910627f, 0.0005639880546368659f, 0.0005076549132354558f, 0.0005038663512095809f, 0.000596890808083117f, 0.0005023565609008074f, 0.0005455199861899018f, 0.000483089272165671f, 0.0005142414011061192f, 0.0006186073296703398f, 0.0004376159340608865f, 0.0005452781915664673f, 0.0006749218446202576f, 0.000603270367719233f, 0.0005509909824468195f, 0.0005487995804287493f, 0.0004639076651073992f, 0.0005833907634951174f, 0.0005577282281592488f, 0.0005483059794642031f, 0.000603041669819504f, 0.0007424044306389987f, 0.0006066001951694489f, 0.0005187125643715262f, 0.000563352950848639f, 0.0004870441625826061f, 0.0007629599422216415f, 0.0004793840053025633f, 0.000544339360203594f, 0.00046358240069821477f, 0.00041926305857487023f, 0.000563542009331286f, 0.0008046066504903138f, 0.0004459266783669591f, 0.0006130932015366852f, 0.0005182572058402002f, 0.0004819963651243597f, 0.0006169849657453597f, 0.0004632520431187004f, 0.000494076288305223f, 0.0004876613966189325f, 0.0007314548711292446f, 0.0005993982776999474f, 0.0005653214757330716f, 0.0006868751370348036f, 0.0008420677622780204f, 0.0005993591621518135f, 0.000521718175150454f, 0.00047322275349870324f, 0.0004032636934425682f, 0.0004689988272730261f, 0.00045916790259070694f, 0.00043787717004306614f, 0.0005115559906698763f, 0.0005121015710756183f, 0.0006158493924885988f, 0.0005158971180208027f, 0.0005059624672867358f, 0.0005902698612771928f, 0.0005133250379003584f, 0.0004898598417639732f, 0.0006117284065112472f, 0.0005664541386067867f, 0.0006639513303525746f, 0.0004764333716593683f, 0.0005028554005548358f, 0.0005451882025226951f, 0.0006437815027311444f, 0.0005033257766626775f, 0.0003994376165792346f, 0.0006294049671851099f, 0.00047520489897578955f, 0.0008062224951572716f, 0.0004959098878316581f, 0.0005074040382169187f, 0.0005824335967190564f, 0.0005420650122687221f, 0.0006069329101592302f, 0.0005564398597925901f, 0.0005254910211078823f, 0.0004633391508832574f, 0.0004521243099588901f, 0.0005226561333984137f, 0.0005554536473937333f, 0.0005101573769934475f, 0.0006286944262683392f, 0.0005780609208159149f, 0.0005509391194209456f, 0.0006611812277697027f, 0.00053967977873981f, 0.0005570057546719909f, 0.0007522475789301097f, 0.0005166740156710148f, 0.0007026991806924343f, 0.0005802444065921009f, 0.0004924836102873087f, 0.00045866897562518716f, 0.00042316794861108065f, 0.0004410854890011251f, 0.000525003531947732f, 0.0005377922207117081f, 0.0007057399488985538f, 0.0006284181727096438f, 0.0004942714585922658f, 0.000627211295068264f, 0.0005120386485941708f, 0.0005182672175578773f, 0.0005258675664663315f, 0.0004465462116058916f, 0.0005850269226357341f, 0.0005879735690541565f, 0.000623323256149888f, 0.000466209021396935f, 0.0004512138548307121f, 0.0005263082566671073f, 0.0005903749843128026f, 0.0005089582991786301f, 0.0006692410679534078f, 0.0005728282849304378f, 0.0005267502274364233f, 0.0006052812677808106f, 0.0005606248741969466f, 0.0005293191061355174f, 0.0005453434423543513f, 0.0005453447811305523f, 0.0004519867361523211f, 0.0006459950818680227f, 0.0006323818815872073f, 0.000509739329572767f, 0.0004965358530171216f, 0.000592683267313987f, 0.0004895310266874731f, 0.0005079727270640433f, 0.0006085080676712096f, 0.0006723454571329057f, 0.0006044607725925744f, 0.0004973199684172869f, 0.0006026998162269592f, 0.000437829497968778f, 0.0005990634090267122f, 0.0007228241302073002f, 0.0005939823458902538f, 0.0004923256929032505f, 0.0006547808297909796f, 0.0005279256729409099f, 0.00048336031613871455f, 0.0005334059242159128f, 0.000644864107016474f, 0.0005572931258939207f, 0.0006382926949299872f, 0.0005465951398946345f, 0.0005739600164815784f, 0.0005754961166530848f, 0.0004772746760863811f, 0.0005714482394978404f, 0.0005104635492898524f, 0.0005383676616474986f, 0.0004979981458745897f, 0.0006602699286304414f, 0.0005739033222198486f, 0.0006334421341307461f, 0.0006373986834660172f, 0.000715056958142668f, 0.0005012239562347531f, 0.0005920651601627469f, 0.0007786998758092523f, 0.0005507711321115494f, 0.0005585753824561834f, 0.0005087298341095448f, 0.00041921259253285825f, 0.0004837585147470236f, 0.0005623157485388219f, 0.00047510856529697776f, 0.0005435450584627688f, 0.0004642238491214812f, 0.0006404671585187316f, 0.0005172273376956582f, 0.0007795022102072835f, 0.000605433655437082f, 0.0005770447896793485f, 0.000640315527562052f, 0.0006816037348471582f, 0.0005090170889161527f, 0.0005718368920497596f, 0.0006014243699610233f, 0.0005344942328520119f, 0.00042049059993587434f, 0.0005925654550082982f, 0.0004216243396513164f, 0.00047706515761092305f, 0.0007732221856713295f, 0.0004955965559929609f, 0.0007033176370896399f, 0.0006942659383639693f, 0.00043293836642988026f, 0.0005150079960003495f, 0.000473477179184556f, 0.0006428523920476437f, 0.0005277522141113877f, 0.0004961948725394905f, 0.0005967906909063458f, 0.0005108523182570934f, 0.00059783726464957f, 0.00039612464024685323f, 0.0004895130987279117f, 0.0005097739631310105f, 0.0004788904043380171f, 0.0005914379726164043f, 0.0006031695520505309f, 0.0005354933091439307f, 0.0005136151448823512f, 0.0005550705245696008f, 0.0004874159349128604f, 0.0004796143912244588f, 0.0008464741404168308f, 0.0006200140342116356f, 0.00045195722486823797f, 0.0005321853677742183f, 0.0005800093640573323f, 0.0005346271209418774f, 0.0005186843918636441f, 0.0004821074544452131f, 0.0006861750152893364f, 0.0005047332379035652f, 0.0005028521991334856f, 0.0005502983112819493f, 0.0004814064595848322f, 0.0006552581326104701f, 0.0005235724966041744f, 0.0005840815720148385f, 0.0005110446945764124f, 0.00042597349965944886f, 0.0005348973209038377f, 0.0006095502758398652f, 0.0005759867490269244f, 0.0005175209953449667f, 0.0005353030865080655f, 0.00044709400390274823f, 0.0005287211970426142f, 0.0005230113165453076f, 0.0005034371861256659f, 0.000674419105052948f, 0.000553442572709173f, 0.000583002925850451f, 0.0004879657062701881f, 0.0004372138064354658f, 0.0003866917104460299f, 0.0004971798043698072f, 0.0006310081807896495f, 0.0006714898627251387f, 0.0005106189055368304f, 0.00047159308451227844f, 0.0004208613536320627f, 0.0006464743637479842f, 0.0005987163167446852f, 0.0004970607114955783f, 0.0005408802535384893f, 0.00046442868188023567f, 0.0004600301617756486f, 0.0005209810333326459f, 0.0004633566422853619f, 0.0006508603109978139f, 0.0005326619138941169f, 0.0006063652690500021f, 0.0006873815436847508f, 0.00039297345210798085f, 0.0004676177632063627f, 0.000594094512052834f, 0.00047476941836066544f, 0.0005974754458293319f, 0.0005966175231151283f, 0.0005942858406342566f, 0.0005096312961541116f, 0.0004562858084682375f, 0.0006619445630349219f, 0.000558349012862891f, 0.0005562618025578558f, 0.0006152686546556652f, 0.000400727178202942f, 0.00048355796025134623f, 0.00046353647485375404f, 0.0005756414029747248f, 0.00047140743117779493f, 0.0005986206233501434f, 0.00044437183532863855f, 0.0004998788936063647f, 0.0005069695762358606f, 0.0006251712329685688f, 0.00048704349319450557f, 0.0005156276747584343f, 0.0005151103250682354f, 0.0005552961956709623f, 0.00042940376442857087f, 0.0006259057554416358f, 0.0006547620869241655f, 0.0005091605125926435f, 0.0004944719257764518f, 0.0007042470388114452f, 0.0004995257477276027f, 0.00044017608161084354f, 0.0005715742008760571f, 0.0005076149245724082f, 0.00043912656838074327f, 0.0005136625841259956f, 0.000506376032717526f, 0.0007249652408063412f, 0.0004980304511263967f, 0.0006310922326520085f, 0.0005859359516762197f, 0.0006707347929477692f, 0.0006026147748343647f, 0.0005259554018266499f, 0.0007612686604261398f, 0.00048732859431765974f, 0.0005440966924652457f, 0.0006117280572652817f, 0.00048259232426062226f, 0.0005994613165967166f, 0.0005422120448201895f, 0.0005403089453466237f, 0.00045940166455693543f, 0.0005640967283397913f, 0.000495745858643204f, 0.000692838744726032f, 0.0006968046072870493f, 0.0004882835783064365f, 0.0005012116162106395f, 0.0005570332868956029f, 0.0005279760225676f, 0.0005046062869951129f, 0.0004979346413165331f, 0.000632523384410888f, 0.0005008267471566796f, 0.00044778198935091496f, 0.0004959093639627099f, 0.0004408996319398284f, 0.0005508445319719613f, 0.0005291246343404055f, 0.0005083339056000113f, 0.0006301512476056814f, 0.0004710911016445607f, 0.0004905875539407134f, 0.0004204312863294035f, 0.0006002024165354669f, 0.0005129367928020656f, 0.0005041934200562537f, 0.0005641935858875513f, 0.0004995460622012615f, 0.0005103567964397371f, 0.0004396556760184467f, 0.0008637714199721813f, 0.00045650103129446507f, 0.00039628660306334496f, 0.0005488233873620629f, 0.0006186201353557408f, 0.000534327351488173f, 0.0005702009075321257f, 0.0005593929090537131f, 0.0005097139510326087f, 0.0005674124695360661f, 0.0008048620074987411f, 0.0005624869954772294f, 0.0005557478871196508f, 0.0005350499995984137f, 0.0005092757637612522f, 0.0007648968021385372f, 0.0004789300437550992f, 0.0004525677068158984f, 0.0004457510949578136f, 0.0006060441955924034f, 0.0005276213050819933f, 0.0005214257980696857f, 0.0005885380669496953f, 0.0005124177550897002f, 0.0005725204828195274f, 0.0005189098883420229f, 0.0004896768368780613f, 0.0007028452819213271f, 0.0005277604795992374f, 0.000520449539180845f, 0.0005692013655789196f, 0.00052271579625085f, 0.000507649383507669f, 0.0004458606999833137f, 0.0004515585897024721f, 0.0004870287957601249f, 0.0005994928651489317f, 0.0005706148804165423f, 0.0005378760397434235f, 0.0005589397624135017f, 0.0005342086078599095f, 0.0005787218105979264f, 0.0005634066765196621f, 0.0005314727895893157f, 0.0004918685299344361f, 0.0005512588541023433f, 0.0006600811029784381f, 0.00043867260683327913f, 0.0006897510029375553f, 0.000526118150446564f, 0.0004947003908455372f, 0.0005120421992614865f, 0.00046805417514406145f, 0.0006213739397935569f, 0.0005703874630853534f, 0.0006625491660088301f, 0.0005953375366516411f, 0.0005631954409182072f, 0.0004707448824774474f, 0.0004972657770849764f, 0.0005620953743346035f, 0.0006124967476353049f, 0.0005560736753977835f, 0.00047862817882560194f, 0.00047409741091541946f, 0.0005913507775403559f, 0.00047348247608169913f, 0.0007173201884143054f, 0.0004427834355738014f, 0.0006528126541525126f, 0.0005290296976454556f, 0.000624387466814369f, 0.0004381928883958608f, 0.0006364423898048699f, 0.0007449549739249051f, 0.0005373656749725342f, 0.0005916942027397454f, 0.0004981255042366683f, 0.000615794095210731f, 0.000692534726113081f, 0.0004425547958817333f, 0.0006140350014902651f, 0.0007617424707859755f, 0.0005655482527799904f, 0.0005182502209208906f, 0.00046112778363749385f, 0.0005415258929133415f, 0.0007218127138912678f, 0.0004482564690988511f, 0.000719862466212362f, 0.0006607300019823015f, 0.0007768309442326427f, 0.00044175947550684214f, 0.0005941596464253962f, 0.0004964195541106164f, 0.0006672298186458647f, 0.0005782688385806978f, 0.000698081508744508f, 0.00036860708496533334f, 0.0006817907560616732f, 0.0005517977988347411f, 0.00046846625627949834f, 0.0009014876559376717f, 0.00046775027294643223f, 0.000636336742900312f, 0.000583058048505336f, 0.0006894528050906956f, 0.0005773938028141856f, 0.0006622224464081228f, 0.0007372071268036962f, 0.0005197481950744987f, 0.0005426741554401815f, 0.0005516314413398504f, 0.00047779729356989264f, 0.00071574846515432f, 0.0009394358494319022f, 0.0005625014309771359f, 0.0006103692576289177f, 0.0004897895269095898f, 0.000636906421277672f, 0.000618191494140774f, 0.0006911652162671089f, 0.0005650704260915518f, 0.0005319727933965623f, 0.0004985437844879925f, 0.0006113057024776936f, 0.0006487391656264663f, 0.0005038899835199118f, 0.00044731167145073414f, 0.0005553170340135694f, 0.0006144901271909475f, 0.0004694096278399229f, 0.0004187363083474338f, 0.00043744014692492783f, 0.0005067683523520827f, 0.0005603308090940118f, 0.0009881273144856095f, 0.0006863140733912587f, 0.0006456737755797803f, 0.0005434462800621986f, 0.0006463916506618261f, 0.000619252328760922f, 0.000493405619636178f, 0.0004545305564533919f, 0.0006909958901815116f, 0.0006135127623565495f, 0.0006035394035279751f, 0.0006201451760716736f, 0.0005744624068029225f, 0.0006639729836024344f, 0.0006191188003867865f, 0.000636857992503792f, 0.0005449145101010799f, 0.0007245279266498983f, 0.000493832747451961f, 0.0005318706389516592f, 0.0005705617950297892f, 0.00065529317362234f, 0.0005549081834033132f, 0.0006717268843203783f, 0.00038372029666788876f, 0.000520943256560713f, 0.0006561314803548157f, 0.0005275898729451001f, 0.0005601067095994949f, 0.0005453198682516813f, 0.0007451782585121691f, 0.0004742465680465102f, 0.0005180625594221056f, 0.0005515704397112131f, 0.00048117138794623315f, 0.0005843914696015418f, 0.0005507197347469628f, 0.0005253852577880025f, 0.0007310844375751913f, 0.00042835596832446754f, 0.00042021070839837193f, 0.000495242711622268f, 0.0005970289930701256f, 0.0006352447671815753f, 0.0006318142404779792f, 0.0005964465672150254f, 0.0005547046894207597f, 0.0004961444647051394f, 0.0004990332527086139f, 0.0006174746085889637f, 0.00055680115474388f, 0.0006831720238551497f, 0.0005080030532553792f, 0.00045918606338091195f, 0.0005403324612416327f, 0.0005504853324964643f, 0.0005642176838591695f, 0.00043943250784650445f, 0.0004890587879344821f, 0.0007707029581069946f, 0.0009162705391645432f, 0.0005433050100691617f, 0.0005668081576004624f, 0.0006463370518758893f, 0.000540419714525342f, 0.0006078369915485382f, 0.0005101304850541055f, 0.000594420765992254f, 0.0005057805101387203f, 0.0005751337739638984f, 0.0005339416675269604f, 0.0005865218699909747f, 0.0005352728185243905f, 0.0004580524400807917f, 0.000513420207425952f, 0.000493063882458955f, 0.0007655230583623052f, 0.0006607575924135745f, 0.0006353696226142347f, 0.00047799976891838014f, 0.0004659137630369514f, 0.000427869992563501f, 0.0004680946294683963f, 0.00042192204273305833f, 0.0004969776491634548f, 0.0004908174742013216f, 0.0006620938656851649f, 0.00047219678526744246f, 0.0005091847269795835f, 0.000500233902130276f, 0.0006600604392588139f, 0.0004591539327520877f, 0.0007126674754545093f, 0.00042503888835199177f, 0.00048232494737021625f, 0.0005115155945532024f, 0.0005945111042819917f, 0.000644015904981643f, 0.0004651545896194875f, 0.0005249062669463456f, 0.0005203504115343094f, 0.0005086748278699815f, 0.0005423440015874803f, 0.0005042861448600888f, 0.0005337870097719133f, 0.0006027027848176658f, 0.00043125954107381403f, 0.0005187474889680743f),
+    AI_PACK_INTQ_ZP(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)))
+
+/* Int quant #170 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(dense_68_weights_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0006001319270581007f),
+    AI_PACK_INTQ_ZP(0)))
+
+/* Int quant #171 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(dense_68_bias_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(1.412075107509736e-05f),
+    AI_PACK_INTQ_ZP(0)))
+
+/* Int quant #172 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_1_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #173 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_2_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #174 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_4_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #175 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_6_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #176 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_8_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #177 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_9_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #178 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_12_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #179 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_14_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #180 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_16_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #181 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_17_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #182 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_20_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #183 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_21_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #184 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_24_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #185 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_26_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #186 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_28_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #187 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_29_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #188 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_32_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #189 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_33_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #190 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_36_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #191 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_37_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #192 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_40_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #193 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_41_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #194 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_43_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #195 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_44_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #196 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_47_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #197 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_48_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #198 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_51_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #199 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_53_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #200 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_55_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #201 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_56_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #202 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_59_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #203 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_60_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #204 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_63_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #205 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_64_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #206 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_66_scratch1_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/* Int quant #207 */
+AI_INTQ_INFO_LIST_OBJ_DECLARE(conv2d_66_scratch2_intq, AI_STATIC_CONST,
+  AI_BUFFER_META_FLAG_SCALE_FLOAT|AI_BUFFER_META_FLAG_ZEROPOINT_S8, 1,
+  AI_PACK_INTQ_INFO(
+    AI_PACK_INTQ_SCALE(0.0235294122248888f),
+    AI_PACK_INTQ_ZP(-128)))
+
+/**  Tensor declarations section  *********************************************/
+/* Tensor #0 */
+AI_TENSOR_OBJ_DECLARE(
+  serving_default_input_10_output, AI_STATIC,
+  0, 0x1,
+  AI_SHAPE_INIT(4, 1, 3, 128, 128), AI_STRIDE_INIT(4, 1, 1, 3, 384),
+  1, &serving_default_input_10_output_array, &serving_default_input_10_output_intq)
+
+/* Tensor #1 */
+AI_TENSOR_OBJ_DECLARE(
+  conversion_0_output, AI_STATIC,
+  1, 0x1,
+  AI_SHAPE_INIT(4, 1, 3, 128, 128), AI_STRIDE_INIT(4, 1, 1, 3, 384),
+  1, &conversion_0_output_array, &conversion_0_output_intq)
+
+/* Tensor #2 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_1_output, AI_STATIC,
+  2, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 64, 64), AI_STRIDE_INIT(4, 1, 1, 16, 1024),
+  1, &conv2d_1_output_array, &conv2d_1_output_intq)
+
+/* Tensor #3 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_2_output, AI_STATIC,
+  3, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 64, 64), AI_STRIDE_INIT(4, 1, 1, 16, 1024),
+  1, &conv2d_2_output_array, &conv2d_2_output_intq)
+
+/* Tensor #4 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_3_output, AI_STATIC,
+  4, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 64, 64), AI_STRIDE_INIT(4, 1, 1, 8, 512),
+  1, &conv2d_3_output_array, &conv2d_3_output_intq)
+
+/* Tensor #5 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_4_output, AI_STATIC,
+  5, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 64, 64), AI_STRIDE_INIT(4, 1, 1, 48, 3072),
+  1, &conv2d_4_output_array, &conv2d_4_output_intq)
+
+/* Tensor #6 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_6_output, AI_STATIC,
+  6, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 32, 32), AI_STRIDE_INIT(4, 1, 1, 48, 1536),
+  1, &conv2d_6_output_array, &conv2d_6_output_intq)
+
+/* Tensor #7 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_7_output, AI_STATIC,
+  7, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 32, 32), AI_STRIDE_INIT(4, 1, 1, 8, 256),
+  1, &conv2d_7_output_array, &conv2d_7_output_intq)
+
+/* Tensor #8 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_8_output, AI_STATIC,
+  8, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 32, 32), AI_STRIDE_INIT(4, 1, 1, 48, 1536),
+  1, &conv2d_8_output_array, &conv2d_8_output_intq)
+
+/* Tensor #9 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_9_output, AI_STATIC,
+  9, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 32, 32), AI_STRIDE_INIT(4, 1, 1, 48, 1536),
+  1, &conv2d_9_output_array, &conv2d_9_output_intq)
+
+/* Tensor #10 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_10_output, AI_STATIC,
+  10, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 32, 32), AI_STRIDE_INIT(4, 1, 1, 8, 256),
+  1, &conv2d_10_output_array, &conv2d_10_output_intq)
+
+/* Tensor #11 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_11_output, AI_STATIC,
+  11, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 32, 32), AI_STRIDE_INIT(4, 1, 1, 8, 256),
+  1, &eltwise_11_output_array, &eltwise_11_output_intq)
+
+/* Tensor #12 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_12_output, AI_STATIC,
+  12, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 32, 32), AI_STRIDE_INIT(4, 1, 1, 48, 1536),
+  1, &conv2d_12_output_array, &conv2d_12_output_intq)
+
+/* Tensor #13 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_14_output, AI_STATIC,
+  13, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 16, 16), AI_STRIDE_INIT(4, 1, 1, 48, 768),
+  1, &conv2d_14_output_array, &conv2d_14_output_intq)
+
+/* Tensor #14 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_15_output, AI_STATIC,
+  14, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 16, 16), AI_STRIDE_INIT(4, 1, 1, 16, 256),
+  1, &conv2d_15_output_array, &conv2d_15_output_intq)
+
+/* Tensor #15 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_16_output, AI_STATIC,
+  15, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 16, 16), AI_STRIDE_INIT(4, 1, 1, 96, 1536),
+  1, &conv2d_16_output_array, &conv2d_16_output_intq)
+
+/* Tensor #16 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_17_output, AI_STATIC,
+  16, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 16, 16), AI_STRIDE_INIT(4, 1, 1, 96, 1536),
+  1, &conv2d_17_output_array, &conv2d_17_output_intq)
+
+/* Tensor #17 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_18_output, AI_STATIC,
+  17, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 16, 16), AI_STRIDE_INIT(4, 1, 1, 16, 256),
+  1, &conv2d_18_output_array, &conv2d_18_output_intq)
+
+/* Tensor #18 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_19_output, AI_STATIC,
+  18, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 16, 16), AI_STRIDE_INIT(4, 1, 1, 16, 256),
+  1, &eltwise_19_output_array, &eltwise_19_output_intq)
+
+/* Tensor #19 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_20_output, AI_STATIC,
+  19, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 16, 16), AI_STRIDE_INIT(4, 1, 1, 96, 1536),
+  1, &conv2d_20_output_array, &conv2d_20_output_intq)
+
+/* Tensor #20 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_21_output, AI_STATIC,
+  20, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 16, 16), AI_STRIDE_INIT(4, 1, 1, 96, 1536),
+  1, &conv2d_21_output_array, &conv2d_21_output_intq)
+
+/* Tensor #21 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_22_output, AI_STATIC,
+  21, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 16, 16), AI_STRIDE_INIT(4, 1, 1, 16, 256),
+  1, &conv2d_22_output_array, &conv2d_22_output_intq)
+
+/* Tensor #22 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_23_output, AI_STATIC,
+  22, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 16, 16), AI_STRIDE_INIT(4, 1, 1, 16, 256),
+  1, &eltwise_23_output_array, &eltwise_23_output_intq)
+
+/* Tensor #23 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_24_output, AI_STATIC,
+  23, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 16, 16), AI_STRIDE_INIT(4, 1, 1, 96, 1536),
+  1, &conv2d_24_output_array, &conv2d_24_output_intq)
+
+/* Tensor #24 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_26_output, AI_STATIC,
+  24, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 8, 8), AI_STRIDE_INIT(4, 1, 1, 96, 768),
+  1, &conv2d_26_output_array, &conv2d_26_output_intq)
+
+/* Tensor #25 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_27_output, AI_STATIC,
+  25, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 8, 8), AI_STRIDE_INIT(4, 1, 1, 24, 192),
+  1, &conv2d_27_output_array, &conv2d_27_output_intq)
+
+/* Tensor #26 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_28_output, AI_STATIC,
+  26, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 8, 8), AI_STRIDE_INIT(4, 1, 1, 144, 1152),
+  1, &conv2d_28_output_array, &conv2d_28_output_intq)
+
+/* Tensor #27 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_29_output, AI_STATIC,
+  27, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 8, 8), AI_STRIDE_INIT(4, 1, 1, 144, 1152),
+  1, &conv2d_29_output_array, &conv2d_29_output_intq)
+
+/* Tensor #28 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_30_output, AI_STATIC,
+  28, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 8, 8), AI_STRIDE_INIT(4, 1, 1, 24, 192),
+  1, &conv2d_30_output_array, &conv2d_30_output_intq)
+
+/* Tensor #29 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_31_output, AI_STATIC,
+  29, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 8, 8), AI_STRIDE_INIT(4, 1, 1, 24, 192),
+  1, &eltwise_31_output_array, &eltwise_31_output_intq)
+
+/* Tensor #30 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_32_output, AI_STATIC,
+  30, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 8, 8), AI_STRIDE_INIT(4, 1, 1, 144, 1152),
+  1, &conv2d_32_output_array, &conv2d_32_output_intq)
+
+/* Tensor #31 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_33_output, AI_STATIC,
+  31, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 8, 8), AI_STRIDE_INIT(4, 1, 1, 144, 1152),
+  1, &conv2d_33_output_array, &conv2d_33_output_intq)
+
+/* Tensor #32 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_34_output, AI_STATIC,
+  32, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 8, 8), AI_STRIDE_INIT(4, 1, 1, 24, 192),
+  1, &conv2d_34_output_array, &conv2d_34_output_intq)
+
+/* Tensor #33 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_35_output, AI_STATIC,
+  33, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 8, 8), AI_STRIDE_INIT(4, 1, 1, 24, 192),
+  1, &eltwise_35_output_array, &eltwise_35_output_intq)
+
+/* Tensor #34 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_36_output, AI_STATIC,
+  34, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 8, 8), AI_STRIDE_INIT(4, 1, 1, 144, 1152),
+  1, &conv2d_36_output_array, &conv2d_36_output_intq)
+
+/* Tensor #35 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_37_output, AI_STATIC,
+  35, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 8, 8), AI_STRIDE_INIT(4, 1, 1, 144, 1152),
+  1, &conv2d_37_output_array, &conv2d_37_output_intq)
+
+/* Tensor #36 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_38_output, AI_STATIC,
+  36, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 8, 8), AI_STRIDE_INIT(4, 1, 1, 24, 192),
+  1, &conv2d_38_output_array, &conv2d_38_output_intq)
+
+/* Tensor #37 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_39_output, AI_STATIC,
+  37, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 8, 8), AI_STRIDE_INIT(4, 1, 1, 24, 192),
+  1, &eltwise_39_output_array, &eltwise_39_output_intq)
+
+/* Tensor #38 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_40_output, AI_STATIC,
+  38, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 8, 8), AI_STRIDE_INIT(4, 1, 1, 144, 1152),
+  1, &conv2d_40_output_array, &conv2d_40_output_intq)
+
+/* Tensor #39 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_41_output, AI_STATIC,
+  39, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 8, 8), AI_STRIDE_INIT(4, 1, 1, 144, 1152),
+  1, &conv2d_41_output_array, &conv2d_41_output_intq)
+
+/* Tensor #40 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_42_output, AI_STATIC,
+  40, 0x1,
+  AI_SHAPE_INIT(4, 1, 32, 8, 8), AI_STRIDE_INIT(4, 1, 1, 32, 256),
+  1, &conv2d_42_output_array, &conv2d_42_output_intq)
+
+/* Tensor #41 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_43_output, AI_STATIC,
+  41, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 8, 8), AI_STRIDE_INIT(4, 1, 1, 192, 1536),
+  1, &conv2d_43_output_array, &conv2d_43_output_intq)
+
+/* Tensor #42 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_44_output, AI_STATIC,
+  42, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 8, 8), AI_STRIDE_INIT(4, 1, 1, 192, 1536),
+  1, &conv2d_44_output_array, &conv2d_44_output_intq)
+
+/* Tensor #43 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_45_output, AI_STATIC,
+  43, 0x1,
+  AI_SHAPE_INIT(4, 1, 32, 8, 8), AI_STRIDE_INIT(4, 1, 1, 32, 256),
+  1, &conv2d_45_output_array, &conv2d_45_output_intq)
+
+/* Tensor #44 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_46_output, AI_STATIC,
+  44, 0x1,
+  AI_SHAPE_INIT(4, 1, 32, 8, 8), AI_STRIDE_INIT(4, 1, 1, 32, 256),
+  1, &eltwise_46_output_array, &eltwise_46_output_intq)
+
+/* Tensor #45 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_47_output, AI_STATIC,
+  45, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 8, 8), AI_STRIDE_INIT(4, 1, 1, 192, 1536),
+  1, &conv2d_47_output_array, &conv2d_47_output_intq)
+
+/* Tensor #46 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_48_output, AI_STATIC,
+  46, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 8, 8), AI_STRIDE_INIT(4, 1, 1, 192, 1536),
+  1, &conv2d_48_output_array, &conv2d_48_output_intq)
+
+/* Tensor #47 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_49_output, AI_STATIC,
+  47, 0x1,
+  AI_SHAPE_INIT(4, 1, 32, 8, 8), AI_STRIDE_INIT(4, 1, 1, 32, 256),
+  1, &conv2d_49_output_array, &conv2d_49_output_intq)
+
+/* Tensor #48 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_50_output, AI_STATIC,
+  48, 0x1,
+  AI_SHAPE_INIT(4, 1, 32, 8, 8), AI_STRIDE_INIT(4, 1, 1, 32, 256),
+  1, &eltwise_50_output_array, &eltwise_50_output_intq)
+
+/* Tensor #49 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_51_output, AI_STATIC,
+  49, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 8, 8), AI_STRIDE_INIT(4, 1, 1, 192, 1536),
+  1, &conv2d_51_output_array, &conv2d_51_output_intq)
+
+/* Tensor #50 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_53_output, AI_STATIC,
+  50, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 4, 4), AI_STRIDE_INIT(4, 1, 1, 192, 768),
+  1, &conv2d_53_output_array, &conv2d_53_output_intq)
+
+/* Tensor #51 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_54_output, AI_STATIC,
+  51, 0x1,
+  AI_SHAPE_INIT(4, 1, 56, 4, 4), AI_STRIDE_INIT(4, 1, 1, 56, 224),
+  1, &conv2d_54_output_array, &conv2d_54_output_intq)
+
+/* Tensor #52 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_55_output, AI_STATIC,
+  52, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 4, 4), AI_STRIDE_INIT(4, 1, 1, 336, 1344),
+  1, &conv2d_55_output_array, &conv2d_55_output_intq)
+
+/* Tensor #53 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_56_output, AI_STATIC,
+  53, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 4, 4), AI_STRIDE_INIT(4, 1, 1, 336, 1344),
+  1, &conv2d_56_output_array, &conv2d_56_output_intq)
+
+/* Tensor #54 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_57_output, AI_STATIC,
+  54, 0x1,
+  AI_SHAPE_INIT(4, 1, 56, 4, 4), AI_STRIDE_INIT(4, 1, 1, 56, 224),
+  1, &conv2d_57_output_array, &conv2d_57_output_intq)
+
+/* Tensor #55 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_58_output, AI_STATIC,
+  55, 0x1,
+  AI_SHAPE_INIT(4, 1, 56, 4, 4), AI_STRIDE_INIT(4, 1, 1, 56, 224),
+  1, &eltwise_58_output_array, &eltwise_58_output_intq)
+
+/* Tensor #56 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_59_output, AI_STATIC,
+  56, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 4, 4), AI_STRIDE_INIT(4, 1, 1, 336, 1344),
+  1, &conv2d_59_output_array, &conv2d_59_output_intq)
+
+/* Tensor #57 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_60_output, AI_STATIC,
+  57, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 4, 4), AI_STRIDE_INIT(4, 1, 1, 336, 1344),
+  1, &conv2d_60_output_array, &conv2d_60_output_intq)
+
+/* Tensor #58 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_61_output, AI_STATIC,
+  58, 0x1,
+  AI_SHAPE_INIT(4, 1, 56, 4, 4), AI_STRIDE_INIT(4, 1, 1, 56, 224),
+  1, &conv2d_61_output_array, &conv2d_61_output_intq)
+
+/* Tensor #59 */
+AI_TENSOR_OBJ_DECLARE(
+  eltwise_62_output, AI_STATIC,
+  59, 0x1,
+  AI_SHAPE_INIT(4, 1, 56, 4, 4), AI_STRIDE_INIT(4, 1, 1, 56, 224),
+  1, &eltwise_62_output_array, &eltwise_62_output_intq)
+
+/* Tensor #60 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_63_output, AI_STATIC,
+  60, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 4, 4), AI_STRIDE_INIT(4, 1, 1, 336, 1344),
+  1, &conv2d_63_output_array, &conv2d_63_output_intq)
+
+/* Tensor #61 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_64_output, AI_STATIC,
+  61, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 4, 4), AI_STRIDE_INIT(4, 1, 1, 336, 1344),
+  1, &conv2d_64_output_array, &conv2d_64_output_intq)
+
+/* Tensor #62 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_65_output, AI_STATIC,
+  62, 0x1,
+  AI_SHAPE_INIT(4, 1, 112, 4, 4), AI_STRIDE_INIT(4, 1, 1, 112, 448),
+  1, &conv2d_65_output_array, &conv2d_65_output_intq)
+
+/* Tensor #63 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_66_output, AI_STATIC,
+  63, 0x1,
+  AI_SHAPE_INIT(4, 1, 1280, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1280, 1280),
+  1, &conv2d_66_output_array, &conv2d_66_output_intq)
+
+/* Tensor #64 */
+AI_TENSOR_OBJ_DECLARE(
+  dense_68_output, AI_STATIC,
+  64, 0x1,
+  AI_SHAPE_INIT(4, 1, 1, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1, 1),
+  1, &dense_68_output_array, &dense_68_output_intq)
+
+/* Tensor #65 */
+AI_TENSOR_OBJ_DECLARE(
+  nl_69_output, AI_STATIC,
+  65, 0x1,
+  AI_SHAPE_INIT(4, 1, 1, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1, 1),
+  1, &nl_69_output_array, &nl_69_output_intq)
+
+/* Tensor #66 */
+AI_TENSOR_OBJ_DECLARE(
+  conversion_70_output, AI_STATIC,
+  66, 0x0,
+  AI_SHAPE_INIT(4, 1, 1, 1, 1), AI_STRIDE_INIT(4, 4, 4, 4, 4),
+  1, &conversion_70_output_array, NULL)
+
+/* Tensor #67 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_1_weights, AI_STATIC,
+  67, 0x1,
+  AI_SHAPE_INIT(4, 3, 3, 3, 16), AI_STRIDE_INIT(4, 1, 3, 9, 27),
+  1, &conv2d_1_weights_array, &conv2d_1_weights_intq)
+
+/* Tensor #68 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_1_bias, AI_STATIC,
+  68, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 1, 1), AI_STRIDE_INIT(4, 4, 4, 64, 64),
+  1, &conv2d_1_bias_array, &conv2d_1_bias_intq)
+
+/* Tensor #69 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_2_weights, AI_STATIC,
+  69, 0x1,
+  AI_SHAPE_INIT(4, 16, 3, 3, 1), AI_STRIDE_INIT(4, 1, 16, 48, 144),
+  1, &conv2d_2_weights_array, &conv2d_2_weights_intq)
+
+/* Tensor #70 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_2_bias, AI_STATIC,
+  70, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 1, 1), AI_STRIDE_INIT(4, 4, 4, 64, 64),
+  1, &conv2d_2_bias_array, &conv2d_2_bias_intq)
+
+/* Tensor #71 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_3_weights, AI_STATIC,
+  71, 0x1,
+  AI_SHAPE_INIT(4, 16, 1, 1, 8), AI_STRIDE_INIT(4, 1, 16, 16, 16),
+  1, &conv2d_3_weights_array, &conv2d_3_weights_intq)
+
+/* Tensor #72 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_3_bias, AI_STATIC,
+  72, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 4, 4, 32, 32),
+  1, &conv2d_3_bias_array, &conv2d_3_bias_intq)
+
+/* Tensor #73 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_4_weights, AI_STATIC,
+  73, 0x1,
+  AI_SHAPE_INIT(4, 8, 1, 1, 48), AI_STRIDE_INIT(4, 1, 8, 8, 8),
+  1, &conv2d_4_weights_array, &conv2d_4_weights_intq)
+
+/* Tensor #74 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_4_bias, AI_STATIC,
+  74, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 1, 1), AI_STRIDE_INIT(4, 4, 4, 192, 192),
+  1, &conv2d_4_bias_array, &conv2d_4_bias_intq)
+
+/* Tensor #75 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_6_weights, AI_STATIC,
+  75, 0x1,
+  AI_SHAPE_INIT(4, 48, 3, 3, 1), AI_STRIDE_INIT(4, 1, 48, 144, 432),
+  1, &conv2d_6_weights_array, &conv2d_6_weights_intq)
+
+/* Tensor #76 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_6_bias, AI_STATIC,
+  76, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 1, 1), AI_STRIDE_INIT(4, 4, 4, 192, 192),
+  1, &conv2d_6_bias_array, &conv2d_6_bias_intq)
+
+/* Tensor #77 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_7_weights, AI_STATIC,
+  77, 0x1,
+  AI_SHAPE_INIT(4, 48, 1, 1, 8), AI_STRIDE_INIT(4, 1, 48, 48, 48),
+  1, &conv2d_7_weights_array, &conv2d_7_weights_intq)
+
+/* Tensor #78 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_7_bias, AI_STATIC,
+  78, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 4, 4, 32, 32),
+  1, &conv2d_7_bias_array, &conv2d_7_bias_intq)
+
+/* Tensor #79 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_8_weights, AI_STATIC,
+  79, 0x1,
+  AI_SHAPE_INIT(4, 8, 1, 1, 48), AI_STRIDE_INIT(4, 1, 8, 8, 8),
+  1, &conv2d_8_weights_array, &conv2d_8_weights_intq)
+
+/* Tensor #80 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_8_bias, AI_STATIC,
+  80, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 1, 1), AI_STRIDE_INIT(4, 4, 4, 192, 192),
+  1, &conv2d_8_bias_array, &conv2d_8_bias_intq)
+
+/* Tensor #81 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_9_weights, AI_STATIC,
+  81, 0x1,
+  AI_SHAPE_INIT(4, 48, 3, 3, 1), AI_STRIDE_INIT(4, 1, 48, 144, 432),
+  1, &conv2d_9_weights_array, &conv2d_9_weights_intq)
+
+/* Tensor #82 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_9_bias, AI_STATIC,
+  82, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 1, 1), AI_STRIDE_INIT(4, 4, 4, 192, 192),
+  1, &conv2d_9_bias_array, &conv2d_9_bias_intq)
+
+/* Tensor #83 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_10_weights, AI_STATIC,
+  83, 0x1,
+  AI_SHAPE_INIT(4, 48, 1, 1, 8), AI_STRIDE_INIT(4, 1, 48, 48, 48),
+  1, &conv2d_10_weights_array, &conv2d_10_weights_intq)
+
+/* Tensor #84 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_10_bias, AI_STATIC,
+  84, 0x1,
+  AI_SHAPE_INIT(4, 1, 8, 1, 1), AI_STRIDE_INIT(4, 4, 4, 32, 32),
+  1, &conv2d_10_bias_array, &conv2d_10_bias_intq)
+
+/* Tensor #85 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_12_weights, AI_STATIC,
+  85, 0x1,
+  AI_SHAPE_INIT(4, 8, 1, 1, 48), AI_STRIDE_INIT(4, 1, 8, 8, 8),
+  1, &conv2d_12_weights_array, &conv2d_12_weights_intq)
+
+/* Tensor #86 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_12_bias, AI_STATIC,
+  86, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 1, 1), AI_STRIDE_INIT(4, 4, 4, 192, 192),
+  1, &conv2d_12_bias_array, &conv2d_12_bias_intq)
+
+/* Tensor #87 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_14_weights, AI_STATIC,
+  87, 0x1,
+  AI_SHAPE_INIT(4, 48, 3, 3, 1), AI_STRIDE_INIT(4, 1, 48, 144, 432),
+  1, &conv2d_14_weights_array, &conv2d_14_weights_intq)
+
+/* Tensor #88 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_14_bias, AI_STATIC,
+  88, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 1, 1), AI_STRIDE_INIT(4, 4, 4, 192, 192),
+  1, &conv2d_14_bias_array, &conv2d_14_bias_intq)
+
+/* Tensor #89 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_15_weights, AI_STATIC,
+  89, 0x1,
+  AI_SHAPE_INIT(4, 48, 1, 1, 16), AI_STRIDE_INIT(4, 1, 48, 48, 48),
+  1, &conv2d_15_weights_array, &conv2d_15_weights_intq)
+
+/* Tensor #90 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_15_bias, AI_STATIC,
+  90, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 1, 1), AI_STRIDE_INIT(4, 4, 4, 64, 64),
+  1, &conv2d_15_bias_array, &conv2d_15_bias_intq)
+
+/* Tensor #91 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_16_weights, AI_STATIC,
+  91, 0x1,
+  AI_SHAPE_INIT(4, 16, 1, 1, 96), AI_STRIDE_INIT(4, 1, 16, 16, 16),
+  1, &conv2d_16_weights_array, &conv2d_16_weights_intq)
+
+/* Tensor #92 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_16_bias, AI_STATIC,
+  92, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 1, 1), AI_STRIDE_INIT(4, 4, 4, 384, 384),
+  1, &conv2d_16_bias_array, &conv2d_16_bias_intq)
+
+/* Tensor #93 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_17_weights, AI_STATIC,
+  93, 0x1,
+  AI_SHAPE_INIT(4, 96, 3, 3, 1), AI_STRIDE_INIT(4, 1, 96, 288, 864),
+  1, &conv2d_17_weights_array, &conv2d_17_weights_intq)
+
+/* Tensor #94 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_17_bias, AI_STATIC,
+  94, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 1, 1), AI_STRIDE_INIT(4, 4, 4, 384, 384),
+  1, &conv2d_17_bias_array, &conv2d_17_bias_intq)
+
+/* Tensor #95 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_18_weights, AI_STATIC,
+  95, 0x1,
+  AI_SHAPE_INIT(4, 96, 1, 1, 16), AI_STRIDE_INIT(4, 1, 96, 96, 96),
+  1, &conv2d_18_weights_array, &conv2d_18_weights_intq)
+
+/* Tensor #96 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_18_bias, AI_STATIC,
+  96, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 1, 1), AI_STRIDE_INIT(4, 4, 4, 64, 64),
+  1, &conv2d_18_bias_array, &conv2d_18_bias_intq)
+
+/* Tensor #97 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_20_weights, AI_STATIC,
+  97, 0x1,
+  AI_SHAPE_INIT(4, 16, 1, 1, 96), AI_STRIDE_INIT(4, 1, 16, 16, 16),
+  1, &conv2d_20_weights_array, &conv2d_20_weights_intq)
+
+/* Tensor #98 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_20_bias, AI_STATIC,
+  98, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 1, 1), AI_STRIDE_INIT(4, 4, 4, 384, 384),
+  1, &conv2d_20_bias_array, &conv2d_20_bias_intq)
+
+/* Tensor #99 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_21_weights, AI_STATIC,
+  99, 0x1,
+  AI_SHAPE_INIT(4, 96, 3, 3, 1), AI_STRIDE_INIT(4, 1, 96, 288, 864),
+  1, &conv2d_21_weights_array, &conv2d_21_weights_intq)
+
+/* Tensor #100 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_21_bias, AI_STATIC,
+  100, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 1, 1), AI_STRIDE_INIT(4, 4, 4, 384, 384),
+  1, &conv2d_21_bias_array, &conv2d_21_bias_intq)
+
+/* Tensor #101 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_22_weights, AI_STATIC,
+  101, 0x1,
+  AI_SHAPE_INIT(4, 96, 1, 1, 16), AI_STRIDE_INIT(4, 1, 96, 96, 96),
+  1, &conv2d_22_weights_array, &conv2d_22_weights_intq)
+
+/* Tensor #102 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_22_bias, AI_STATIC,
+  102, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 1, 1), AI_STRIDE_INIT(4, 4, 4, 64, 64),
+  1, &conv2d_22_bias_array, &conv2d_22_bias_intq)
+
+/* Tensor #103 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_24_weights, AI_STATIC,
+  103, 0x1,
+  AI_SHAPE_INIT(4, 16, 1, 1, 96), AI_STRIDE_INIT(4, 1, 16, 16, 16),
+  1, &conv2d_24_weights_array, &conv2d_24_weights_intq)
+
+/* Tensor #104 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_24_bias, AI_STATIC,
+  104, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 1, 1), AI_STRIDE_INIT(4, 4, 4, 384, 384),
+  1, &conv2d_24_bias_array, &conv2d_24_bias_intq)
+
+/* Tensor #105 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_26_weights, AI_STATIC,
+  105, 0x1,
+  AI_SHAPE_INIT(4, 96, 3, 3, 1), AI_STRIDE_INIT(4, 1, 96, 288, 864),
+  1, &conv2d_26_weights_array, &conv2d_26_weights_intq)
+
+/* Tensor #106 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_26_bias, AI_STATIC,
+  106, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 1, 1), AI_STRIDE_INIT(4, 4, 4, 384, 384),
+  1, &conv2d_26_bias_array, &conv2d_26_bias_intq)
+
+/* Tensor #107 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_27_weights, AI_STATIC,
+  107, 0x1,
+  AI_SHAPE_INIT(4, 96, 1, 1, 24), AI_STRIDE_INIT(4, 1, 96, 96, 96),
+  1, &conv2d_27_weights_array, &conv2d_27_weights_intq)
+
+/* Tensor #108 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_27_bias, AI_STATIC,
+  108, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 1, 1), AI_STRIDE_INIT(4, 4, 4, 96, 96),
+  1, &conv2d_27_bias_array, &conv2d_27_bias_intq)
+
+/* Tensor #109 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_28_weights, AI_STATIC,
+  109, 0x1,
+  AI_SHAPE_INIT(4, 24, 1, 1, 144), AI_STRIDE_INIT(4, 1, 24, 24, 24),
+  1, &conv2d_28_weights_array, &conv2d_28_weights_intq)
+
+/* Tensor #110 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_28_bias, AI_STATIC,
+  110, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 1, 1), AI_STRIDE_INIT(4, 4, 4, 576, 576),
+  1, &conv2d_28_bias_array, &conv2d_28_bias_intq)
+
+/* Tensor #111 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_29_weights, AI_STATIC,
+  111, 0x1,
+  AI_SHAPE_INIT(4, 144, 3, 3, 1), AI_STRIDE_INIT(4, 1, 144, 432, 1296),
+  1, &conv2d_29_weights_array, &conv2d_29_weights_intq)
+
+/* Tensor #112 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_29_bias, AI_STATIC,
+  112, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 1, 1), AI_STRIDE_INIT(4, 4, 4, 576, 576),
+  1, &conv2d_29_bias_array, &conv2d_29_bias_intq)
+
+/* Tensor #113 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_30_weights, AI_STATIC,
+  113, 0x1,
+  AI_SHAPE_INIT(4, 144, 1, 1, 24), AI_STRIDE_INIT(4, 1, 144, 144, 144),
+  1, &conv2d_30_weights_array, &conv2d_30_weights_intq)
+
+/* Tensor #114 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_30_bias, AI_STATIC,
+  114, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 1, 1), AI_STRIDE_INIT(4, 4, 4, 96, 96),
+  1, &conv2d_30_bias_array, &conv2d_30_bias_intq)
+
+/* Tensor #115 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_32_weights, AI_STATIC,
+  115, 0x1,
+  AI_SHAPE_INIT(4, 24, 1, 1, 144), AI_STRIDE_INIT(4, 1, 24, 24, 24),
+  1, &conv2d_32_weights_array, &conv2d_32_weights_intq)
+
+/* Tensor #116 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_32_bias, AI_STATIC,
+  116, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 1, 1), AI_STRIDE_INIT(4, 4, 4, 576, 576),
+  1, &conv2d_32_bias_array, &conv2d_32_bias_intq)
+
+/* Tensor #117 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_33_weights, AI_STATIC,
+  117, 0x1,
+  AI_SHAPE_INIT(4, 144, 3, 3, 1), AI_STRIDE_INIT(4, 1, 144, 432, 1296),
+  1, &conv2d_33_weights_array, &conv2d_33_weights_intq)
+
+/* Tensor #118 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_33_bias, AI_STATIC,
+  118, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 1, 1), AI_STRIDE_INIT(4, 4, 4, 576, 576),
+  1, &conv2d_33_bias_array, &conv2d_33_bias_intq)
+
+/* Tensor #119 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_34_weights, AI_STATIC,
+  119, 0x1,
+  AI_SHAPE_INIT(4, 144, 1, 1, 24), AI_STRIDE_INIT(4, 1, 144, 144, 144),
+  1, &conv2d_34_weights_array, &conv2d_34_weights_intq)
+
+/* Tensor #120 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_34_bias, AI_STATIC,
+  120, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 1, 1), AI_STRIDE_INIT(4, 4, 4, 96, 96),
+  1, &conv2d_34_bias_array, &conv2d_34_bias_intq)
+
+/* Tensor #121 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_36_weights, AI_STATIC,
+  121, 0x1,
+  AI_SHAPE_INIT(4, 24, 1, 1, 144), AI_STRIDE_INIT(4, 1, 24, 24, 24),
+  1, &conv2d_36_weights_array, &conv2d_36_weights_intq)
+
+/* Tensor #122 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_36_bias, AI_STATIC,
+  122, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 1, 1), AI_STRIDE_INIT(4, 4, 4, 576, 576),
+  1, &conv2d_36_bias_array, &conv2d_36_bias_intq)
+
+/* Tensor #123 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_37_weights, AI_STATIC,
+  123, 0x1,
+  AI_SHAPE_INIT(4, 144, 3, 3, 1), AI_STRIDE_INIT(4, 1, 144, 432, 1296),
+  1, &conv2d_37_weights_array, &conv2d_37_weights_intq)
+
+/* Tensor #124 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_37_bias, AI_STATIC,
+  124, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 1, 1), AI_STRIDE_INIT(4, 4, 4, 576, 576),
+  1, &conv2d_37_bias_array, &conv2d_37_bias_intq)
+
+/* Tensor #125 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_38_weights, AI_STATIC,
+  125, 0x1,
+  AI_SHAPE_INIT(4, 144, 1, 1, 24), AI_STRIDE_INIT(4, 1, 144, 144, 144),
+  1, &conv2d_38_weights_array, &conv2d_38_weights_intq)
+
+/* Tensor #126 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_38_bias, AI_STATIC,
+  126, 0x1,
+  AI_SHAPE_INIT(4, 1, 24, 1, 1), AI_STRIDE_INIT(4, 4, 4, 96, 96),
+  1, &conv2d_38_bias_array, &conv2d_38_bias_intq)
+
+/* Tensor #127 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_40_weights, AI_STATIC,
+  127, 0x1,
+  AI_SHAPE_INIT(4, 24, 1, 1, 144), AI_STRIDE_INIT(4, 1, 24, 24, 24),
+  1, &conv2d_40_weights_array, &conv2d_40_weights_intq)
+
+/* Tensor #128 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_40_bias, AI_STATIC,
+  128, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 1, 1), AI_STRIDE_INIT(4, 4, 4, 576, 576),
+  1, &conv2d_40_bias_array, &conv2d_40_bias_intq)
+
+/* Tensor #129 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_41_weights, AI_STATIC,
+  129, 0x1,
+  AI_SHAPE_INIT(4, 144, 3, 3, 1), AI_STRIDE_INIT(4, 1, 144, 432, 1296),
+  1, &conv2d_41_weights_array, &conv2d_41_weights_intq)
+
+/* Tensor #130 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_41_bias, AI_STATIC,
+  130, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 1, 1), AI_STRIDE_INIT(4, 4, 4, 576, 576),
+  1, &conv2d_41_bias_array, &conv2d_41_bias_intq)
+
+/* Tensor #131 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_42_weights, AI_STATIC,
+  131, 0x1,
+  AI_SHAPE_INIT(4, 144, 1, 1, 32), AI_STRIDE_INIT(4, 1, 144, 144, 144),
+  1, &conv2d_42_weights_array, &conv2d_42_weights_intq)
+
+/* Tensor #132 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_42_bias, AI_STATIC,
+  132, 0x1,
+  AI_SHAPE_INIT(4, 1, 32, 1, 1), AI_STRIDE_INIT(4, 4, 4, 128, 128),
+  1, &conv2d_42_bias_array, &conv2d_42_bias_intq)
+
+/* Tensor #133 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_43_weights, AI_STATIC,
+  133, 0x1,
+  AI_SHAPE_INIT(4, 32, 1, 1, 192), AI_STRIDE_INIT(4, 1, 32, 32, 32),
+  1, &conv2d_43_weights_array, &conv2d_43_weights_intq)
+
+/* Tensor #134 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_43_bias, AI_STATIC,
+  134, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 1, 1), AI_STRIDE_INIT(4, 4, 4, 768, 768),
+  1, &conv2d_43_bias_array, &conv2d_43_bias_intq)
+
+/* Tensor #135 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_44_weights, AI_STATIC,
+  135, 0x1,
+  AI_SHAPE_INIT(4, 192, 3, 3, 1), AI_STRIDE_INIT(4, 1, 192, 576, 1728),
+  1, &conv2d_44_weights_array, &conv2d_44_weights_intq)
+
+/* Tensor #136 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_44_bias, AI_STATIC,
+  136, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 1, 1), AI_STRIDE_INIT(4, 4, 4, 768, 768),
+  1, &conv2d_44_bias_array, &conv2d_44_bias_intq)
+
+/* Tensor #137 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_45_weights, AI_STATIC,
+  137, 0x1,
+  AI_SHAPE_INIT(4, 192, 1, 1, 32), AI_STRIDE_INIT(4, 1, 192, 192, 192),
+  1, &conv2d_45_weights_array, &conv2d_45_weights_intq)
+
+/* Tensor #138 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_45_bias, AI_STATIC,
+  138, 0x1,
+  AI_SHAPE_INIT(4, 1, 32, 1, 1), AI_STRIDE_INIT(4, 4, 4, 128, 128),
+  1, &conv2d_45_bias_array, &conv2d_45_bias_intq)
+
+/* Tensor #139 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_47_weights, AI_STATIC,
+  139, 0x1,
+  AI_SHAPE_INIT(4, 32, 1, 1, 192), AI_STRIDE_INIT(4, 1, 32, 32, 32),
+  1, &conv2d_47_weights_array, &conv2d_47_weights_intq)
+
+/* Tensor #140 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_47_bias, AI_STATIC,
+  140, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 1, 1), AI_STRIDE_INIT(4, 4, 4, 768, 768),
+  1, &conv2d_47_bias_array, &conv2d_47_bias_intq)
+
+/* Tensor #141 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_48_weights, AI_STATIC,
+  141, 0x1,
+  AI_SHAPE_INIT(4, 192, 3, 3, 1), AI_STRIDE_INIT(4, 1, 192, 576, 1728),
+  1, &conv2d_48_weights_array, &conv2d_48_weights_intq)
+
+/* Tensor #142 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_48_bias, AI_STATIC,
+  142, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 1, 1), AI_STRIDE_INIT(4, 4, 4, 768, 768),
+  1, &conv2d_48_bias_array, &conv2d_48_bias_intq)
+
+/* Tensor #143 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_49_weights, AI_STATIC,
+  143, 0x1,
+  AI_SHAPE_INIT(4, 192, 1, 1, 32), AI_STRIDE_INIT(4, 1, 192, 192, 192),
+  1, &conv2d_49_weights_array, &conv2d_49_weights_intq)
+
+/* Tensor #144 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_49_bias, AI_STATIC,
+  144, 0x1,
+  AI_SHAPE_INIT(4, 1, 32, 1, 1), AI_STRIDE_INIT(4, 4, 4, 128, 128),
+  1, &conv2d_49_bias_array, &conv2d_49_bias_intq)
+
+/* Tensor #145 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_51_weights, AI_STATIC,
+  145, 0x1,
+  AI_SHAPE_INIT(4, 32, 1, 1, 192), AI_STRIDE_INIT(4, 1, 32, 32, 32),
+  1, &conv2d_51_weights_array, &conv2d_51_weights_intq)
+
+/* Tensor #146 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_51_bias, AI_STATIC,
+  146, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 1, 1), AI_STRIDE_INIT(4, 4, 4, 768, 768),
+  1, &conv2d_51_bias_array, &conv2d_51_bias_intq)
+
+/* Tensor #147 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_53_weights, AI_STATIC,
+  147, 0x1,
+  AI_SHAPE_INIT(4, 192, 3, 3, 1), AI_STRIDE_INIT(4, 1, 192, 576, 1728),
+  1, &conv2d_53_weights_array, &conv2d_53_weights_intq)
+
+/* Tensor #148 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_53_bias, AI_STATIC,
+  148, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 1, 1), AI_STRIDE_INIT(4, 4, 4, 768, 768),
+  1, &conv2d_53_bias_array, &conv2d_53_bias_intq)
+
+/* Tensor #149 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_54_weights, AI_STATIC,
+  149, 0x1,
+  AI_SHAPE_INIT(4, 192, 1, 1, 56), AI_STRIDE_INIT(4, 1, 192, 192, 192),
+  1, &conv2d_54_weights_array, &conv2d_54_weights_intq)
+
+/* Tensor #150 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_54_bias, AI_STATIC,
+  150, 0x1,
+  AI_SHAPE_INIT(4, 1, 56, 1, 1), AI_STRIDE_INIT(4, 4, 4, 224, 224),
+  1, &conv2d_54_bias_array, &conv2d_54_bias_intq)
+
+/* Tensor #151 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_55_weights, AI_STATIC,
+  151, 0x1,
+  AI_SHAPE_INIT(4, 56, 1, 1, 336), AI_STRIDE_INIT(4, 1, 56, 56, 56),
+  1, &conv2d_55_weights_array, &conv2d_55_weights_intq)
+
+/* Tensor #152 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_55_bias, AI_STATIC,
+  152, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 1, 1), AI_STRIDE_INIT(4, 4, 4, 1344, 1344),
+  1, &conv2d_55_bias_array, &conv2d_55_bias_intq)
+
+/* Tensor #153 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_56_weights, AI_STATIC,
+  153, 0x1,
+  AI_SHAPE_INIT(4, 336, 3, 3, 1), AI_STRIDE_INIT(4, 1, 336, 1008, 3024),
+  1, &conv2d_56_weights_array, &conv2d_56_weights_intq)
+
+/* Tensor #154 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_56_bias, AI_STATIC,
+  154, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 1, 1), AI_STRIDE_INIT(4, 4, 4, 1344, 1344),
+  1, &conv2d_56_bias_array, &conv2d_56_bias_intq)
+
+/* Tensor #155 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_57_weights, AI_STATIC,
+  155, 0x1,
+  AI_SHAPE_INIT(4, 336, 1, 1, 56), AI_STRIDE_INIT(4, 1, 336, 336, 336),
+  1, &conv2d_57_weights_array, &conv2d_57_weights_intq)
+
+/* Tensor #156 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_57_bias, AI_STATIC,
+  156, 0x1,
+  AI_SHAPE_INIT(4, 1, 56, 1, 1), AI_STRIDE_INIT(4, 4, 4, 224, 224),
+  1, &conv2d_57_bias_array, &conv2d_57_bias_intq)
+
+/* Tensor #157 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_59_weights, AI_STATIC,
+  157, 0x1,
+  AI_SHAPE_INIT(4, 56, 1, 1, 336), AI_STRIDE_INIT(4, 1, 56, 56, 56),
+  1, &conv2d_59_weights_array, &conv2d_59_weights_intq)
+
+/* Tensor #158 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_59_bias, AI_STATIC,
+  158, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 1, 1), AI_STRIDE_INIT(4, 4, 4, 1344, 1344),
+  1, &conv2d_59_bias_array, &conv2d_59_bias_intq)
+
+/* Tensor #159 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_60_weights, AI_STATIC,
+  159, 0x1,
+  AI_SHAPE_INIT(4, 336, 3, 3, 1), AI_STRIDE_INIT(4, 1, 336, 1008, 3024),
+  1, &conv2d_60_weights_array, &conv2d_60_weights_intq)
+
+/* Tensor #160 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_60_bias, AI_STATIC,
+  160, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 1, 1), AI_STRIDE_INIT(4, 4, 4, 1344, 1344),
+  1, &conv2d_60_bias_array, &conv2d_60_bias_intq)
+
+/* Tensor #161 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_61_weights, AI_STATIC,
+  161, 0x1,
+  AI_SHAPE_INIT(4, 336, 1, 1, 56), AI_STRIDE_INIT(4, 1, 336, 336, 336),
+  1, &conv2d_61_weights_array, &conv2d_61_weights_intq)
+
+/* Tensor #162 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_61_bias, AI_STATIC,
+  162, 0x1,
+  AI_SHAPE_INIT(4, 1, 56, 1, 1), AI_STRIDE_INIT(4, 4, 4, 224, 224),
+  1, &conv2d_61_bias_array, &conv2d_61_bias_intq)
+
+/* Tensor #163 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_63_weights, AI_STATIC,
+  163, 0x1,
+  AI_SHAPE_INIT(4, 56, 1, 1, 336), AI_STRIDE_INIT(4, 1, 56, 56, 56),
+  1, &conv2d_63_weights_array, &conv2d_63_weights_intq)
+
+/* Tensor #164 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_63_bias, AI_STATIC,
+  164, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 1, 1), AI_STRIDE_INIT(4, 4, 4, 1344, 1344),
+  1, &conv2d_63_bias_array, &conv2d_63_bias_intq)
+
+/* Tensor #165 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_64_weights, AI_STATIC,
+  165, 0x1,
+  AI_SHAPE_INIT(4, 336, 3, 3, 1), AI_STRIDE_INIT(4, 1, 336, 1008, 3024),
+  1, &conv2d_64_weights_array, &conv2d_64_weights_intq)
+
+/* Tensor #166 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_64_bias, AI_STATIC,
+  166, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 1, 1), AI_STRIDE_INIT(4, 4, 4, 1344, 1344),
+  1, &conv2d_64_bias_array, &conv2d_64_bias_intq)
+
+/* Tensor #167 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_65_weights, AI_STATIC,
+  167, 0x1,
+  AI_SHAPE_INIT(4, 336, 1, 1, 112), AI_STRIDE_INIT(4, 1, 336, 336, 336),
+  1, &conv2d_65_weights_array, &conv2d_65_weights_intq)
+
+/* Tensor #168 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_65_bias, AI_STATIC,
+  168, 0x1,
+  AI_SHAPE_INIT(4, 1, 112, 1, 1), AI_STRIDE_INIT(4, 4, 4, 448, 448),
+  1, &conv2d_65_bias_array, &conv2d_65_bias_intq)
+
+/* Tensor #169 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_66_weights, AI_STATIC,
+  169, 0x1,
+  AI_SHAPE_INIT(4, 112, 1, 1, 1280), AI_STRIDE_INIT(4, 1, 112, 112, 112),
+  1, &conv2d_66_weights_array, &conv2d_66_weights_intq)
+
+/* Tensor #170 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_66_bias, AI_STATIC,
+  170, 0x1,
+  AI_SHAPE_INIT(4, 1, 1280, 1, 1), AI_STRIDE_INIT(4, 4, 4, 5120, 5120),
+  1, &conv2d_66_bias_array, &conv2d_66_bias_intq)
+
+/* Tensor #171 */
+AI_TENSOR_OBJ_DECLARE(
+  dense_68_weights, AI_STATIC,
+  171, 0x1,
+  AI_SHAPE_INIT(4, 1280, 1, 1, 1), AI_STRIDE_INIT(4, 1, 1280, 1280, 1280),
+  1, &dense_68_weights_array, &dense_68_weights_intq)
+
+/* Tensor #172 */
+AI_TENSOR_OBJ_DECLARE(
+  dense_68_bias, AI_STATIC,
+  172, 0x1,
+  AI_SHAPE_INIT(4, 1, 1, 1, 1), AI_STRIDE_INIT(4, 4, 4, 4, 4),
+  1, &dense_68_bias_array, &dense_68_bias_intq)
+
+/* Tensor #173 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_1_scratch0, AI_STATIC,
+  173, 0x0,
+  AI_SHAPE_INIT(4, 1, 1196, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1196, 1196),
+  1, &conv2d_1_scratch0_array, NULL)
+
+/* Tensor #174 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_1_scratch1, AI_STATIC,
+  174, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 64, 64), AI_STRIDE_INIT(4, 1, 1, 16, 1024),
+  1, &conv2d_1_scratch1_array, &conv2d_1_scratch1_intq)
+
+/* Tensor #175 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_2_scratch0, AI_STATIC,
+  175, 0x0,
+  AI_SHAPE_INIT(4, 1, 593, 1, 1), AI_STRIDE_INIT(4, 1, 1, 593, 593),
+  1, &conv2d_2_scratch0_array, NULL)
+
+/* Tensor #176 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_2_scratch1, AI_STATIC,
+  176, 0x1,
+  AI_SHAPE_INIT(4, 1, 16, 64, 64), AI_STRIDE_INIT(4, 1, 1, 16, 1024),
+  1, &conv2d_2_scratch1_array, &conv2d_2_scratch1_intq)
+
+/* Tensor #177 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_3_scratch0, AI_STATIC,
+  177, 0x0,
+  AI_SHAPE_INIT(4, 1, 144, 1, 1), AI_STRIDE_INIT(4, 1, 1, 144, 144),
+  1, &conv2d_3_scratch0_array, NULL)
+
+/* Tensor #178 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_4_scratch0, AI_STATIC,
+  178, 0x0,
+  AI_SHAPE_INIT(4, 1, 512, 1, 1), AI_STRIDE_INIT(4, 1, 1, 512, 512),
+  1, &conv2d_4_scratch0_array, NULL)
+
+/* Tensor #179 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_4_scratch1, AI_STATIC,
+  179, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 64, 64), AI_STRIDE_INIT(4, 1, 1, 48, 3072),
+  1, &conv2d_4_scratch1_array, &conv2d_4_scratch1_intq)
+
+/* Tensor #180 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_6_scratch0, AI_STATIC,
+  180, 0x0,
+  AI_SHAPE_INIT(4, 1, 1777, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1777, 1777),
+  1, &conv2d_6_scratch0_array, NULL)
+
+/* Tensor #181 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_6_scratch1, AI_STATIC,
+  181, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 32, 32), AI_STRIDE_INIT(4, 1, 1, 48, 1536),
+  1, &conv2d_6_scratch1_array, &conv2d_6_scratch1_intq)
+
+/* Tensor #182 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_7_scratch0, AI_STATIC,
+  182, 0x0,
+  AI_SHAPE_INIT(4, 1, 272, 1, 1), AI_STRIDE_INIT(4, 1, 1, 272, 272),
+  1, &conv2d_7_scratch0_array, NULL)
+
+/* Tensor #183 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_8_scratch0, AI_STATIC,
+  183, 0x0,
+  AI_SHAPE_INIT(4, 1, 512, 1, 1), AI_STRIDE_INIT(4, 1, 1, 512, 512),
+  1, &conv2d_8_scratch0_array, NULL)
+
+/* Tensor #184 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_8_scratch1, AI_STATIC,
+  184, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 32, 32), AI_STRIDE_INIT(4, 1, 1, 48, 1536),
+  1, &conv2d_8_scratch1_array, &conv2d_8_scratch1_intq)
+
+/* Tensor #185 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_9_scratch0, AI_STATIC,
+  185, 0x0,
+  AI_SHAPE_INIT(4, 1, 1777, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1777, 1777),
+  1, &conv2d_9_scratch0_array, NULL)
+
+/* Tensor #186 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_9_scratch1, AI_STATIC,
+  186, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 32, 32), AI_STRIDE_INIT(4, 1, 1, 48, 1536),
+  1, &conv2d_9_scratch1_array, &conv2d_9_scratch1_intq)
+
+/* Tensor #187 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_10_scratch0, AI_STATIC,
+  187, 0x0,
+  AI_SHAPE_INIT(4, 1, 272, 1, 1), AI_STRIDE_INIT(4, 1, 1, 272, 272),
+  1, &conv2d_10_scratch0_array, NULL)
+
+/* Tensor #188 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_12_scratch0, AI_STATIC,
+  188, 0x0,
+  AI_SHAPE_INIT(4, 1, 512, 1, 1), AI_STRIDE_INIT(4, 1, 1, 512, 512),
+  1, &conv2d_12_scratch0_array, NULL)
+
+/* Tensor #189 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_12_scratch1, AI_STATIC,
+  189, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 32, 32), AI_STRIDE_INIT(4, 1, 1, 48, 1536),
+  1, &conv2d_12_scratch1_array, &conv2d_12_scratch1_intq)
+
+/* Tensor #190 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_14_scratch0, AI_STATIC,
+  190, 0x0,
+  AI_SHAPE_INIT(4, 1, 1777, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1777, 1777),
+  1, &conv2d_14_scratch0_array, NULL)
+
+/* Tensor #191 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_14_scratch1, AI_STATIC,
+  191, 0x1,
+  AI_SHAPE_INIT(4, 1, 48, 16, 16), AI_STRIDE_INIT(4, 1, 1, 48, 768),
+  1, &conv2d_14_scratch1_array, &conv2d_14_scratch1_intq)
+
+/* Tensor #192 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_15_scratch0, AI_STATIC,
+  192, 0x0,
+  AI_SHAPE_INIT(4, 1, 352, 1, 1), AI_STRIDE_INIT(4, 1, 1, 352, 352),
+  1, &conv2d_15_scratch0_array, NULL)
+
+/* Tensor #193 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_16_scratch0, AI_STATIC,
+  193, 0x0,
+  AI_SHAPE_INIT(4, 1, 1024, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1024, 1024),
+  1, &conv2d_16_scratch0_array, NULL)
+
+/* Tensor #194 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_16_scratch1, AI_STATIC,
+  194, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 16, 16), AI_STRIDE_INIT(4, 1, 1, 96, 1536),
+  1, &conv2d_16_scratch1_array, &conv2d_16_scratch1_intq)
+
+/* Tensor #195 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_17_scratch0, AI_STATIC,
+  195, 0x0,
+  AI_SHAPE_INIT(4, 1, 3553, 1, 1), AI_STRIDE_INIT(4, 1, 1, 3553, 3553),
+  1, &conv2d_17_scratch0_array, NULL)
+
+/* Tensor #196 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_17_scratch1, AI_STATIC,
+  196, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 16, 16), AI_STRIDE_INIT(4, 1, 1, 96, 1536),
+  1, &conv2d_17_scratch1_array, &conv2d_17_scratch1_intq)
+
+/* Tensor #197 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_18_scratch0, AI_STATIC,
+  197, 0x0,
+  AI_SHAPE_INIT(4, 1, 544, 1, 1), AI_STRIDE_INIT(4, 1, 1, 544, 544),
+  1, &conv2d_18_scratch0_array, NULL)
+
+/* Tensor #198 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_20_scratch0, AI_STATIC,
+  198, 0x0,
+  AI_SHAPE_INIT(4, 1, 1024, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1024, 1024),
+  1, &conv2d_20_scratch0_array, NULL)
+
+/* Tensor #199 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_20_scratch1, AI_STATIC,
+  199, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 16, 16), AI_STRIDE_INIT(4, 1, 1, 96, 1536),
+  1, &conv2d_20_scratch1_array, &conv2d_20_scratch1_intq)
+
+/* Tensor #200 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_21_scratch0, AI_STATIC,
+  200, 0x0,
+  AI_SHAPE_INIT(4, 1, 3553, 1, 1), AI_STRIDE_INIT(4, 1, 1, 3553, 3553),
+  1, &conv2d_21_scratch0_array, NULL)
+
+/* Tensor #201 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_21_scratch1, AI_STATIC,
+  201, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 16, 16), AI_STRIDE_INIT(4, 1, 1, 96, 1536),
+  1, &conv2d_21_scratch1_array, &conv2d_21_scratch1_intq)
+
+/* Tensor #202 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_22_scratch0, AI_STATIC,
+  202, 0x0,
+  AI_SHAPE_INIT(4, 1, 544, 1, 1), AI_STRIDE_INIT(4, 1, 1, 544, 544),
+  1, &conv2d_22_scratch0_array, NULL)
+
+/* Tensor #203 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_24_scratch0, AI_STATIC,
+  203, 0x0,
+  AI_SHAPE_INIT(4, 1, 1024, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1024, 1024),
+  1, &conv2d_24_scratch0_array, NULL)
+
+/* Tensor #204 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_24_scratch1, AI_STATIC,
+  204, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 16, 16), AI_STRIDE_INIT(4, 1, 1, 96, 1536),
+  1, &conv2d_24_scratch1_array, &conv2d_24_scratch1_intq)
+
+/* Tensor #205 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_26_scratch0, AI_STATIC,
+  205, 0x0,
+  AI_SHAPE_INIT(4, 1, 3553, 1, 1), AI_STRIDE_INIT(4, 1, 1, 3553, 3553),
+  1, &conv2d_26_scratch0_array, NULL)
+
+/* Tensor #206 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_26_scratch1, AI_STATIC,
+  206, 0x1,
+  AI_SHAPE_INIT(4, 1, 96, 8, 8), AI_STRIDE_INIT(4, 1, 1, 96, 768),
+  1, &conv2d_26_scratch1_array, &conv2d_26_scratch1_intq)
+
+/* Tensor #207 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_27_scratch0, AI_STATIC,
+  207, 0x0,
+  AI_SHAPE_INIT(4, 1, 624, 1, 1), AI_STRIDE_INIT(4, 1, 1, 624, 624),
+  1, &conv2d_27_scratch0_array, NULL)
+
+/* Tensor #208 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_28_scratch0, AI_STATIC,
+  208, 0x0,
+  AI_SHAPE_INIT(4, 1, 1536, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1536, 1536),
+  1, &conv2d_28_scratch0_array, NULL)
+
+/* Tensor #209 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_28_scratch1, AI_STATIC,
+  209, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 8, 8), AI_STRIDE_INIT(4, 1, 1, 144, 1152),
+  1, &conv2d_28_scratch1_array, &conv2d_28_scratch1_intq)
+
+/* Tensor #210 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_29_scratch0, AI_STATIC,
+  210, 0x0,
+  AI_SHAPE_INIT(4, 1, 5329, 1, 1), AI_STRIDE_INIT(4, 1, 1, 5329, 5329),
+  1, &conv2d_29_scratch0_array, NULL)
+
+/* Tensor #211 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_29_scratch1, AI_STATIC,
+  211, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 8, 8), AI_STRIDE_INIT(4, 1, 1, 144, 1152),
+  1, &conv2d_29_scratch1_array, &conv2d_29_scratch1_intq)
+
+/* Tensor #212 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_30_scratch0, AI_STATIC,
+  212, 0x0,
+  AI_SHAPE_INIT(4, 1, 816, 1, 1), AI_STRIDE_INIT(4, 1, 1, 816, 816),
+  1, &conv2d_30_scratch0_array, NULL)
+
+/* Tensor #213 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_32_scratch0, AI_STATIC,
+  213, 0x0,
+  AI_SHAPE_INIT(4, 1, 1536, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1536, 1536),
+  1, &conv2d_32_scratch0_array, NULL)
+
+/* Tensor #214 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_32_scratch1, AI_STATIC,
+  214, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 8, 8), AI_STRIDE_INIT(4, 1, 1, 144, 1152),
+  1, &conv2d_32_scratch1_array, &conv2d_32_scratch1_intq)
+
+/* Tensor #215 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_33_scratch0, AI_STATIC,
+  215, 0x0,
+  AI_SHAPE_INIT(4, 1, 5329, 1, 1), AI_STRIDE_INIT(4, 1, 1, 5329, 5329),
+  1, &conv2d_33_scratch0_array, NULL)
+
+/* Tensor #216 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_33_scratch1, AI_STATIC,
+  216, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 8, 8), AI_STRIDE_INIT(4, 1, 1, 144, 1152),
+  1, &conv2d_33_scratch1_array, &conv2d_33_scratch1_intq)
+
+/* Tensor #217 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_34_scratch0, AI_STATIC,
+  217, 0x0,
+  AI_SHAPE_INIT(4, 1, 816, 1, 1), AI_STRIDE_INIT(4, 1, 1, 816, 816),
+  1, &conv2d_34_scratch0_array, NULL)
+
+/* Tensor #218 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_36_scratch0, AI_STATIC,
+  218, 0x0,
+  AI_SHAPE_INIT(4, 1, 1536, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1536, 1536),
+  1, &conv2d_36_scratch0_array, NULL)
+
+/* Tensor #219 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_36_scratch1, AI_STATIC,
+  219, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 8, 8), AI_STRIDE_INIT(4, 1, 1, 144, 1152),
+  1, &conv2d_36_scratch1_array, &conv2d_36_scratch1_intq)
+
+/* Tensor #220 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_37_scratch0, AI_STATIC,
+  220, 0x0,
+  AI_SHAPE_INIT(4, 1, 5329, 1, 1), AI_STRIDE_INIT(4, 1, 1, 5329, 5329),
+  1, &conv2d_37_scratch0_array, NULL)
+
+/* Tensor #221 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_37_scratch1, AI_STATIC,
+  221, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 8, 8), AI_STRIDE_INIT(4, 1, 1, 144, 1152),
+  1, &conv2d_37_scratch1_array, &conv2d_37_scratch1_intq)
+
+/* Tensor #222 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_38_scratch0, AI_STATIC,
+  222, 0x0,
+  AI_SHAPE_INIT(4, 1, 816, 1, 1), AI_STRIDE_INIT(4, 1, 1, 816, 816),
+  1, &conv2d_38_scratch0_array, NULL)
+
+/* Tensor #223 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_40_scratch0, AI_STATIC,
+  223, 0x0,
+  AI_SHAPE_INIT(4, 1, 1536, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1536, 1536),
+  1, &conv2d_40_scratch0_array, NULL)
+
+/* Tensor #224 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_40_scratch1, AI_STATIC,
+  224, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 8, 8), AI_STRIDE_INIT(4, 1, 1, 144, 1152),
+  1, &conv2d_40_scratch1_array, &conv2d_40_scratch1_intq)
+
+/* Tensor #225 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_41_scratch0, AI_STATIC,
+  225, 0x0,
+  AI_SHAPE_INIT(4, 1, 5329, 1, 1), AI_STRIDE_INIT(4, 1, 1, 5329, 5329),
+  1, &conv2d_41_scratch0_array, NULL)
+
+/* Tensor #226 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_41_scratch1, AI_STATIC,
+  226, 0x1,
+  AI_SHAPE_INIT(4, 1, 144, 8, 8), AI_STRIDE_INIT(4, 1, 1, 144, 1152),
+  1, &conv2d_41_scratch1_array, &conv2d_41_scratch1_intq)
+
+/* Tensor #227 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_42_scratch0, AI_STATIC,
+  227, 0x0,
+  AI_SHAPE_INIT(4, 1, 896, 1, 1), AI_STRIDE_INIT(4, 1, 1, 896, 896),
+  1, &conv2d_42_scratch0_array, NULL)
+
+/* Tensor #228 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_43_scratch0, AI_STATIC,
+  228, 0x0,
+  AI_SHAPE_INIT(4, 1, 2048, 1, 1), AI_STRIDE_INIT(4, 1, 1, 2048, 2048),
+  1, &conv2d_43_scratch0_array, NULL)
+
+/* Tensor #229 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_43_scratch1, AI_STATIC,
+  229, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 8, 8), AI_STRIDE_INIT(4, 1, 1, 192, 1536),
+  1, &conv2d_43_scratch1_array, &conv2d_43_scratch1_intq)
+
+/* Tensor #230 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_44_scratch0, AI_STATIC,
+  230, 0x0,
+  AI_SHAPE_INIT(4, 1, 7105, 1, 1), AI_STRIDE_INIT(4, 1, 1, 7105, 7105),
+  1, &conv2d_44_scratch0_array, NULL)
+
+/* Tensor #231 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_44_scratch1, AI_STATIC,
+  231, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 8, 8), AI_STRIDE_INIT(4, 1, 1, 192, 1536),
+  1, &conv2d_44_scratch1_array, &conv2d_44_scratch1_intq)
+
+/* Tensor #232 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_45_scratch0, AI_STATIC,
+  232, 0x0,
+  AI_SHAPE_INIT(4, 1, 1088, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1088, 1088),
+  1, &conv2d_45_scratch0_array, NULL)
+
+/* Tensor #233 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_47_scratch0, AI_STATIC,
+  233, 0x0,
+  AI_SHAPE_INIT(4, 1, 2048, 1, 1), AI_STRIDE_INIT(4, 1, 1, 2048, 2048),
+  1, &conv2d_47_scratch0_array, NULL)
+
+/* Tensor #234 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_47_scratch1, AI_STATIC,
+  234, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 8, 8), AI_STRIDE_INIT(4, 1, 1, 192, 1536),
+  1, &conv2d_47_scratch1_array, &conv2d_47_scratch1_intq)
+
+/* Tensor #235 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_48_scratch0, AI_STATIC,
+  235, 0x0,
+  AI_SHAPE_INIT(4, 1, 7105, 1, 1), AI_STRIDE_INIT(4, 1, 1, 7105, 7105),
+  1, &conv2d_48_scratch0_array, NULL)
+
+/* Tensor #236 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_48_scratch1, AI_STATIC,
+  236, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 8, 8), AI_STRIDE_INIT(4, 1, 1, 192, 1536),
+  1, &conv2d_48_scratch1_array, &conv2d_48_scratch1_intq)
+
+/* Tensor #237 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_49_scratch0, AI_STATIC,
+  237, 0x0,
+  AI_SHAPE_INIT(4, 1, 1088, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1088, 1088),
+  1, &conv2d_49_scratch0_array, NULL)
+
+/* Tensor #238 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_51_scratch0, AI_STATIC,
+  238, 0x0,
+  AI_SHAPE_INIT(4, 1, 2048, 1, 1), AI_STRIDE_INIT(4, 1, 1, 2048, 2048),
+  1, &conv2d_51_scratch0_array, NULL)
+
+/* Tensor #239 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_51_scratch1, AI_STATIC,
+  239, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 8, 8), AI_STRIDE_INIT(4, 1, 1, 192, 1536),
+  1, &conv2d_51_scratch1_array, &conv2d_51_scratch1_intq)
+
+/* Tensor #240 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_53_scratch0, AI_STATIC,
+  240, 0x0,
+  AI_SHAPE_INIT(4, 1, 7105, 1, 1), AI_STRIDE_INIT(4, 1, 1, 7105, 7105),
+  1, &conv2d_53_scratch0_array, NULL)
+
+/* Tensor #241 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_53_scratch1, AI_STATIC,
+  241, 0x1,
+  AI_SHAPE_INIT(4, 1, 192, 4, 4), AI_STRIDE_INIT(4, 1, 1, 192, 768),
+  1, &conv2d_53_scratch1_array, &conv2d_53_scratch1_intq)
+
+/* Tensor #242 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_54_scratch0, AI_STATIC,
+  242, 0x0,
+  AI_SHAPE_INIT(4, 1, 1328, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1328, 1328),
+  1, &conv2d_54_scratch0_array, NULL)
+
+/* Tensor #243 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_55_scratch0, AI_STATIC,
+  243, 0x0,
+  AI_SHAPE_INIT(4, 1, 3584, 1, 1), AI_STRIDE_INIT(4, 1, 1, 3584, 3584),
+  1, &conv2d_55_scratch0_array, NULL)
+
+/* Tensor #244 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_55_scratch1, AI_STATIC,
+  244, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 4, 4), AI_STRIDE_INIT(4, 1, 1, 336, 1344),
+  1, &conv2d_55_scratch1_array, &conv2d_55_scratch1_intq)
+
+/* Tensor #245 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_56_scratch0, AI_STATIC,
+  245, 0x0,
+  AI_SHAPE_INIT(4, 1, 12433, 1, 1), AI_STRIDE_INIT(4, 1, 1, 12433, 12433),
+  1, &conv2d_56_scratch0_array, NULL)
+
+/* Tensor #246 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_56_scratch1, AI_STATIC,
+  246, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 4, 4), AI_STRIDE_INIT(4, 1, 1, 336, 1344),
+  1, &conv2d_56_scratch1_array, &conv2d_56_scratch1_intq)
+
+/* Tensor #247 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_57_scratch0, AI_STATIC,
+  247, 0x0,
+  AI_SHAPE_INIT(4, 1, 1904, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1904, 1904),
+  1, &conv2d_57_scratch0_array, NULL)
+
+/* Tensor #248 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_59_scratch0, AI_STATIC,
+  248, 0x0,
+  AI_SHAPE_INIT(4, 1, 3584, 1, 1), AI_STRIDE_INIT(4, 1, 1, 3584, 3584),
+  1, &conv2d_59_scratch0_array, NULL)
+
+/* Tensor #249 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_59_scratch1, AI_STATIC,
+  249, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 4, 4), AI_STRIDE_INIT(4, 1, 1, 336, 1344),
+  1, &conv2d_59_scratch1_array, &conv2d_59_scratch1_intq)
+
+/* Tensor #250 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_60_scratch0, AI_STATIC,
+  250, 0x0,
+  AI_SHAPE_INIT(4, 1, 12433, 1, 1), AI_STRIDE_INIT(4, 1, 1, 12433, 12433),
+  1, &conv2d_60_scratch0_array, NULL)
+
+/* Tensor #251 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_60_scratch1, AI_STATIC,
+  251, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 4, 4), AI_STRIDE_INIT(4, 1, 1, 336, 1344),
+  1, &conv2d_60_scratch1_array, &conv2d_60_scratch1_intq)
+
+/* Tensor #252 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_61_scratch0, AI_STATIC,
+  252, 0x0,
+  AI_SHAPE_INIT(4, 1, 1904, 1, 1), AI_STRIDE_INIT(4, 1, 1, 1904, 1904),
+  1, &conv2d_61_scratch0_array, NULL)
+
+/* Tensor #253 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_63_scratch0, AI_STATIC,
+  253, 0x0,
+  AI_SHAPE_INIT(4, 1, 3584, 1, 1), AI_STRIDE_INIT(4, 1, 1, 3584, 3584),
+  1, &conv2d_63_scratch0_array, NULL)
+
+/* Tensor #254 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_63_scratch1, AI_STATIC,
+  254, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 4, 4), AI_STRIDE_INIT(4, 1, 1, 336, 1344),
+  1, &conv2d_63_scratch1_array, &conv2d_63_scratch1_intq)
+
+/* Tensor #255 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_64_scratch0, AI_STATIC,
+  255, 0x0,
+  AI_SHAPE_INIT(4, 1, 12433, 1, 1), AI_STRIDE_INIT(4, 1, 1, 12433, 12433),
+  1, &conv2d_64_scratch0_array, NULL)
+
+/* Tensor #256 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_64_scratch1, AI_STATIC,
+  256, 0x1,
+  AI_SHAPE_INIT(4, 1, 336, 4, 4), AI_STRIDE_INIT(4, 1, 1, 336, 1344),
+  1, &conv2d_64_scratch1_array, &conv2d_64_scratch1_intq)
+
+/* Tensor #257 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_65_scratch0, AI_STATIC,
+  257, 0x0,
+  AI_SHAPE_INIT(4, 1, 2464, 1, 1), AI_STRIDE_INIT(4, 1, 1, 2464, 2464),
+  1, &conv2d_65_scratch0_array, NULL)
+
+/* Tensor #258 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_66_scratch0, AI_STATIC,
+  258, 0x0,
+  AI_SHAPE_INIT(4, 1, 13248, 1, 1), AI_STRIDE_INIT(4, 1, 1, 13248, 13248),
+  1, &conv2d_66_scratch0_array, NULL)
+
+/* Tensor #259 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_66_scratch1, AI_STATIC,
+  259, 0x1,
+  AI_SHAPE_INIT(4, 1, 1280, 4, 4), AI_STRIDE_INIT(4, 1, 1, 1280, 5120),
+  1, &conv2d_66_scratch1_array, &conv2d_66_scratch1_intq)
+
+/* Tensor #260 */
+AI_TENSOR_OBJ_DECLARE(
+  conv2d_66_scratch2, AI_STATIC,
+  260, 0x1,
+  AI_SHAPE_INIT(4, 1, 1280, 4, 4), AI_STRIDE_INIT(4, 1, 1, 1280, 5120),
+  1, &conv2d_66_scratch2_array, &conv2d_66_scratch2_intq)
+
+
+
+/**  Layer declarations section  **********************************************/
+
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conversion_70_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &nl_69_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conversion_70_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conversion_70_layer, 70,
+  NL_TYPE, 0x0, NULL,
+  nl, node_convert,
+  &conversion_70_chain,
+  NULL, &conversion_70_layer, AI_STATIC, 
+)
+
+
+AI_STATIC_CONST ai_i8 nl_69_nl_params_data[] = { -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -128, -127, -127, -127, -127, -127, -127, -126, -126, -126, -125, -125, -124, -123, -122, -121, -120, -119, -117, -115, -113, -110, -107, -104, -100, -95, -90, -84, -77, -69, -61, -52, -43, -33, -22, -11, 0, 11, 22, 33, 43, 52, 61, 69, 77, 84, 90, 95, 100, 104, 107, 110, 113, 115, 117, 119, 120, 121, 122, 123, 124, 125, 125, 126, 126, 126, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127 };
+AI_ARRAY_OBJ_DECLARE(
+    nl_69_nl_params, AI_ARRAY_FORMAT_S8,
+    nl_69_nl_params_data, nl_69_nl_params_data, 256, AI_STATIC_CONST)
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  nl_69_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &dense_68_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &nl_69_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  nl_69_layer, 69,
+  NL_TYPE, 0x0, NULL,
+  nl, forward_nl_integer,
+  &nl_69_chain,
+  NULL, &conversion_70_layer, AI_STATIC, 
+  .nl_params = &nl_69_nl_params, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  dense_68_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_66_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &dense_68_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &dense_68_weights, &dense_68_bias),
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  dense_68_layer, 68,
+  DENSE_TYPE, 0x0, NULL,
+  dense, forward_dense_integer_SSSA,
+  &dense_68_chain,
+  NULL, &nl_69_layer, AI_STATIC, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_66_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_65_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_66_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_66_weights, &conv2d_66_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_66_scratch0, &conv2d_66_scratch1, &conv2d_66_scratch2)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_66_layer, 67,
+  OPTIMIZED_CONV2D_TYPE, 0x0, NULL,
+  conv2d_nl_pool, forward_conv2d_nl_pool_integer_SSSA_ch,
+  &conv2d_66_chain,
+  NULL, &dense_68_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .pool_size = AI_SHAPE_2D_INIT(4, 4), 
+  .pool_stride = AI_SHAPE_2D_INIT(4, 4), 
+  .pool_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+  .pool_func = pool_func_ap_array_integer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_65_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_64_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_65_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_65_weights, &conv2d_65_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_65_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_65_layer, 65,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_65_chain,
+  NULL, &conv2d_66_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_64_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_63_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_64_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_64_weights, &conv2d_64_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_64_scratch0, &conv2d_64_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_64_layer, 64,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_64_chain,
+  NULL, &conv2d_65_layer, AI_STATIC, 
+  .groups = 336, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 1, 1, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_63_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_62_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_63_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_63_weights, &conv2d_63_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_63_scratch0, &conv2d_63_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_63_layer, 63,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_63_chain,
+  NULL, &conv2d_64_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_62_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &eltwise_58_output, &conv2d_61_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_62_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_62_layer, 62,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_62_chain,
+  NULL, &conv2d_63_layer, AI_STATIC, 
+  .operation = ai_sum_f32, 
+  .buffer_operation = ai_sum_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_61_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_60_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_61_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_61_weights, &conv2d_61_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_61_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_61_layer, 61,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_61_chain,
+  NULL, &eltwise_62_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_60_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_59_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_60_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_60_weights, &conv2d_60_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_60_scratch0, &conv2d_60_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_60_layer, 60,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_60_chain,
+  NULL, &conv2d_61_layer, AI_STATIC, 
+  .groups = 336, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 1, 1, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_59_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_58_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_59_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_59_weights, &conv2d_59_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_59_scratch0, &conv2d_59_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_59_layer, 59,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_59_chain,
+  NULL, &conv2d_60_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_58_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_54_output, &conv2d_57_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_58_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_58_layer, 58,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_58_chain,
+  NULL, &conv2d_59_layer, AI_STATIC, 
+  .operation = ai_sum_f32, 
+  .buffer_operation = ai_sum_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_57_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_56_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_57_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_57_weights, &conv2d_57_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_57_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_57_layer, 57,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_57_chain,
+  NULL, &eltwise_58_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_56_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_55_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_56_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_56_weights, &conv2d_56_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_56_scratch0, &conv2d_56_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_56_layer, 56,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_56_chain,
+  NULL, &conv2d_57_layer, AI_STATIC, 
+  .groups = 336, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 1, 1, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_55_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_54_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_55_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_55_weights, &conv2d_55_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_55_scratch0, &conv2d_55_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_55_layer, 55,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_55_chain,
+  NULL, &conv2d_56_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_54_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_53_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_54_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_54_weights, &conv2d_54_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_54_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_54_layer, 54,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_54_chain,
+  NULL, &conv2d_55_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_53_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_51_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_53_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_53_weights, &conv2d_53_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_53_scratch0, &conv2d_53_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_53_layer, 53,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_53_chain,
+  NULL, &conv2d_54_layer, AI_STATIC, 
+  .groups = 192, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(2, 2), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_51_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_50_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_51_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_51_weights, &conv2d_51_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_51_scratch0, &conv2d_51_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_51_layer, 51,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_51_chain,
+  NULL, &conv2d_53_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_50_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &eltwise_46_output, &conv2d_49_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_50_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_50_layer, 50,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_50_chain,
+  NULL, &conv2d_51_layer, AI_STATIC, 
+  .operation = ai_sum_f32, 
+  .buffer_operation = ai_sum_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_49_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_48_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_49_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_49_weights, &conv2d_49_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_49_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_49_layer, 49,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_49_chain,
+  NULL, &eltwise_50_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_48_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_47_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_48_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_48_weights, &conv2d_48_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_48_scratch0, &conv2d_48_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_48_layer, 48,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_48_chain,
+  NULL, &conv2d_49_layer, AI_STATIC, 
+  .groups = 192, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 1, 1, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_47_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_46_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_47_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_47_weights, &conv2d_47_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_47_scratch0, &conv2d_47_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_47_layer, 47,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_47_chain,
+  NULL, &conv2d_48_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_46_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_42_output, &conv2d_45_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_46_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_46_layer, 46,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_46_chain,
+  NULL, &conv2d_47_layer, AI_STATIC, 
+  .operation = ai_sum_f32, 
+  .buffer_operation = ai_sum_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_45_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_44_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_45_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_45_weights, &conv2d_45_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_45_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_45_layer, 45,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_45_chain,
+  NULL, &eltwise_46_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_44_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_43_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_44_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_44_weights, &conv2d_44_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_44_scratch0, &conv2d_44_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_44_layer, 44,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_44_chain,
+  NULL, &conv2d_45_layer, AI_STATIC, 
+  .groups = 192, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 1, 1, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_43_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_42_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_43_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_43_weights, &conv2d_43_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_43_scratch0, &conv2d_43_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_43_layer, 43,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_43_chain,
+  NULL, &conv2d_44_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_42_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_41_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_42_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_42_weights, &conv2d_42_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_42_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_42_layer, 42,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_42_chain,
+  NULL, &conv2d_43_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_41_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_40_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_41_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_41_weights, &conv2d_41_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_41_scratch0, &conv2d_41_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_41_layer, 41,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_41_chain,
+  NULL, &conv2d_42_layer, AI_STATIC, 
+  .groups = 144, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 1, 1, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_40_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_39_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_40_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_40_weights, &conv2d_40_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_40_scratch0, &conv2d_40_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_40_layer, 40,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_40_chain,
+  NULL, &conv2d_41_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_39_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &eltwise_35_output, &conv2d_38_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_39_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_39_layer, 39,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_39_chain,
+  NULL, &conv2d_40_layer, AI_STATIC, 
+  .operation = ai_sum_f32, 
+  .buffer_operation = ai_sum_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_38_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_37_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_38_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_38_weights, &conv2d_38_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_38_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_38_layer, 38,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_38_chain,
+  NULL, &eltwise_39_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_37_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_36_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_37_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_37_weights, &conv2d_37_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_37_scratch0, &conv2d_37_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_37_layer, 37,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_37_chain,
+  NULL, &conv2d_38_layer, AI_STATIC, 
+  .groups = 144, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 1, 1, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_36_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_35_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_36_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_36_weights, &conv2d_36_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_36_scratch0, &conv2d_36_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_36_layer, 36,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_36_chain,
+  NULL, &conv2d_37_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_35_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &eltwise_31_output, &conv2d_34_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_35_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_35_layer, 35,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_35_chain,
+  NULL, &conv2d_36_layer, AI_STATIC, 
+  .operation = ai_sum_f32, 
+  .buffer_operation = ai_sum_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_34_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_33_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_34_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_34_weights, &conv2d_34_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_34_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_34_layer, 34,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_34_chain,
+  NULL, &eltwise_35_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_33_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_32_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_33_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_33_weights, &conv2d_33_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_33_scratch0, &conv2d_33_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_33_layer, 33,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_33_chain,
+  NULL, &conv2d_34_layer, AI_STATIC, 
+  .groups = 144, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 1, 1, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_32_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_31_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_32_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_32_weights, &conv2d_32_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_32_scratch0, &conv2d_32_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_32_layer, 32,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_32_chain,
+  NULL, &conv2d_33_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_31_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_27_output, &conv2d_30_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_31_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_31_layer, 31,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_31_chain,
+  NULL, &conv2d_32_layer, AI_STATIC, 
+  .operation = ai_sum_f32, 
+  .buffer_operation = ai_sum_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_30_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_29_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_30_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_30_weights, &conv2d_30_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_30_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_30_layer, 30,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_30_chain,
+  NULL, &eltwise_31_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_29_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_28_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_29_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_29_weights, &conv2d_29_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_29_scratch0, &conv2d_29_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_29_layer, 29,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_29_chain,
+  NULL, &conv2d_30_layer, AI_STATIC, 
+  .groups = 144, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 1, 1, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_28_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_27_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_28_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_28_weights, &conv2d_28_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_28_scratch0, &conv2d_28_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_28_layer, 28,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_28_chain,
+  NULL, &conv2d_29_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_27_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_26_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_27_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_27_weights, &conv2d_27_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_27_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_27_layer, 27,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_27_chain,
+  NULL, &conv2d_28_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_26_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_24_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_26_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_26_weights, &conv2d_26_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_26_scratch0, &conv2d_26_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_26_layer, 26,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_26_chain,
+  NULL, &conv2d_27_layer, AI_STATIC, 
+  .groups = 96, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(2, 2), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_24_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_23_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_24_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_24_weights, &conv2d_24_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_24_scratch0, &conv2d_24_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_24_layer, 24,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_24_chain,
+  NULL, &conv2d_26_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_23_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &eltwise_19_output, &conv2d_22_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_23_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_23_layer, 23,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_23_chain,
+  NULL, &conv2d_24_layer, AI_STATIC, 
+  .operation = ai_sum_f32, 
+  .buffer_operation = ai_sum_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_22_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_21_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_22_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_22_weights, &conv2d_22_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_22_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_22_layer, 22,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_22_chain,
+  NULL, &eltwise_23_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_21_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_20_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_21_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_21_weights, &conv2d_21_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_21_scratch0, &conv2d_21_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_21_layer, 21,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_21_chain,
+  NULL, &conv2d_22_layer, AI_STATIC, 
+  .groups = 96, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 1, 1, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_20_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_19_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_20_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_20_weights, &conv2d_20_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_20_scratch0, &conv2d_20_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_20_layer, 20,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_20_chain,
+  NULL, &conv2d_21_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_19_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_15_output, &conv2d_18_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_19_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_19_layer, 19,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_19_chain,
+  NULL, &conv2d_20_layer, AI_STATIC, 
+  .operation = ai_sum_f32, 
+  .buffer_operation = ai_sum_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_18_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_17_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_18_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_18_weights, &conv2d_18_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_18_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_18_layer, 18,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_18_chain,
+  NULL, &eltwise_19_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_17_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_16_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_17_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_17_weights, &conv2d_17_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_17_scratch0, &conv2d_17_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_17_layer, 17,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_17_chain,
+  NULL, &conv2d_18_layer, AI_STATIC, 
+  .groups = 96, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 1, 1, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_16_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_15_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_16_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_16_weights, &conv2d_16_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_16_scratch0, &conv2d_16_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_16_layer, 16,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_16_chain,
+  NULL, &conv2d_17_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_15_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_14_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_15_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_15_weights, &conv2d_15_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_15_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_15_layer, 15,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_15_chain,
+  NULL, &conv2d_16_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_14_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_12_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_14_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_14_weights, &conv2d_14_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_14_scratch0, &conv2d_14_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_14_layer, 14,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_14_chain,
+  NULL, &conv2d_15_layer, AI_STATIC, 
+  .groups = 48, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(2, 2), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_12_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_11_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_12_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_12_weights, &conv2d_12_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_12_scratch0, &conv2d_12_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_12_layer, 12,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_12_chain,
+  NULL, &conv2d_14_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  eltwise_11_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_7_output, &conv2d_10_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &eltwise_11_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  eltwise_11_layer, 11,
+  ELTWISE_INTEGER_TYPE, 0x0, NULL,
+  eltwise_integer, forward_eltwise_integer_INT8,
+  &eltwise_11_chain,
+  NULL, &conv2d_12_layer, AI_STATIC, 
+  .operation = ai_sum_f32, 
+  .buffer_operation = ai_sum_buffer_INT8, 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_10_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_9_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_10_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_10_weights, &conv2d_10_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_10_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_10_layer, 10,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_10_chain,
+  NULL, &eltwise_11_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_9_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_8_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_9_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_9_weights, &conv2d_9_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_9_scratch0, &conv2d_9_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_9_layer, 9,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_9_chain,
+  NULL, &conv2d_10_layer, AI_STATIC, 
+  .groups = 48, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 1, 1, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_8_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_7_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_8_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_8_weights, &conv2d_8_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_8_scratch0, &conv2d_8_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_8_layer, 8,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_8_chain,
+  NULL, &conv2d_9_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_7_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_6_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_7_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_7_weights, &conv2d_7_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_7_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_7_layer, 7,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_7_chain,
+  NULL, &conv2d_8_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_6_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_4_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_6_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_6_weights, &conv2d_6_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_6_scratch0, &conv2d_6_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_6_layer, 6,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_6_chain,
+  NULL, &conv2d_7_layer, AI_STATIC, 
+  .groups = 48, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(2, 2), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_4_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_3_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_4_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_4_weights, &conv2d_4_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_4_scratch0, &conv2d_4_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_4_layer, 4,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_4_chain,
+  NULL, &conv2d_6_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_3_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_2_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_3_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_3_weights, &conv2d_3_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_3_scratch0)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_3_layer, 3,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_3_chain,
+  NULL, &conv2d_4_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 0, 0), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_2_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_1_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_2_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_2_weights, &conv2d_2_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_2_scratch0, &conv2d_2_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_2_layer, 2,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_2_chain,
+  NULL, &conv2d_3_layer, AI_STATIC, 
+  .groups = 16, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(1, 1), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 1, 1, 1, 1), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conv2d_1_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conversion_0_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conv2d_1_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 3, &conv2d_1_weights, &conv2d_1_bias, NULL),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 2, &conv2d_1_scratch0, &conv2d_1_scratch1)
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conv2d_1_layer, 1,
+  CONV2D_TYPE, 0x0, NULL,
+  conv2d, forward_conv2d_integer_SSSA_ch,
+  &conv2d_1_chain,
+  NULL, &conv2d_2_layer, AI_STATIC, 
+  .groups = 1, 
+  .nl_params = NULL, 
+  .nl_func = NULL, 
+  .filter_stride = AI_SHAPE_2D_INIT(2, 2), 
+  .dilation = AI_SHAPE_2D_INIT(1, 1), 
+  .filter_pad = AI_SHAPE_INIT(4, 0, 0, 2, 2), 
+)
+
+AI_TENSOR_CHAIN_OBJ_DECLARE(
+  conversion_0_chain, AI_STATIC_CONST, 4,
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &serving_default_input_10_output),
+  AI_TENSOR_LIST_OBJ_INIT(AI_FLAG_NONE, 1, &conversion_0_output),
+  AI_TENSOR_LIST_OBJ_EMPTY,
+  AI_TENSOR_LIST_OBJ_EMPTY
+)
+
+AI_LAYER_OBJ_DECLARE(
+  conversion_0_layer, 0,
+  NL_TYPE, 0x0, NULL,
+  nl, node_convert_integer,
+  &conversion_0_chain,
+  NULL, &conv2d_1_layer, AI_STATIC, 
+)
+
+
+AI_NETWORK_OBJ_DECLARE(
+  AI_NET_OBJ_INSTANCE, AI_STATIC,
+  AI_BUFFER_OBJ_INIT(AI_BUFFER_FORMAT_U8,
+                     1, 1, 411492, 1,
+                     NULL),
+  AI_BUFFER_OBJ_INIT(AI_BUFFER_FORMAT_U8,
+                     1, 1, 201824, 1,
+                     NULL),
+  AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_IN_NUM, &serving_default_input_10_output),
+  AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_OUT_NUM, &conversion_70_output),
+  &conversion_0_layer, 0, NULL)
+
+
+
+AI_DECLARE_STATIC
+ai_bool network_configure_activations(
+  ai_network* net_ctx, const ai_network_params* params)
+{
+  AI_ASSERT(net_ctx)
+  AI_UNUSED(net_ctx)
+
+  ai_ptr activations_map[1] = AI_C_ARRAY_INIT;
+
+  if (ai_platform_get_activations_map(activations_map, 1, params)) {
+    /* Updating activations (byte) offsets */
+    serving_default_input_10_output_array.data = AI_PTR(NULL);
+    serving_default_input_10_output_array.data_start = AI_PTR(NULL);
+    conversion_0_output_array.data = AI_PTR(activations_map[0] + 122368);
+    conversion_0_output_array.data_start = AI_PTR(activations_map[0] + 122368);
+    conv2d_1_output_array.data = AI_PTR(activations_map[0] + 104944);
+    conv2d_1_output_array.data_start = AI_PTR(activations_map[0] + 104944);
+    conv2d_2_output_array.data = AI_PTR(activations_map[0] + 102864);
+    conv2d_2_output_array.data_start = AI_PTR(activations_map[0] + 102864);
+    conv2d_3_output_array.data = AI_PTR(activations_map[0] + 168544);
+    conv2d_3_output_array.data_start = AI_PTR(activations_map[0] + 168544);
+    conv2d_4_output_array.data = AI_PTR(activations_map[0] + 1584);
+    conv2d_4_output_array.data_start = AI_PTR(activations_map[0] + 1584);
+    conv2d_6_output_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_6_output_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_7_output_array.data = AI_PTR(activations_map[0] + 49424);
+    conv2d_7_output_array.data_start = AI_PTR(activations_map[0] + 49424);
+    conv2d_8_output_array.data = AI_PTR(activations_map[0] + 106768);
+    conv2d_8_output_array.data_start = AI_PTR(activations_map[0] + 106768);
+    conv2d_9_output_array.data = AI_PTR(activations_map[0] + 57616);
+    conv2d_9_output_array.data_start = AI_PTR(activations_map[0] + 57616);
+    conv2d_10_output_array.data = AI_PTR(activations_map[0] + 272);
+    conv2d_10_output_array.data_start = AI_PTR(activations_map[0] + 272);
+    eltwise_11_output_array.data = AI_PTR(activations_map[0] + 8464);
+    eltwise_11_output_array.data_start = AI_PTR(activations_map[0] + 8464);
+    conv2d_12_output_array.data = AI_PTR(activations_map[0] + 65808);
+    conv2d_12_output_array.data_start = AI_PTR(activations_map[0] + 65808);
+    conv2d_14_output_array.data = AI_PTR(activations_map[0] + 14068);
+    conv2d_14_output_array.data_start = AI_PTR(activations_map[0] + 14068);
+    conv2d_15_output_array.data = AI_PTR(activations_map[0] + 352);
+    conv2d_15_output_array.data_start = AI_PTR(activations_map[0] + 352);
+    conv2d_16_output_array.data = AI_PTR(activations_map[0] + 30048);
+    conv2d_16_output_array.data_start = AI_PTR(activations_map[0] + 30048);
+    conv2d_17_output_array.data = AI_PTR(activations_map[0] + 79200);
+    conv2d_17_output_array.data_start = AI_PTR(activations_map[0] + 79200);
+    conv2d_18_output_array.data = AI_PTR(activations_map[0] + 4992);
+    conv2d_18_output_array.data_start = AI_PTR(activations_map[0] + 4992);
+    eltwise_19_output_array.data = AI_PTR(activations_map[0] + 9088);
+    eltwise_19_output_array.data_start = AI_PTR(activations_map[0] + 9088);
+    conv2d_20_output_array.data = AI_PTR(activations_map[0] + 37760);
+    conv2d_20_output_array.data_start = AI_PTR(activations_map[0] + 37760);
+    conv2d_21_output_array.data = AI_PTR(activations_map[0] + 62336);
+    conv2d_21_output_array.data_start = AI_PTR(activations_map[0] + 62336);
+    conv2d_22_output_array.data = AI_PTR(activations_map[0] + 544);
+    conv2d_22_output_array.data_start = AI_PTR(activations_map[0] + 544);
+    eltwise_23_output_array.data = AI_PTR(activations_map[0] + 4640);
+    eltwise_23_output_array.data_start = AI_PTR(activations_map[0] + 4640);
+    conv2d_24_output_array.data = AI_PTR(activations_map[0] + 33312);
+    conv2d_24_output_array.data_start = AI_PTR(activations_map[0] + 33312);
+    conv2d_26_output_array.data = AI_PTR(activations_map[0] + 9700);
+    conv2d_26_output_array.data_start = AI_PTR(activations_map[0] + 9700);
+    conv2d_27_output_array.data = AI_PTR(activations_map[0] + 624);
+    conv2d_27_output_array.data_start = AI_PTR(activations_map[0] + 624);
+    conv2d_28_output_array.data = AI_PTR(activations_map[0] + 12912);
+    conv2d_28_output_array.data_start = AI_PTR(activations_map[0] + 12912);
+    conv2d_29_output_array.data = AI_PTR(activations_map[0] + 31344);
+    conv2d_29_output_array.data_start = AI_PTR(activations_map[0] + 31344);
+    conv2d_30_output_array.data = AI_PTR(activations_map[0] + 2976);
+    conv2d_30_output_array.data_start = AI_PTR(activations_map[0] + 2976);
+    eltwise_31_output_array.data = AI_PTR(activations_map[0] + 4512);
+    eltwise_31_output_array.data_start = AI_PTR(activations_map[0] + 4512);
+    conv2d_32_output_array.data = AI_PTR(activations_map[0] + 15264);
+    conv2d_32_output_array.data_start = AI_PTR(activations_map[0] + 15264);
+    conv2d_33_output_array.data = AI_PTR(activations_map[0] + 33696);
+    conv2d_33_output_array.data_start = AI_PTR(activations_map[0] + 33696);
+    conv2d_34_output_array.data = AI_PTR(activations_map[0] + 816);
+    conv2d_34_output_array.data_start = AI_PTR(activations_map[0] + 816);
+    eltwise_35_output_array.data = AI_PTR(activations_map[0] + 2352);
+    eltwise_35_output_array.data_start = AI_PTR(activations_map[0] + 2352);
+    conv2d_36_output_array.data = AI_PTR(activations_map[0] + 13104);
+    conv2d_36_output_array.data_start = AI_PTR(activations_map[0] + 13104);
+    conv2d_37_output_array.data = AI_PTR(activations_map[0] + 31536);
+    conv2d_37_output_array.data_start = AI_PTR(activations_map[0] + 31536);
+    conv2d_38_output_array.data = AI_PTR(activations_map[0] + 816);
+    conv2d_38_output_array.data_start = AI_PTR(activations_map[0] + 816);
+    eltwise_39_output_array.data = AI_PTR(activations_map[0] + 3888);
+    eltwise_39_output_array.data_start = AI_PTR(activations_map[0] + 3888);
+    conv2d_40_output_array.data = AI_PTR(activations_map[0] + 14640);
+    conv2d_40_output_array.data_start = AI_PTR(activations_map[0] + 14640);
+    conv2d_41_output_array.data = AI_PTR(activations_map[0] + 23856);
+    conv2d_41_output_array.data_start = AI_PTR(activations_map[0] + 23856);
+    conv2d_42_output_array.data = AI_PTR(activations_map[0] + 896);
+    conv2d_42_output_array.data_start = AI_PTR(activations_map[0] + 896);
+    conv2d_43_output_array.data = AI_PTR(activations_map[0] + 17280);
+    conv2d_43_output_array.data_start = AI_PTR(activations_map[0] + 17280);
+    conv2d_44_output_array.data = AI_PTR(activations_map[0] + 41856);
+    conv2d_44_output_array.data_start = AI_PTR(activations_map[0] + 41856);
+    conv2d_45_output_array.data = AI_PTR(activations_map[0] + 4032);
+    conv2d_45_output_array.data_start = AI_PTR(activations_map[0] + 4032);
+    eltwise_46_output_array.data = AI_PTR(activations_map[0] + 6080);
+    eltwise_46_output_array.data_start = AI_PTR(activations_map[0] + 6080);
+    conv2d_47_output_array.data = AI_PTR(activations_map[0] + 20416);
+    conv2d_47_output_array.data_start = AI_PTR(activations_map[0] + 20416);
+    conv2d_48_output_array.data = AI_PTR(activations_map[0] + 44992);
+    conv2d_48_output_array.data_start = AI_PTR(activations_map[0] + 44992);
+    conv2d_49_output_array.data = AI_PTR(activations_map[0] + 1088);
+    conv2d_49_output_array.data_start = AI_PTR(activations_map[0] + 1088);
+    eltwise_50_output_array.data = AI_PTR(activations_map[0] + 3136);
+    eltwise_50_output_array.data_start = AI_PTR(activations_map[0] + 3136);
+    conv2d_51_output_array.data = AI_PTR(activations_map[0] + 17472);
+    conv2d_51_output_array.data_start = AI_PTR(activations_map[0] + 17472);
+    conv2d_53_output_array.data = AI_PTR(activations_map[0] + 10180);
+    conv2d_53_output_array.data_start = AI_PTR(activations_map[0] + 10180);
+    conv2d_54_output_array.data = AI_PTR(activations_map[0] + 1328);
+    conv2d_54_output_array.data_start = AI_PTR(activations_map[0] + 1328);
+    conv2d_55_output_array.data = AI_PTR(activations_map[0] + 11184);
+    conv2d_55_output_array.data_start = AI_PTR(activations_map[0] + 11184);
+    conv2d_56_output_array.data = AI_PTR(activations_map[0] + 28996);
+    conv2d_56_output_array.data_start = AI_PTR(activations_map[0] + 28996);
+    conv2d_57_output_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_57_output_array.data_start = AI_PTR(activations_map[0] + 0);
+    eltwise_58_output_array.data = AI_PTR(activations_map[0] + 2224);
+    eltwise_58_output_array.data_start = AI_PTR(activations_map[0] + 2224);
+    conv2d_59_output_array.data = AI_PTR(activations_map[0] + 12080);
+    conv2d_59_output_array.data_start = AI_PTR(activations_map[0] + 12080);
+    conv2d_60_output_array.data = AI_PTR(activations_map[0] + 29892);
+    conv2d_60_output_array.data_start = AI_PTR(activations_map[0] + 29892);
+    conv2d_61_output_array.data = AI_PTR(activations_map[0] + 3120);
+    conv2d_61_output_array.data_start = AI_PTR(activations_map[0] + 3120);
+    eltwise_62_output_array.data = AI_PTR(activations_map[0] + 0);
+    eltwise_62_output_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_63_output_array.data = AI_PTR(activations_map[0] + 9856);
+    conv2d_63_output_array.data_start = AI_PTR(activations_map[0] + 9856);
+    conv2d_64_output_array.data = AI_PTR(activations_map[0] + 27668);
+    conv2d_64_output_array.data_start = AI_PTR(activations_map[0] + 27668);
+    conv2d_65_output_array.data = AI_PTR(activations_map[0] + 2464);
+    conv2d_65_output_array.data_start = AI_PTR(activations_map[0] + 2464);
+    conv2d_66_output_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_66_output_array.data_start = AI_PTR(activations_map[0] + 0);
+    dense_68_output_array.data = AI_PTR(activations_map[0] + 1280);
+    dense_68_output_array.data_start = AI_PTR(activations_map[0] + 1280);
+    nl_69_output_array.data = AI_PTR(activations_map[0] + 0);
+    nl_69_output_array.data_start = AI_PTR(activations_map[0] + 0);
+    conversion_70_output_array.data = AI_PTR(NULL);
+    conversion_70_output_array.data_start = AI_PTR(NULL);
+    conv2d_1_scratch0_array.data = AI_PTR(activations_map[0] + 171520);
+    conv2d_1_scratch0_array.data_start = AI_PTR(activations_map[0] + 171520);
+    conv2d_1_scratch1_array.data = AI_PTR(activations_map[0] + 104944);
+    conv2d_1_scratch1_array.data_start = AI_PTR(activations_map[0] + 104944);
+    conv2d_2_scratch0_array.data = AI_PTR(activations_map[0] + 172120);
+    conv2d_2_scratch0_array.data_start = AI_PTR(activations_map[0] + 172120);
+    conv2d_2_scratch1_array.data = AI_PTR(activations_map[0] + 102864);
+    conv2d_2_scratch1_array.data_start = AI_PTR(activations_map[0] + 102864);
+    conv2d_3_scratch0_array.data = AI_PTR(activations_map[0] + 168400);
+    conv2d_3_scratch0_array.data_start = AI_PTR(activations_map[0] + 168400);
+    conv2d_4_scratch0_array.data = AI_PTR(activations_map[0] + 201312);
+    conv2d_4_scratch0_array.data_start = AI_PTR(activations_map[0] + 201312);
+    conv2d_4_scratch1_array.data = AI_PTR(activations_map[0] + 1584);
+    conv2d_4_scratch1_array.data_start = AI_PTR(activations_map[0] + 1584);
+    conv2d_6_scratch0_array.data = AI_PTR(activations_map[0] + 200044);
+    conv2d_6_scratch0_array.data_start = AI_PTR(activations_map[0] + 200044);
+    conv2d_6_scratch1_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_6_scratch1_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_7_scratch0_array.data = AI_PTR(activations_map[0] + 49152);
+    conv2d_7_scratch0_array.data_start = AI_PTR(activations_map[0] + 49152);
+    conv2d_8_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_8_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_8_scratch1_array.data = AI_PTR(activations_map[0] + 57616);
+    conv2d_8_scratch1_array.data_start = AI_PTR(activations_map[0] + 57616);
+    conv2d_9_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_9_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_9_scratch1_array.data = AI_PTR(activations_map[0] + 57616);
+    conv2d_9_scratch1_array.data_start = AI_PTR(activations_map[0] + 57616);
+    conv2d_10_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_10_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_12_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_12_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_12_scratch1_array.data = AI_PTR(activations_map[0] + 16656);
+    conv2d_12_scratch1_array.data_start = AI_PTR(activations_map[0] + 16656);
+    conv2d_14_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_14_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_14_scratch1_array.data = AI_PTR(activations_map[0] + 1780);
+    conv2d_14_scratch1_array.data_start = AI_PTR(activations_map[0] + 1780);
+    conv2d_15_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_15_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_16_scratch0_array.data = AI_PTR(activations_map[0] + 4448);
+    conv2d_16_scratch0_array.data_start = AI_PTR(activations_map[0] + 4448);
+    conv2d_16_scratch1_array.data = AI_PTR(activations_map[0] + 5472);
+    conv2d_16_scratch1_array.data_start = AI_PTR(activations_map[0] + 5472);
+    conv2d_17_scratch0_array.data = AI_PTR(activations_map[0] + 4448);
+    conv2d_17_scratch0_array.data_start = AI_PTR(activations_map[0] + 4448);
+    conv2d_17_scratch1_array.data = AI_PTR(activations_map[0] + 54624);
+    conv2d_17_scratch1_array.data_start = AI_PTR(activations_map[0] + 54624);
+    conv2d_18_scratch0_array.data = AI_PTR(activations_map[0] + 4448);
+    conv2d_18_scratch0_array.data_start = AI_PTR(activations_map[0] + 4448);
+    conv2d_20_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_20_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_20_scratch1_array.data = AI_PTR(activations_map[0] + 13184);
+    conv2d_20_scratch1_array.data_start = AI_PTR(activations_map[0] + 13184);
+    conv2d_21_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_21_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_21_scratch1_array.data = AI_PTR(activations_map[0] + 13184);
+    conv2d_21_scratch1_array.data_start = AI_PTR(activations_map[0] + 13184);
+    conv2d_22_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_22_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_24_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_24_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_24_scratch1_array.data = AI_PTR(activations_map[0] + 8736);
+    conv2d_24_scratch1_array.data_start = AI_PTR(activations_map[0] + 8736);
+    conv2d_26_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_26_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_26_scratch1_array.data = AI_PTR(activations_map[0] + 3556);
+    conv2d_26_scratch1_array.data_start = AI_PTR(activations_map[0] + 3556);
+    conv2d_27_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_27_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_28_scratch0_array.data = AI_PTR(activations_map[0] + 2160);
+    conv2d_28_scratch0_array.data_start = AI_PTR(activations_map[0] + 2160);
+    conv2d_28_scratch1_array.data = AI_PTR(activations_map[0] + 3696);
+    conv2d_28_scratch1_array.data_start = AI_PTR(activations_map[0] + 3696);
+    conv2d_29_scratch0_array.data = AI_PTR(activations_map[0] + 2160);
+    conv2d_29_scratch0_array.data_start = AI_PTR(activations_map[0] + 2160);
+    conv2d_29_scratch1_array.data = AI_PTR(activations_map[0] + 22128);
+    conv2d_29_scratch1_array.data_start = AI_PTR(activations_map[0] + 22128);
+    conv2d_30_scratch0_array.data = AI_PTR(activations_map[0] + 2160);
+    conv2d_30_scratch0_array.data_start = AI_PTR(activations_map[0] + 2160);
+    conv2d_32_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_32_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_32_scratch1_array.data = AI_PTR(activations_map[0] + 6048);
+    conv2d_32_scratch1_array.data_start = AI_PTR(activations_map[0] + 6048);
+    conv2d_33_scratch0_array.data = AI_PTR(activations_map[0] + 6048);
+    conv2d_33_scratch0_array.data_start = AI_PTR(activations_map[0] + 6048);
+    conv2d_33_scratch1_array.data = AI_PTR(activations_map[0] + 24480);
+    conv2d_33_scratch1_array.data_start = AI_PTR(activations_map[0] + 24480);
+    conv2d_34_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_34_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_36_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_36_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_36_scratch1_array.data = AI_PTR(activations_map[0] + 3888);
+    conv2d_36_scratch1_array.data_start = AI_PTR(activations_map[0] + 3888);
+    conv2d_37_scratch0_array.data = AI_PTR(activations_map[0] + 3888);
+    conv2d_37_scratch0_array.data_start = AI_PTR(activations_map[0] + 3888);
+    conv2d_37_scratch1_array.data = AI_PTR(activations_map[0] + 22320);
+    conv2d_37_scratch1_array.data_start = AI_PTR(activations_map[0] + 22320);
+    conv2d_38_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_38_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_40_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_40_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_40_scratch1_array.data = AI_PTR(activations_map[0] + 5424);
+    conv2d_40_scratch1_array.data_start = AI_PTR(activations_map[0] + 5424);
+    conv2d_41_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_41_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_41_scratch1_array.data = AI_PTR(activations_map[0] + 5332);
+    conv2d_41_scratch1_array.data_start = AI_PTR(activations_map[0] + 5332);
+    conv2d_42_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_42_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_43_scratch0_array.data = AI_PTR(activations_map[0] + 2944);
+    conv2d_43_scratch0_array.data_start = AI_PTR(activations_map[0] + 2944);
+    conv2d_43_scratch1_array.data = AI_PTR(activations_map[0] + 4992);
+    conv2d_43_scratch1_array.data_start = AI_PTR(activations_map[0] + 4992);
+    conv2d_44_scratch0_array.data = AI_PTR(activations_map[0] + 2944);
+    conv2d_44_scratch0_array.data_start = AI_PTR(activations_map[0] + 2944);
+    conv2d_44_scratch1_array.data = AI_PTR(activations_map[0] + 29568);
+    conv2d_44_scratch1_array.data_start = AI_PTR(activations_map[0] + 29568);
+    conv2d_45_scratch0_array.data = AI_PTR(activations_map[0] + 2944);
+    conv2d_45_scratch0_array.data_start = AI_PTR(activations_map[0] + 2944);
+    conv2d_47_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_47_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_47_scratch1_array.data = AI_PTR(activations_map[0] + 8128);
+    conv2d_47_scratch1_array.data_start = AI_PTR(activations_map[0] + 8128);
+    conv2d_48_scratch0_array.data = AI_PTR(activations_map[0] + 8128);
+    conv2d_48_scratch0_array.data_start = AI_PTR(activations_map[0] + 8128);
+    conv2d_48_scratch1_array.data = AI_PTR(activations_map[0] + 32704);
+    conv2d_48_scratch1_array.data_start = AI_PTR(activations_map[0] + 32704);
+    conv2d_49_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_49_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_51_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_51_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_51_scratch1_array.data = AI_PTR(activations_map[0] + 5184);
+    conv2d_51_scratch1_array.data_start = AI_PTR(activations_map[0] + 5184);
+    conv2d_53_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_53_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_53_scratch1_array.data = AI_PTR(activations_map[0] + 7108);
+    conv2d_53_scratch1_array.data_start = AI_PTR(activations_map[0] + 7108);
+    conv2d_54_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_54_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_55_scratch0_array.data = AI_PTR(activations_map[0] + 2224);
+    conv2d_55_scratch0_array.data_start = AI_PTR(activations_map[0] + 2224);
+    conv2d_55_scratch1_array.data = AI_PTR(activations_map[0] + 5808);
+    conv2d_55_scratch1_array.data_start = AI_PTR(activations_map[0] + 5808);
+    conv2d_56_scratch0_array.data = AI_PTR(activations_map[0] + 16560);
+    conv2d_56_scratch0_array.data_start = AI_PTR(activations_map[0] + 16560);
+    conv2d_56_scratch1_array.data = AI_PTR(activations_map[0] + 2224);
+    conv2d_56_scratch1_array.data_start = AI_PTR(activations_map[0] + 2224);
+    conv2d_57_scratch0_array.data = AI_PTR(activations_map[0] + 2224);
+    conv2d_57_scratch0_array.data_start = AI_PTR(activations_map[0] + 2224);
+    conv2d_59_scratch0_array.data = AI_PTR(activations_map[0] + 3120);
+    conv2d_59_scratch0_array.data_start = AI_PTR(activations_map[0] + 3120);
+    conv2d_59_scratch1_array.data = AI_PTR(activations_map[0] + 6704);
+    conv2d_59_scratch1_array.data_start = AI_PTR(activations_map[0] + 6704);
+    conv2d_60_scratch0_array.data = AI_PTR(activations_map[0] + 17456);
+    conv2d_60_scratch0_array.data_start = AI_PTR(activations_map[0] + 17456);
+    conv2d_60_scratch1_array.data = AI_PTR(activations_map[0] + 3120);
+    conv2d_60_scratch1_array.data_start = AI_PTR(activations_map[0] + 3120);
+    conv2d_61_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_61_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_63_scratch0_array.data = AI_PTR(activations_map[0] + 896);
+    conv2d_63_scratch0_array.data_start = AI_PTR(activations_map[0] + 896);
+    conv2d_63_scratch1_array.data = AI_PTR(activations_map[0] + 4480);
+    conv2d_63_scratch1_array.data_start = AI_PTR(activations_map[0] + 4480);
+    conv2d_64_scratch0_array.data = AI_PTR(activations_map[0] + 15232);
+    conv2d_64_scratch0_array.data_start = AI_PTR(activations_map[0] + 15232);
+    conv2d_64_scratch1_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_64_scratch1_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_65_scratch0_array.data = AI_PTR(activations_map[0] + 0);
+    conv2d_65_scratch0_array.data_start = AI_PTR(activations_map[0] + 0);
+    conv2d_66_scratch0_array.data = AI_PTR(activations_map[0] + 4256);
+    conv2d_66_scratch0_array.data_start = AI_PTR(activations_map[0] + 4256);
+    conv2d_66_scratch1_array.data = AI_PTR(activations_map[0] + 17504);
+    conv2d_66_scratch1_array.data_start = AI_PTR(activations_map[0] + 17504);
+    conv2d_66_scratch2_array.data = AI_PTR(activations_map[0] + 37984);
+    conv2d_66_scratch2_array.data_start = AI_PTR(activations_map[0] + 37984);
+    
+    return true;
+  }
+  return false;
+}
+
+
+
+AI_DECLARE_STATIC
+ai_bool network_configure_weights(
+  ai_network* net_ctx, const ai_network_params* params)
+{
+  AI_ASSERT(net_ctx)
+  AI_UNUSED(net_ctx)
+
+  ai_ptr weights_map[1] = AI_C_ARRAY_INIT;
+
+  if (ai_platform_get_weights_map(weights_map, 1, params)) {
+    /* Updating weights with array addresses */
+    
+    conv2d_1_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_1_weights_array.data = AI_PTR(weights_map[0] + 0);
+    conv2d_1_weights_array.data_start = AI_PTR(weights_map[0] + 0);
+    conv2d_1_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_1_bias_array.data = AI_PTR(weights_map[0] + 432);
+    conv2d_1_bias_array.data_start = AI_PTR(weights_map[0] + 432);
+    conv2d_2_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_2_weights_array.data = AI_PTR(weights_map[0] + 496);
+    conv2d_2_weights_array.data_start = AI_PTR(weights_map[0] + 496);
+    conv2d_2_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_2_bias_array.data = AI_PTR(weights_map[0] + 640);
+    conv2d_2_bias_array.data_start = AI_PTR(weights_map[0] + 640);
+    conv2d_3_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_3_weights_array.data = AI_PTR(weights_map[0] + 704);
+    conv2d_3_weights_array.data_start = AI_PTR(weights_map[0] + 704);
+    conv2d_3_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_3_bias_array.data = AI_PTR(weights_map[0] + 832);
+    conv2d_3_bias_array.data_start = AI_PTR(weights_map[0] + 832);
+    conv2d_4_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_4_weights_array.data = AI_PTR(weights_map[0] + 864);
+    conv2d_4_weights_array.data_start = AI_PTR(weights_map[0] + 864);
+    conv2d_4_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_4_bias_array.data = AI_PTR(weights_map[0] + 1248);
+    conv2d_4_bias_array.data_start = AI_PTR(weights_map[0] + 1248);
+    conv2d_6_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_6_weights_array.data = AI_PTR(weights_map[0] + 1440);
+    conv2d_6_weights_array.data_start = AI_PTR(weights_map[0] + 1440);
+    conv2d_6_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_6_bias_array.data = AI_PTR(weights_map[0] + 1872);
+    conv2d_6_bias_array.data_start = AI_PTR(weights_map[0] + 1872);
+    conv2d_7_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_7_weights_array.data = AI_PTR(weights_map[0] + 2064);
+    conv2d_7_weights_array.data_start = AI_PTR(weights_map[0] + 2064);
+    conv2d_7_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_7_bias_array.data = AI_PTR(weights_map[0] + 2448);
+    conv2d_7_bias_array.data_start = AI_PTR(weights_map[0] + 2448);
+    conv2d_8_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_8_weights_array.data = AI_PTR(weights_map[0] + 2480);
+    conv2d_8_weights_array.data_start = AI_PTR(weights_map[0] + 2480);
+    conv2d_8_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_8_bias_array.data = AI_PTR(weights_map[0] + 2864);
+    conv2d_8_bias_array.data_start = AI_PTR(weights_map[0] + 2864);
+    conv2d_9_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_9_weights_array.data = AI_PTR(weights_map[0] + 3056);
+    conv2d_9_weights_array.data_start = AI_PTR(weights_map[0] + 3056);
+    conv2d_9_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_9_bias_array.data = AI_PTR(weights_map[0] + 3488);
+    conv2d_9_bias_array.data_start = AI_PTR(weights_map[0] + 3488);
+    conv2d_10_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_10_weights_array.data = AI_PTR(weights_map[0] + 3680);
+    conv2d_10_weights_array.data_start = AI_PTR(weights_map[0] + 3680);
+    conv2d_10_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_10_bias_array.data = AI_PTR(weights_map[0] + 4064);
+    conv2d_10_bias_array.data_start = AI_PTR(weights_map[0] + 4064);
+    conv2d_12_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_12_weights_array.data = AI_PTR(weights_map[0] + 4096);
+    conv2d_12_weights_array.data_start = AI_PTR(weights_map[0] + 4096);
+    conv2d_12_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_12_bias_array.data = AI_PTR(weights_map[0] + 4480);
+    conv2d_12_bias_array.data_start = AI_PTR(weights_map[0] + 4480);
+    conv2d_14_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_14_weights_array.data = AI_PTR(weights_map[0] + 4672);
+    conv2d_14_weights_array.data_start = AI_PTR(weights_map[0] + 4672);
+    conv2d_14_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_14_bias_array.data = AI_PTR(weights_map[0] + 5104);
+    conv2d_14_bias_array.data_start = AI_PTR(weights_map[0] + 5104);
+    conv2d_15_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_15_weights_array.data = AI_PTR(weights_map[0] + 5296);
+    conv2d_15_weights_array.data_start = AI_PTR(weights_map[0] + 5296);
+    conv2d_15_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_15_bias_array.data = AI_PTR(weights_map[0] + 6064);
+    conv2d_15_bias_array.data_start = AI_PTR(weights_map[0] + 6064);
+    conv2d_16_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_16_weights_array.data = AI_PTR(weights_map[0] + 6128);
+    conv2d_16_weights_array.data_start = AI_PTR(weights_map[0] + 6128);
+    conv2d_16_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_16_bias_array.data = AI_PTR(weights_map[0] + 7664);
+    conv2d_16_bias_array.data_start = AI_PTR(weights_map[0] + 7664);
+    conv2d_17_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_17_weights_array.data = AI_PTR(weights_map[0] + 8048);
+    conv2d_17_weights_array.data_start = AI_PTR(weights_map[0] + 8048);
+    conv2d_17_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_17_bias_array.data = AI_PTR(weights_map[0] + 8912);
+    conv2d_17_bias_array.data_start = AI_PTR(weights_map[0] + 8912);
+    conv2d_18_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_18_weights_array.data = AI_PTR(weights_map[0] + 9296);
+    conv2d_18_weights_array.data_start = AI_PTR(weights_map[0] + 9296);
+    conv2d_18_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_18_bias_array.data = AI_PTR(weights_map[0] + 10832);
+    conv2d_18_bias_array.data_start = AI_PTR(weights_map[0] + 10832);
+    conv2d_20_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_20_weights_array.data = AI_PTR(weights_map[0] + 10896);
+    conv2d_20_weights_array.data_start = AI_PTR(weights_map[0] + 10896);
+    conv2d_20_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_20_bias_array.data = AI_PTR(weights_map[0] + 12432);
+    conv2d_20_bias_array.data_start = AI_PTR(weights_map[0] + 12432);
+    conv2d_21_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_21_weights_array.data = AI_PTR(weights_map[0] + 12816);
+    conv2d_21_weights_array.data_start = AI_PTR(weights_map[0] + 12816);
+    conv2d_21_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_21_bias_array.data = AI_PTR(weights_map[0] + 13680);
+    conv2d_21_bias_array.data_start = AI_PTR(weights_map[0] + 13680);
+    conv2d_22_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_22_weights_array.data = AI_PTR(weights_map[0] + 14064);
+    conv2d_22_weights_array.data_start = AI_PTR(weights_map[0] + 14064);
+    conv2d_22_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_22_bias_array.data = AI_PTR(weights_map[0] + 15600);
+    conv2d_22_bias_array.data_start = AI_PTR(weights_map[0] + 15600);
+    conv2d_24_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_24_weights_array.data = AI_PTR(weights_map[0] + 15664);
+    conv2d_24_weights_array.data_start = AI_PTR(weights_map[0] + 15664);
+    conv2d_24_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_24_bias_array.data = AI_PTR(weights_map[0] + 17200);
+    conv2d_24_bias_array.data_start = AI_PTR(weights_map[0] + 17200);
+    conv2d_26_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_26_weights_array.data = AI_PTR(weights_map[0] + 17584);
+    conv2d_26_weights_array.data_start = AI_PTR(weights_map[0] + 17584);
+    conv2d_26_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_26_bias_array.data = AI_PTR(weights_map[0] + 18448);
+    conv2d_26_bias_array.data_start = AI_PTR(weights_map[0] + 18448);
+    conv2d_27_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_27_weights_array.data = AI_PTR(weights_map[0] + 18832);
+    conv2d_27_weights_array.data_start = AI_PTR(weights_map[0] + 18832);
+    conv2d_27_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_27_bias_array.data = AI_PTR(weights_map[0] + 21136);
+    conv2d_27_bias_array.data_start = AI_PTR(weights_map[0] + 21136);
+    conv2d_28_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_28_weights_array.data = AI_PTR(weights_map[0] + 21232);
+    conv2d_28_weights_array.data_start = AI_PTR(weights_map[0] + 21232);
+    conv2d_28_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_28_bias_array.data = AI_PTR(weights_map[0] + 24688);
+    conv2d_28_bias_array.data_start = AI_PTR(weights_map[0] + 24688);
+    conv2d_29_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_29_weights_array.data = AI_PTR(weights_map[0] + 25264);
+    conv2d_29_weights_array.data_start = AI_PTR(weights_map[0] + 25264);
+    conv2d_29_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_29_bias_array.data = AI_PTR(weights_map[0] + 26560);
+    conv2d_29_bias_array.data_start = AI_PTR(weights_map[0] + 26560);
+    conv2d_30_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_30_weights_array.data = AI_PTR(weights_map[0] + 27136);
+    conv2d_30_weights_array.data_start = AI_PTR(weights_map[0] + 27136);
+    conv2d_30_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_30_bias_array.data = AI_PTR(weights_map[0] + 30592);
+    conv2d_30_bias_array.data_start = AI_PTR(weights_map[0] + 30592);
+    conv2d_32_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_32_weights_array.data = AI_PTR(weights_map[0] + 30688);
+    conv2d_32_weights_array.data_start = AI_PTR(weights_map[0] + 30688);
+    conv2d_32_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_32_bias_array.data = AI_PTR(weights_map[0] + 34144);
+    conv2d_32_bias_array.data_start = AI_PTR(weights_map[0] + 34144);
+    conv2d_33_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_33_weights_array.data = AI_PTR(weights_map[0] + 34720);
+    conv2d_33_weights_array.data_start = AI_PTR(weights_map[0] + 34720);
+    conv2d_33_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_33_bias_array.data = AI_PTR(weights_map[0] + 36016);
+    conv2d_33_bias_array.data_start = AI_PTR(weights_map[0] + 36016);
+    conv2d_34_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_34_weights_array.data = AI_PTR(weights_map[0] + 36592);
+    conv2d_34_weights_array.data_start = AI_PTR(weights_map[0] + 36592);
+    conv2d_34_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_34_bias_array.data = AI_PTR(weights_map[0] + 40048);
+    conv2d_34_bias_array.data_start = AI_PTR(weights_map[0] + 40048);
+    conv2d_36_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_36_weights_array.data = AI_PTR(weights_map[0] + 40144);
+    conv2d_36_weights_array.data_start = AI_PTR(weights_map[0] + 40144);
+    conv2d_36_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_36_bias_array.data = AI_PTR(weights_map[0] + 43600);
+    conv2d_36_bias_array.data_start = AI_PTR(weights_map[0] + 43600);
+    conv2d_37_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_37_weights_array.data = AI_PTR(weights_map[0] + 44176);
+    conv2d_37_weights_array.data_start = AI_PTR(weights_map[0] + 44176);
+    conv2d_37_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_37_bias_array.data = AI_PTR(weights_map[0] + 45472);
+    conv2d_37_bias_array.data_start = AI_PTR(weights_map[0] + 45472);
+    conv2d_38_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_38_weights_array.data = AI_PTR(weights_map[0] + 46048);
+    conv2d_38_weights_array.data_start = AI_PTR(weights_map[0] + 46048);
+    conv2d_38_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_38_bias_array.data = AI_PTR(weights_map[0] + 49504);
+    conv2d_38_bias_array.data_start = AI_PTR(weights_map[0] + 49504);
+    conv2d_40_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_40_weights_array.data = AI_PTR(weights_map[0] + 49600);
+    conv2d_40_weights_array.data_start = AI_PTR(weights_map[0] + 49600);
+    conv2d_40_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_40_bias_array.data = AI_PTR(weights_map[0] + 53056);
+    conv2d_40_bias_array.data_start = AI_PTR(weights_map[0] + 53056);
+    conv2d_41_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_41_weights_array.data = AI_PTR(weights_map[0] + 53632);
+    conv2d_41_weights_array.data_start = AI_PTR(weights_map[0] + 53632);
+    conv2d_41_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_41_bias_array.data = AI_PTR(weights_map[0] + 54928);
+    conv2d_41_bias_array.data_start = AI_PTR(weights_map[0] + 54928);
+    conv2d_42_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_42_weights_array.data = AI_PTR(weights_map[0] + 55504);
+    conv2d_42_weights_array.data_start = AI_PTR(weights_map[0] + 55504);
+    conv2d_42_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_42_bias_array.data = AI_PTR(weights_map[0] + 60112);
+    conv2d_42_bias_array.data_start = AI_PTR(weights_map[0] + 60112);
+    conv2d_43_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_43_weights_array.data = AI_PTR(weights_map[0] + 60240);
+    conv2d_43_weights_array.data_start = AI_PTR(weights_map[0] + 60240);
+    conv2d_43_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_43_bias_array.data = AI_PTR(weights_map[0] + 66384);
+    conv2d_43_bias_array.data_start = AI_PTR(weights_map[0] + 66384);
+    conv2d_44_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_44_weights_array.data = AI_PTR(weights_map[0] + 67152);
+    conv2d_44_weights_array.data_start = AI_PTR(weights_map[0] + 67152);
+    conv2d_44_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_44_bias_array.data = AI_PTR(weights_map[0] + 68880);
+    conv2d_44_bias_array.data_start = AI_PTR(weights_map[0] + 68880);
+    conv2d_45_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_45_weights_array.data = AI_PTR(weights_map[0] + 69648);
+    conv2d_45_weights_array.data_start = AI_PTR(weights_map[0] + 69648);
+    conv2d_45_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_45_bias_array.data = AI_PTR(weights_map[0] + 75792);
+    conv2d_45_bias_array.data_start = AI_PTR(weights_map[0] + 75792);
+    conv2d_47_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_47_weights_array.data = AI_PTR(weights_map[0] + 75920);
+    conv2d_47_weights_array.data_start = AI_PTR(weights_map[0] + 75920);
+    conv2d_47_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_47_bias_array.data = AI_PTR(weights_map[0] + 82064);
+    conv2d_47_bias_array.data_start = AI_PTR(weights_map[0] + 82064);
+    conv2d_48_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_48_weights_array.data = AI_PTR(weights_map[0] + 82832);
+    conv2d_48_weights_array.data_start = AI_PTR(weights_map[0] + 82832);
+    conv2d_48_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_48_bias_array.data = AI_PTR(weights_map[0] + 84560);
+    conv2d_48_bias_array.data_start = AI_PTR(weights_map[0] + 84560);
+    conv2d_49_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_49_weights_array.data = AI_PTR(weights_map[0] + 85328);
+    conv2d_49_weights_array.data_start = AI_PTR(weights_map[0] + 85328);
+    conv2d_49_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_49_bias_array.data = AI_PTR(weights_map[0] + 91472);
+    conv2d_49_bias_array.data_start = AI_PTR(weights_map[0] + 91472);
+    conv2d_51_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_51_weights_array.data = AI_PTR(weights_map[0] + 91600);
+    conv2d_51_weights_array.data_start = AI_PTR(weights_map[0] + 91600);
+    conv2d_51_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_51_bias_array.data = AI_PTR(weights_map[0] + 97744);
+    conv2d_51_bias_array.data_start = AI_PTR(weights_map[0] + 97744);
+    conv2d_53_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_53_weights_array.data = AI_PTR(weights_map[0] + 98512);
+    conv2d_53_weights_array.data_start = AI_PTR(weights_map[0] + 98512);
+    conv2d_53_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_53_bias_array.data = AI_PTR(weights_map[0] + 100240);
+    conv2d_53_bias_array.data_start = AI_PTR(weights_map[0] + 100240);
+    conv2d_54_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_54_weights_array.data = AI_PTR(weights_map[0] + 101008);
+    conv2d_54_weights_array.data_start = AI_PTR(weights_map[0] + 101008);
+    conv2d_54_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_54_bias_array.data = AI_PTR(weights_map[0] + 111760);
+    conv2d_54_bias_array.data_start = AI_PTR(weights_map[0] + 111760);
+    conv2d_55_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_55_weights_array.data = AI_PTR(weights_map[0] + 111984);
+    conv2d_55_weights_array.data_start = AI_PTR(weights_map[0] + 111984);
+    conv2d_55_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_55_bias_array.data = AI_PTR(weights_map[0] + 130800);
+    conv2d_55_bias_array.data_start = AI_PTR(weights_map[0] + 130800);
+    conv2d_56_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_56_weights_array.data = AI_PTR(weights_map[0] + 132144);
+    conv2d_56_weights_array.data_start = AI_PTR(weights_map[0] + 132144);
+    conv2d_56_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_56_bias_array.data = AI_PTR(weights_map[0] + 135168);
+    conv2d_56_bias_array.data_start = AI_PTR(weights_map[0] + 135168);
+    conv2d_57_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_57_weights_array.data = AI_PTR(weights_map[0] + 136512);
+    conv2d_57_weights_array.data_start = AI_PTR(weights_map[0] + 136512);
+    conv2d_57_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_57_bias_array.data = AI_PTR(weights_map[0] + 155328);
+    conv2d_57_bias_array.data_start = AI_PTR(weights_map[0] + 155328);
+    conv2d_59_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_59_weights_array.data = AI_PTR(weights_map[0] + 155552);
+    conv2d_59_weights_array.data_start = AI_PTR(weights_map[0] + 155552);
+    conv2d_59_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_59_bias_array.data = AI_PTR(weights_map[0] + 174368);
+    conv2d_59_bias_array.data_start = AI_PTR(weights_map[0] + 174368);
+    conv2d_60_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_60_weights_array.data = AI_PTR(weights_map[0] + 175712);
+    conv2d_60_weights_array.data_start = AI_PTR(weights_map[0] + 175712);
+    conv2d_60_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_60_bias_array.data = AI_PTR(weights_map[0] + 178736);
+    conv2d_60_bias_array.data_start = AI_PTR(weights_map[0] + 178736);
+    conv2d_61_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_61_weights_array.data = AI_PTR(weights_map[0] + 180080);
+    conv2d_61_weights_array.data_start = AI_PTR(weights_map[0] + 180080);
+    conv2d_61_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_61_bias_array.data = AI_PTR(weights_map[0] + 198896);
+    conv2d_61_bias_array.data_start = AI_PTR(weights_map[0] + 198896);
+    conv2d_63_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_63_weights_array.data = AI_PTR(weights_map[0] + 199120);
+    conv2d_63_weights_array.data_start = AI_PTR(weights_map[0] + 199120);
+    conv2d_63_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_63_bias_array.data = AI_PTR(weights_map[0] + 217936);
+    conv2d_63_bias_array.data_start = AI_PTR(weights_map[0] + 217936);
+    conv2d_64_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_64_weights_array.data = AI_PTR(weights_map[0] + 219280);
+    conv2d_64_weights_array.data_start = AI_PTR(weights_map[0] + 219280);
+    conv2d_64_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_64_bias_array.data = AI_PTR(weights_map[0] + 222304);
+    conv2d_64_bias_array.data_start = AI_PTR(weights_map[0] + 222304);
+    conv2d_65_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_65_weights_array.data = AI_PTR(weights_map[0] + 223648);
+    conv2d_65_weights_array.data_start = AI_PTR(weights_map[0] + 223648);
+    conv2d_65_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_65_bias_array.data = AI_PTR(weights_map[0] + 261280);
+    conv2d_65_bias_array.data_start = AI_PTR(weights_map[0] + 261280);
+    conv2d_66_weights_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_66_weights_array.data = AI_PTR(weights_map[0] + 261728);
+    conv2d_66_weights_array.data_start = AI_PTR(weights_map[0] + 261728);
+    conv2d_66_bias_array.format |= AI_FMT_FLAG_CONST;
+    conv2d_66_bias_array.data = AI_PTR(weights_map[0] + 405088);
+    conv2d_66_bias_array.data_start = AI_PTR(weights_map[0] + 405088);
+    dense_68_weights_array.format |= AI_FMT_FLAG_CONST;
+    dense_68_weights_array.data = AI_PTR(weights_map[0] + 410208);
+    dense_68_weights_array.data_start = AI_PTR(weights_map[0] + 410208);
+    dense_68_bias_array.format |= AI_FMT_FLAG_CONST;
+    dense_68_bias_array.data = AI_PTR(weights_map[0] + 411488);
+    dense_68_bias_array.data_start = AI_PTR(weights_map[0] + 411488);
+    return true;
+  }
+  return false;
+}
+
+
+/**  PUBLIC APIs SECTION  *****************************************************/
+AI_DEPRECATED
+AI_API_ENTRY
+ai_bool ai_network_get_info(
+  ai_handle network, ai_network_report* report)
+{
+  ai_network* net_ctx = AI_NETWORK_ACQUIRE_CTX(network);
+
+  if (report && net_ctx)
+  {
+    ai_network_report r = {
+      .model_name        = AI_NETWORK_MODEL_NAME,
+      .model_signature   = AI_NETWORK_MODEL_SIGNATURE,
+      .model_datetime    = AI_TOOLS_DATE_TIME,
+      
+      .compile_datetime  = AI_TOOLS_COMPILE_TIME,
+      
+      .runtime_revision  = ai_platform_runtime_get_revision(),
+      .runtime_version   = ai_platform_runtime_get_version(),
+
+      .tool_revision     = AI_TOOLS_REVISION_ID,
+      .tool_version      = {AI_TOOLS_VERSION_MAJOR, AI_TOOLS_VERSION_MINOR,
+                            AI_TOOLS_VERSION_MICRO, 0x0},
+      .tool_api_version  = AI_STRUCT_INIT,
+
+      .api_version            = ai_platform_api_get_version(),
+      .interface_api_version  = ai_platform_interface_api_get_version(),
+      
+      .n_macc            = 19094660,
+      .n_inputs          = 0,
+      .inputs            = NULL,
+      .n_outputs         = 0,
+      .outputs           = NULL,
+      .params            = AI_STRUCT_INIT,
+      .activations       = AI_STRUCT_INIT,
+      .n_nodes           = 0,
+      .signature         = 0x0,
+    };
+
+    if (!ai_platform_api_get_network_report(network, &r)) return false;
+
+    *report = r;
+    return true;
+  }
+  return false;
+}
+
+AI_API_ENTRY
+ai_bool ai_network_get_report(
+  ai_handle network, ai_network_report* report)
+{
+  ai_network* net_ctx = AI_NETWORK_ACQUIRE_CTX(network);
+
+  if (report && net_ctx)
+  {
+    ai_network_report r = {
+      .model_name        = AI_NETWORK_MODEL_NAME,
+      .model_signature   = AI_NETWORK_MODEL_SIGNATURE,
+      .model_datetime    = AI_TOOLS_DATE_TIME,
+      
+      .compile_datetime  = AI_TOOLS_COMPILE_TIME,
+      
+      .runtime_revision  = ai_platform_runtime_get_revision(),
+      .runtime_version   = ai_platform_runtime_get_version(),
+
+      .tool_revision     = AI_TOOLS_REVISION_ID,
+      .tool_version      = {AI_TOOLS_VERSION_MAJOR, AI_TOOLS_VERSION_MINOR,
+                            AI_TOOLS_VERSION_MICRO, 0x0},
+      .tool_api_version  = AI_STRUCT_INIT,
+
+      .api_version            = ai_platform_api_get_version(),
+      .interface_api_version  = ai_platform_interface_api_get_version(),
+      
+      .n_macc            = 19094660,
+      .n_inputs          = 0,
+      .inputs            = NULL,
+      .n_outputs         = 0,
+      .outputs           = NULL,
+      .map_signature     = AI_MAGIC_SIGNATURE,
+      .map_weights       = AI_STRUCT_INIT,
+      .map_activations   = AI_STRUCT_INIT,
+      .n_nodes           = 0,
+      .signature         = 0x0,
+    };
+
+    if (!ai_platform_api_get_network_report(network, &r)) return false;
+
+    *report = r;
+    return true;
+  }
+  return false;
+}
+
+AI_API_ENTRY
+ai_error ai_network_get_error(ai_handle network)
+{
+  return ai_platform_network_get_error(network);
+}
+
+AI_API_ENTRY
+ai_error ai_network_create(
+  ai_handle* network, const ai_buffer* network_config)
+{
+  return ai_platform_network_create(
+    network, network_config, 
+    &AI_NET_OBJ_INSTANCE,
+    AI_TOOLS_API_VERSION_MAJOR, AI_TOOLS_API_VERSION_MINOR, AI_TOOLS_API_VERSION_MICRO);
+}
+
+AI_API_ENTRY
+ai_handle ai_network_destroy(ai_handle network)
+{
+  return ai_platform_network_destroy(network);
+}
+
+AI_API_ENTRY
+ai_bool ai_network_init(
+  ai_handle network, const ai_network_params* params)
+{
+  ai_network* net_ctx = ai_platform_network_init(network, params);
+  if (!net_ctx) return false;
+
+  ai_bool ok = true;
+  ok &= network_configure_weights(net_ctx, params);
+  ok &= network_configure_activations(net_ctx, params);
+
+  ok &= ai_platform_network_post_init(network);
+
+  return ok;
+}
+
+
+AI_API_ENTRY
+ai_i32 ai_network_run(
+  ai_handle network, const ai_buffer* input, ai_buffer* output)
+{
+  return ai_platform_network_process(network, input, output);
+}
+
+AI_API_ENTRY
+ai_i32 ai_network_forward(ai_handle network, const ai_buffer* input)
+{
+  return ai_platform_network_process(network, input, NULL);
+}
+
+
+
+#undef AI_NETWORK_MODEL_SIGNATURE
+#undef AI_NET_OBJ_INSTANCE
+#undef AI_TOOLS_DATE_TIME
+#undef AI_TOOLS_COMPILE_TIME
+
