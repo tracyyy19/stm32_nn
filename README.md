@@ -1,14 +1,10 @@
 # Thesis Demo - Binary Image Classification on STM32F746 Discovery Board
 
 This project demonstrates the deployment of a **binary image classification model** from the STM32Cube.AI Model Zoo on the **STM32F746 Discovery Board**.
-- **Microcontroller:** STM32F746 Discovery Board.
-- **Purpose:** Deploy an STM32Cube.AI model for on-device binary classification of images.
-- **Preprocessing:** Images are preprocessed externally and saved as binary files.
-- **Storage:** Binary files and its corresponding .jpg files are saved on an SD card and read during inference.
 
 ## System Workflow
 
-1. Process the test images to the corresponding input shape of the model and save them as binary files.
+1. Process the test images to the corresponding input shape of the model externally and save them as binary files.
 2. Resize the test images to 32x32.
 3. Transfer the binary files and its corresponding jpg files to the SD card.
 4. Insert the SD card into the STM32F746 Discovery Board.
@@ -44,7 +40,8 @@ This project demonstrates the deployment of a **binary image classification mode
 
 3. **Run the Inference:**
    - Insert the SD card into the board.
-   - The board reads files, performs classification, and outputs results on the debug terminal and LCD.
+   - Go to Project > Debug Project as STM32 Project > Enable Serial Wire Debug > Debug
+   - To view debug console. Go to Window > Show View > SWV ITM Data Console 
 
 ## Output Example
 ![Output Sample 1](output_images/output_sample1.jpg "output1")
