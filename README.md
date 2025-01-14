@@ -1,6 +1,6 @@
 # Thesis Demo - Binary Image Classification on STM32F746 Discovery Board
 
-This project demonstrates the deployment of a **binary image classification model** from the STM32Cube.AI Model Zoo on the **STM32F746 Discovery Board**.
+This project demonstrates the deployment of a **binary image classification model** using MobileNetV2_0.35 from STM32AI Model Zoo on the **STM32F746 Discovery Board**.
 
 ## System Workflow
 
