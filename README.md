@@ -47,3 +47,10 @@ This project demonstrates the deployment of a **binary image classification mode
 ## References
 
 - [STM32Cube.AI Model Zoo](https://www.st.com/en/development-tools/x-cube-ai.html)
+- STM32CubeF7/Projects/STM32746G-Discovery/Applications/LibJPEG/LibJPEG_Decoding at master · STMicroelectronics/STM32CubeF7 (github.com)
+- Getting started with X-CUBE-AI Expansion Package for Artificial Intelligence (AI) - User manual
+- ST Edge AI Developer Cloud
+- STM32F75xxx and STM32F74xxx advanced Arm®-based 32-bit MCUs - Reference manual
+- UM1721.book (st.com)
+- 028 SDRAM FMC BSP Drivers STM32F746 Discovery (STM32CubeIDE STMStudio Debug)
+- winlibs/libjpeg: A free library for JPEG image compression
