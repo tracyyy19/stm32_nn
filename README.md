@@ -47,10 +47,10 @@ This project demonstrates the deployment of a **binary image classification mode
 ## References
 
 - [STM32Cube.AI Model Zoo](https://www.st.com/en/development-tools/x-cube-ai.html)
-- STM32CubeF7/Projects/STM32746G-Discovery/Applications/LibJPEG/LibJPEG_Decoding at master · STMicroelectronics/STM32CubeF7 (github.com)
-- Getting started with X-CUBE-AI Expansion Package for Artificial Intelligence (AI) - User manual
-- ST Edge AI Developer Cloud
-- STM32F75xxx and STM32F74xxx advanced Arm®-based 32-bit MCUs - Reference manual
-- UM1721.book (st.com)
-- 028 SDRAM FMC BSP Drivers STM32F746 Discovery (STM32CubeIDE STMStudio Debug)
-- winlibs/libjpeg: A free library for JPEG image compression
+- [STM32CubeF7/Projects/STM32746G-Discovery/Applications/LibJPEG/LibJPEG_Decoding at master · STMicroelectronics/STM32CubeF7 (github.com)](https://github.com/STMicroelectronics/STM32CubeF7/tree/master/Projects/STM32746G-Discovery/Applications/Display/LTDC_PicturesFromSDCard)
+- [Getting started with X-CUBE-AI Expansion Package for Artificial Intelligence (AI) - User manual](https://www.st.com/resource/en/user_manual/dm00570145-getting-started-with-x-cube-ai-expansion-package-for-artificial-intelligence-ai-stmicroelectronics.pdf)
+- [ST Edge AI Developer Cloud](https://stm32ai-cs.st.com/documentation)
+- [STM32F75xxx and STM32F74xxx advanced Arm®-based 32-bit MCUs - Reference manual](https://www.st.com/resource/en/reference_manual/rm0385-stm32f75xxx-and-stm32f74xxx-advanced-armbased-32bit-mcus-stmicroelectronics.pdf)
+- [UM1721.book (st.com)](https://www.st.com/resource/en/user_manual/um1721-developing-applications-on-stm32cube-with-fatfs-stmicroelectronics.pdf)
+- [028 SDRAM FMC BSP Drivers STM32F746 Discovery (STM32CubeIDE STMStudio Debug)](https://www.youtube.com/watch?v=WML_WMKSkmU)
+- [winlibs/libjpeg: A free library for JPEG image compression](https://github.com/winlibs/libjpeg?tab=readme-ov-file)
